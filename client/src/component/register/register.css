@@ -6,10 +6,10 @@
 }
 .register form {
   padding: 2rem 1rem;
-  width: 30%;
+  width: 40%;
+  height: 70vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: flex-start;
   gap: 3rem;
   margin: 0 auto;
@@ -26,14 +26,7 @@
 .register form button:hover {
   background-color: rgb(39, 144, 189);
 }
-.register form input {
-  font-size: 1.25em;
-  width: 80%;
-  border: none;
-  background-color: white;
-  color: black;
-  border-bottom: solid 1px rgb(163, 159, 159);
-}
+
 /* .regImg {
   margin: 0%;
   padding: 0%;

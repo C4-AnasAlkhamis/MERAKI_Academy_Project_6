@@ -44,19 +44,26 @@ const Login = () => {
           <div className="regImg1">
             {/* <img className="image" src={login} /> */}
           </div>
-          <form onSubmit={verifyUser}>
+          <form onSubmit={verifyUser} className="form">
+      
             <input
               onChange={(e) => {
                 setEmail(e.target.value);
               }}
+              required
+              autoComplete="off"
               value={email}
               type="email"
               placeholder="Email"
             />
+      
             <input
               onChange={(e) => {
                 setPassword(e.target.value);
               }}
+              className="input_name"
+              required
+              autoComplete="off"
               value={password}
               type="password"
               placeholder="Password"

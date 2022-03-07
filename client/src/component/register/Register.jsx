@@ -43,14 +43,14 @@ const Register = () => {
   return (
     <div className="register">
       <div className="group">
-        <div className="regImg">
-          {/* <img src={logo} alt="logo" /> */}
-        </div>
+        <div className="regImg">{/* <img src={logo} alt="logo" /> */}</div>
         <form onSubmit={createUser}>
           <input
             onChange={(e) => {
               setUserName(e.target.value);
             }}
+            required
+            autoComplete="off"
             value={userName}
             type="text"
             placeholder="UserName"
@@ -60,6 +60,8 @@ const Register = () => {
             onChange={(e) => {
               setEmail(e.target.value);
             }}
+            required
+            autoComplete="off"
             value={email}
             type="email"
             placeholder="Email"
@@ -68,6 +70,8 @@ const Register = () => {
             onChange={(e) => {
               setPassword(e.target.value);
             }}
+            required
+            autoComplete="off"
             value={password}
             type="password"
             placeholder="Password"
@@ -76,9 +80,11 @@ const Register = () => {
             onChange={(e) => {
               setRepeatPassword(e.target.value);
             }}
+            required
+            autoComplete="off"
             value={repeatPassword}
             type="Password"
-            placeholder="Repeat password"
+            placeholder="Confirm"
           />
           <button>Register</button>
           <span

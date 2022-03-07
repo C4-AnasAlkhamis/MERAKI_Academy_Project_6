@@ -22,29 +22,19 @@ const Login = () => {
           localStorage.setItem("token", result.data.token);
           setEmail("");
           setPassword("");
-          // if (jwt(result.data.token).role == 1) {
-          //   localStorage.setItem("isAdmin", true);
-          //   navigate(`/dashboard`);
-          // } else {
+
           navigate(`/home`);
-          // }
           dispatch(logIn(result.data.token));
         }
       })
-      .catch((err) => {
-        // wrongLogin("Error happened while Login, please try again");
-      });
+      .catch((err) => {});
   };
 
   return (
     <>
       <div className="login_box">
         <div className="group1">
-          <div className="regImg1">
-            {/* <img className="image" src={login} /> */}
-          </div>
           <form onSubmit={verifyUser} className="form">
-      
             <input
               onChange={(e) => {
                 setEmail(e.target.value);
@@ -55,7 +45,7 @@ const Login = () => {
               type="email"
               placeholder="Email"
             />
-      
+
             <input
               onChange={(e) => {
                 setPassword(e.target.value);

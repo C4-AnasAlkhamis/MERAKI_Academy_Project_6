@@ -1,4 +1,5 @@
 const connection = require("../database/db");
+// ================================================ //
 
 // This function to register(new user) .
 const createNewVideo = async (req, res) => {
@@ -25,6 +26,33 @@ const createNewVideo = async (req, res) => {
   });
 };
 
+// ================================================ //
+
+// This function get all videos from videos
+const getAllVideos = (req, res) => {
+  const query = `SELECT * FROM videos WHERE is_deleted = 0`;
+  connection.query(query, (err, result) => {
+    if (err) {
+      return res.status(500).json({
+        success: false,
+        message: `Server Error`,
+      });
+    }
+    if (!result) {
+      return res.status(200).json({
+        success: false,
+        message: `No videos Yet`,
+      });
+    }
+    res.status(200).json({
+      success: true,
+      message: `all the videos`,
+      items: result,
+    });
+  });
+};
+
 module.exports = {
   createNewVideo,
+  getAllVideos,
 };

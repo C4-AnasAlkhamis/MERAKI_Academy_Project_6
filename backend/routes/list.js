@@ -2,7 +2,7 @@
 
 const express = require("express");
 
-const channelRouter = express.Router();
+const listRouter = express.Router();
 
 const { authentication } = require("../middleware/authentication");
 const { createNewList } = require("../controllers/list");

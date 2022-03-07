@@ -11,6 +11,7 @@ const loginRouter = require("./routes/login");
 const roleRouter = require("./routes/role");
 const channelRouter = require("./routes/channel");
 const listRouter = require("./routes/list");
+const videoRouter = require("./routes/video");
 
 // if (process.env.NODE_ENV === "production") {
 //   app.use(express.static("client/build"));
@@ -25,7 +26,9 @@ app.use("/login", loginRouter);
 app.use("/role", roleRouter);
 app.use("/channel", channelRouter);
 app.use("/list", listRouter);
+app.use("/video", videoRouter);
 
+videoRouter;
 // app.get("*", (req, res) => {
 //   res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
 // });

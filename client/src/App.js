@@ -2,6 +2,7 @@ import "./App.css";
 import { Routes, Route, Link } from "react-router-dom";
 import NavBar from "./component/navBar/navBar";
 import Login from "./component/login/Login";
+import Register from "./component/register/Register";
 // import { useSelector } from "react-redux";
 const App = () => {
   // const { token, isLoggedIn } = useSelector((state) => {
@@ -15,6 +16,7 @@ const App = () => {
       <NavBar />
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </div>
   );

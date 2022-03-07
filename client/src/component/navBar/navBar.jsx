@@ -13,7 +13,7 @@ const NavBar = () => {
 
   return (
     <>
-      <div className="NavBar">
+      <div className="navbar">
         <div className="links">
           <>
             <ul>

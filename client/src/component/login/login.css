@@ -1,0 +1,32 @@
+.login_box {
+}
+.login_box form {
+  padding: 2rem 1rem;
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 3rem;
+  margin: 0 auto;
+}
+.login_box form button {
+  color: white;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  font-size: 1rem;
+  height: 50px;
+  background-color: rgb(4, 81, 140);
+  cursor: pointer;
+}
+.login_box form button:hover {
+  background-color: rgb(39, 144, 189);
+}
+.login_box form input {
+  font-size: 1.25em;
+  width: 80%;
+  border: none;
+  background-color: white;
+  color: black;
+  border-bottom: solid 1px rgb(163, 159, 159);
+}

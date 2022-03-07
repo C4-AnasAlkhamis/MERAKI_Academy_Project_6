@@ -1,0 +1,27 @@
+.navbar {
+  background-color: rgb(41, 197, 41);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.links {
+  height: 4rem;
+}
+.links ul {
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5%;
+}
+
+.navbar a {
+  color: white;
+  font-size: 1rem;
+}
+
+.navbar a:hover {
+  color: black;
+  background-color: #c5bda0;
+}
+/* @media screen and (max-width: 600px) {
+} */

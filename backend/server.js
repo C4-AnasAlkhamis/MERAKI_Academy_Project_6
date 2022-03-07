@@ -10,6 +10,7 @@ const userRouter = require("./routes/register");
 const loginRouter = require("./routes/login");
 const roleRouter = require("./routes/role");
 const channelRouter = require("./routes/channel");
+const listRouter = require("./routes/list");
 
 // if (process.env.NODE_ENV === "production") {
 //   app.use(express.static("client/build"));
@@ -23,6 +24,7 @@ app.use("/register", userRouter);
 app.use("/login", loginRouter);
 app.use("/role", roleRouter);
 app.use("/channel", channelRouter);
+app.use("/list", listRouter);
 
 // app.get("*", (req, res) => {
 //   res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));

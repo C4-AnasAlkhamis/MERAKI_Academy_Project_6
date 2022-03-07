@@ -14,7 +14,6 @@ CREATE TABLE permissions (
 CREATE TABLE roles (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     role VARCHAR(100) NOT NULL
-    
 );
 
 -- ============================ // done 
@@ -51,7 +50,7 @@ CREATE TABLE lists (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     list VARCHAR(255) NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users(id)
+    FOREIGN KEY (user_id) REFERENCES users(id),
 );
 
 -- ============================ // done
@@ -59,19 +58,21 @@ CREATE TABLE videos (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     channel_id INT NOT NULL,
+    list_id INT,
     title VARCHAR(255),
     description VARCHAR(255),
     video VARCHAR(250) NOT NULL,
     FOREIGN KEY (channel_id) REFERENCES channels(id),
     FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (list_id) REFERENCES lists(id),
     is_deleted TINYINT DEFAULT 0
 );
-
 
 INSERT INTO
     roles (role)
 VALUES
     ('Admin');
+
 INSERT INTO
     roles (role)
 VALUES

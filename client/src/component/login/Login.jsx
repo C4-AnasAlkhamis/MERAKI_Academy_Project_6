@@ -2,11 +2,10 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
-// import { logIn, isAdmin } from "../../reducer/login/index";
-// import { useDispatch } from "react-redux";
-
+import { logIn } from "../../reducer/login/index";
+import { useDispatch } from "react-redux";
 const Login = () => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -29,7 +28,7 @@ const Login = () => {
           // } else {
           navigate(`/home`);
           // }
-          // dispatch(logIn(result.data.token));
+          dispatch(logIn(result.data.token));
         }
       })
       .catch((err) => {

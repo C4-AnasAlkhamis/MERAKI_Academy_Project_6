@@ -8,6 +8,7 @@ app.use(express.json());
 
 const userRouter = require("./routes/register");
 const loginRouter = require("./routes/login");
+const roleRouter = require("./routes/role");
 
 // if (process.env.NODE_ENV === "production") {
 //   app.use(express.static("client/build"));
@@ -19,6 +20,7 @@ const PORT = process.env.PORT || 5000;
 
 app.use("/register", userRouter);
 app.use("/login", loginRouter);
+app.use("/role", roleRouter);
 
 // app.get("*", (req, res) => {
 //   res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));

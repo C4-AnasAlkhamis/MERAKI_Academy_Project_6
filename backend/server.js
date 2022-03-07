@@ -28,7 +28,6 @@ app.use("/channel", channelRouter);
 app.use("/list", listRouter);
 app.use("/video", videoRouter);
 
-videoRouter;
 // app.get("*", (req, res) => {
 //   res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
 // });

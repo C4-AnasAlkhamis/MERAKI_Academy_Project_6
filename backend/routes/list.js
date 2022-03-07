@@ -1,5 +1,3 @@
-/** @format */
-
 const express = require("express");
 
 const listRouter = express.Router();
@@ -9,7 +7,7 @@ const { createNewList } = require("../controllers/list");
 
 //   ===========================
 
-cartRouter.post("/", authentication, createNewList);
+listRouter.post("/", authentication, createNewList);
 
 //   ===========================
 

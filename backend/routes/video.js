@@ -1,8 +1,9 @@
 const express = require("express");
 const { createNewVideo } = require("../controllers/video");
 const videoRouter = express.Router();
+const { authentication } = require("../middleware/authentication");
+
 // -------------------------
-userRouter.post("/", createNewVideo);
+videoRouter.post("/", authentication, createNewVideo);
 // -------------------------
-createNewVideo
 module.exports = videoRouter;

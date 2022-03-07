@@ -1,5 +1,3 @@
-/** @format */
-
 const express = require("express");
 
 const channelRouter = express.Router();
@@ -9,7 +7,7 @@ const { createNewChannel } = require("../controllers/channel");
 
 //   ===========================
 
-cartRouter.post("/", authentication, createNewChannel);
+channelRouter.post("/", authentication, createNewChannel);
 
 //   ===========================
 

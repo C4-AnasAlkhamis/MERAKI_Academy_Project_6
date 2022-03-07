@@ -7,46 +7,34 @@ import { useSelector, useDispatch } from "react-redux";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const { isLoggedIn, token } = useSelector((state) => {
+  const { isLoggedIn, token, videos } = useSelector((state) => {
     return {
+      videos: state.videosReducer.videos,
       isLoggedIn: state.loginReducer.isLoggedIn,
       token: state.loginReducer.token,
     };
   });
-console.log(token);
-  const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  //   const verifyUser = async (e) => {
-
-  //     await axios
-  //       .post("http://localhost:5000/login", {
-  //         email,
-  //         password,
-  //       })
-  //       .then((result) => {
-  //         if (result) {
-  //           localStorage.setItem("token", result.data.token);
-  //           setEmail("");
-  //           setPassword("");
-  //           // if (jwt(result.data.token).role == 1) {
-  //           //   localStorage.setItem("isAdmin", true);
-  //           //   navigate(`/dashboard`);
-  //           // } else {
-  //           navigate(`/home`);
-  //           // }
-  //           // dispatch(logIn(result.data.token));
-  //         }
-  //       })
-  //       .catch((err) => {
-  //         // wrongLogin("Error happened while Login, please try again");
-  //       });
-  //   };
-
+  console.log(videos);
   return (
     <>
-      <div className="container">hello</div>
+      <div className="container">
+        <div className="videos_box">
+          <div key={videos[0].id} className="video">
+            <video
+              width="750"
+              height="500"
+              controls
+              src={videos[0].video}
+            ></video>
+            <div>
+              <span>{videos[0].user_id}</span>
+              <span>{videos[0].channel_id}</span>
+              <span>{videos[0].title}</span>
+              <span>{videos[0].description}</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 };

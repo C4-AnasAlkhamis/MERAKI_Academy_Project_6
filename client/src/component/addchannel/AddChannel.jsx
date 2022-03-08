@@ -1,11 +1,11 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "./addList.css";
+import "./addChannel.css";
 import YouTube from "react-youtube";
 import { useSelector, useDispatch } from "react-redux";
 
-const AddList = () => {
+const AddChannel = () => {
   const dispatch = useDispatch();
   const { isLoggedIn, token, videos } = useSelector((state) => {
     return {
@@ -28,7 +28,7 @@ const AddList = () => {
             autoComplete="off"
             // value={userName}
             type="text"
-            placeholder="list"
+            placeholder="title"
           />
 
           <button>add</button>
@@ -38,4 +38,4 @@ const AddList = () => {
   );
 };
 
-export default AddList;
+export default AddChannel;

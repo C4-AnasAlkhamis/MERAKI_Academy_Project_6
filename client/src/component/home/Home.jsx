@@ -31,7 +31,11 @@ const Home = () => {
     <>
       <div className="container">
         <div className="videos_box">
-          <div key={videos[0].id} className="video">
+          <div
+            onClick={() => navigate("/login")}
+            key={videos[0].id}
+            className="video"
+          >
             <YouTube
               videoId="KsaXLHOrqPI" // defaults -> null
               // id="KsaXLHOrqPI" // defaults -> null
@@ -39,7 +43,7 @@ const Home = () => {
               // containerClassName={string} // defaults -> ''
               // title={string} // defaults -> null
               onPlay={() => {
-                navigate("./login");
+                navigate("/login");
               }} // defaults -> noop
               opts={opts} // defaults -> {}
               onReady={videoOnReady} // defaults -> noop

@@ -34,7 +34,7 @@ const NavBar = () => {
                   }}
                   to="/home"
                 >
-                  LOGIN
+                  LOGOUT
                 </Link>
               </li>
             </ul>

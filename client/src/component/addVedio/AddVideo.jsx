@@ -1,8 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import "./addVideo.css";
-import YouTube from "react-youtube";
 import { useSelector, useDispatch } from "react-redux";
 
 const AddVideo = () => {
@@ -13,6 +11,7 @@ const AddVideo = () => {
   const [videoUrl, setVideoUrl] = useState();
   const [video, setVideo] = useState("");
   const dispatch = useDispatch();
+  const [percentage, setPercentage] = useState(0);
   const { isLoggedIn, token, videos } = useSelector((state) => {
     return {
       videos: state.videosReducer.videos,
@@ -39,22 +38,32 @@ const AddVideo = () => {
 
   const uploadCloud = async (e) => {
     e.preventDefault();
-
+    const option = {
+      onUploadProgress: (ProgressEvent) => {
+        const { loaded, total } = ProgressEvent;
+        let PercentageMath = Math.floor((loaded * 100) / total);
+        setPercentage(PercentageMath);
+      },
+    };
     const formData = new FormData();
 
     formData.append("file", video);
     formData.append("upload_preset", "fzupywns");
     axios
-      .post(`https://api.cloudinary.com/v1_1/how-to-tube/upload`, formData)
+      .post(
+        `https://api.cloudinary.com/v1_1/how-to-tube/upload`,
+        formData,
+        option
+      )
       .then((res) => {
         console.log(res);
-        uploadVideo(res.data.secure_url);
+        // uploadVideo(res.data.secure_url);
       })
       .catch((err) => {
         console.log(err);
       });
   };
-
+  console.log(percentage);
   return (
     <>
       <div className="addVideo_container">

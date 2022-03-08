@@ -1,4 +1,5 @@
 const connection = require("../database/db");
+const { cloudinary } = require("./uploadVideo");
 // ================================================ //
 
 // This function to register(new user) .
@@ -9,7 +10,6 @@ const createNewVideo = async (req, res) => {
 
   const query = `INSERT INTO videos (user_id, channel_id, title, description, video ) VALUES (?,?,?,?,?)`;
   const data = [user_id, channel_id, title, description, video];
-  console.log(data);
   connection.query(query, data, (err, result) => {
     if (err) {
       return res.status(500).json({
@@ -51,8 +51,35 @@ const getAllVideos = (req, res) => {
     });
   });
 };
+// ================================================
+const uploadVideo = async (req, res) => {
+  try {
+    const { video } = req.body;
+    console.log(video);
+    const res = await cloudinary.uploader.upload(video, {
+      upload_preset: "how-to-tube",
+    });
+    console.log(res);
+  } catch (error) {
+    console.log(error);
+  }
+  // const formData = new FormData();
+
+  // formData.append("file", video);
+  // formData.append("upload_preset", "rwnvwutb");
+  // axios
+  //   .post(`https://api.cloudinary.com/v1_1/debtpixx1/image/upload/`, formData)
+  //   .then((res) => {
+  //     // updateWorkerById(res.data.secure_url);
+  //     console.log(res);
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
+};
 
 module.exports = {
   createNewVideo,
   getAllVideos,
+  uploadVideo,
 };

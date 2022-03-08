@@ -10,6 +10,7 @@ const AddVideo = () => {
   const [list_id, setList_id] = useState(1);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [videoUrl, setVideoUrl] = useState();
   const [video, setVideo] = useState("");
   const dispatch = useDispatch();
   const { isLoggedIn, token, videos } = useSelector((state) => {
@@ -20,8 +21,7 @@ const AddVideo = () => {
     };
   });
 
-  const uploadVideo = async (e) => {
-    e.preventDefault();
+  const uploadVideo = async (video) => {
     try {
       const result = await axios.post(
         `http://localhost:5000/video`,
@@ -36,13 +36,32 @@ const AddVideo = () => {
       console.log(error.response);
     }
   };
+
+  const uploadCloud = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+
+    formData.append("file", video);
+    formData.append("upload_preset", "fzupywns");
+    axios
+      .post(`https://api.cloudinary.com/v1_1/how-to-tube/upload`, formData)
+      .then((res) => {
+        console.log(res);
+        uploadVideo(res.data.secure_url);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <>
       <div className="addVideo_container">
         <div className="addVideo">{/* <img src={logo} alt="logo" /> */}</div>
         <form
           onSubmit={(e) => {
-            uploadVideo(e);
+            uploadCloud(e);
           }}
         >
           <input
@@ -68,24 +87,24 @@ const AddVideo = () => {
           />
           <input
             onChange={(e) => {
-              setVideo(e.target.value);
+              setVideoUrl(e.target.value);
             }}
-            required
+            // required
             autoComplete="off"
-            value={video}
+            value={videoUrl}
             type="text"
             placeholder="youtube link"
           />
-          {/* <input
+          <input
             onChange={(e) => {
-              //   setRepeatPassword(e.target.value);
+              setVideo(e.target.files[0]);
             }}
-            required
+            // required
             autoComplete="off"
-            // value={repeatPassword}
+            // value={video}
             type="file"
             placeholder="video"
-          /> */}
+          />
           <button>upload</button>
         </form>
       </div>

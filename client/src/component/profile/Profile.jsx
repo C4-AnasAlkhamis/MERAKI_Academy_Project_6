@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import "./home.css";
+import { Link, useNavigate } from "react-router-dom";
+import "./profile.css";
 import YouTube from "react-youtube";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -14,12 +14,24 @@ const Profile = () => {
       token: state.loginReducer.token,
     };
   });
-  console.log(videos);
   return (
     <>
       <div className="profile">
-        <div></div>
-        <div></div>
+        <div>
+          <div className="profile_info">
+            <img src="" alt="" />
+            <h3>name</h3>
+          </div>
+          <div className="profile_navBar">
+            {/* <Link></Link>
+            <Link></Link>
+            <Link></Link>
+            <Link></Link> */}
+          </div>
+        </div>
+        <div>
+          <div>all videos</div>
+        </div>
       </div>
     </>
   );

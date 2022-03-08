@@ -6,14 +6,16 @@ import Register from "./component/register/Register";
 import Home from "./component/home/Home";
 import Profile from "./component/profile/Profile";
 import AddVideo from "./component/addVedio/AddVideo";
-// import { useSelector } from "react-redux";
+import AddList from "./component/addList/AddList";
+
+import { useSelector } from "react-redux";
 const App = () => {
-  // const { token, isLoggedIn } = useSelector((state) => {
-  //   return {
-  //     token: state.loginReducer.token,
-  //     isLoggedIn: state.loginReducer.isLoggedIn,
-  //   };
-  // });
+  const { token, isLoggedIn } = useSelector((state) => {
+    return {
+      token: state.loginReducer.token,
+      isLoggedIn: state.loginReducer.isLoggedIn,
+    };
+  });
   return (
     <div className="App">
       <NavBar />
@@ -21,7 +23,7 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="home" element={<Home />} />
-        <Route path="add-video" element={<AddVideo />} />
+        <Route path="add-video" element={<AddList />} />
 
         <Route path="/profile" element={<Profile />} />
       </Routes>

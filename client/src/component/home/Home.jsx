@@ -6,6 +6,7 @@ import YouTube from "react-youtube";
 import { useSelector, useDispatch } from "react-redux";
 
 const Home = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isLoggedIn, token, videos } = useSelector((state) => {
     return {
@@ -22,11 +23,9 @@ const Home = () => {
     },
   };
 
-  console.log(videos);
   const videoOnReady = (event) => {
     // access to player in all event handlers via event.target
     event.target.pauseVideo();
-    console.log(event);
   };
   return (
     <>
@@ -39,9 +38,12 @@ const Home = () => {
               // className={string} // defaults -> null
               // containerClassName={string} // defaults -> ''
               // title={string} // defaults -> null
+              onPlay={() => {
+                navigate("./login");
+              }} // defaults -> noop
               opts={opts} // defaults -> {}
               onReady={videoOnReady} // defaults -> noop
-              // onPlay={func} // defaults -> noop
+
               // onPause={func} // defaults -> noop
               // onEnd={func} // defaults -> noop
               // onError={func} // defaults -> noop

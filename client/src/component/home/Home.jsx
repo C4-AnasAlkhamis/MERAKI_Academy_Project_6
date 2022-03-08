@@ -42,8 +42,11 @@ const Home = () => {
               // className={string} // defaults -> null
               // containerClassName={string} // defaults -> ''
               // title={string} // defaults -> null
-              onPlay={() => {
-                navigate("/login");
+              onPlay={(e) => {
+                console.log(e);
+                // navigate("/login");
+                e.target.mute();
+                e.target.stopVideo();
               }} // defaults -> noop
               opts={opts} // defaults -> {}
               onReady={videoOnReady} // defaults -> noop

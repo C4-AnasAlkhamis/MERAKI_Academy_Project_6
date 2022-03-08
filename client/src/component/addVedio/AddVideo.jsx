@@ -14,14 +14,7 @@ const AddVideo = () => {
       token: state.loginReducer.token,
     };
   });
-  //   channel_id: 2
-  // description: "description description description description description description "
-  // id: 1
-  // is_deleted: 0
-  // list_id: null
-  // title: "learn redux"
-  // user_id: 1
-  // video: "https://www.youtube.com/watch?v=CVpUuw9XSjY"
+
   return (
     <>
       <div className="addVideo_container">

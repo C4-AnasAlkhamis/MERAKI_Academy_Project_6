@@ -7,6 +7,7 @@ import Home from "./component/home/Home";
 import Profile from "./component/profile/Profile";
 import AddVideo from "./component/addVedio/AddVideo";
 import AddList from "./component/addList/AddList";
+import AddChannel from "./component/addchannel/AddChannel";
 
 import { useSelector } from "react-redux";
 const App = () => {
@@ -23,7 +24,7 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="home" element={<Home />} />
-        <Route path="add-video" element={<AddList />} />
+        <Route path="add-video" element={<AddChannel />} />
 
         <Route path="/profile" element={<Profile />} />
       </Routes>

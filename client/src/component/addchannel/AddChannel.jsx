@@ -6,6 +6,7 @@ import YouTube from "react-youtube";
 import { useSelector, useDispatch } from "react-redux";
 
 const AddChannel = () => {
+  const [title, setTitle] = useState("");
   const dispatch = useDispatch();
   const { isLoggedIn, token, videos } = useSelector((state) => {
     return {
@@ -14,19 +15,35 @@ const AddChannel = () => {
       token: state.loginReducer.token,
     };
   });
-
+  const createNewChannel = async (e) => {
+    e.preventDefault();
+    try {
+      const result = await axios.post(
+        `http://localhost:5000/channel`,
+        { title },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(result);
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
   return (
     <>
       <div className="addList_container">
         <div className="addList">{/* <img src={logo} alt="logo" /> */}</div>
-        <form>
+        <form onSubmit={createNewChannel}>
           <input
             onChange={(e) => {
-              //   setUserName(e.target.value);
+              setTitle(e.target.value);
             }}
             required
             autoComplete="off"
-            // value={userName}
+            value={title}
             type="text"
             placeholder="title"
           />

@@ -6,6 +6,11 @@ import YouTube from "react-youtube";
 import { useSelector, useDispatch } from "react-redux";
 
 const AddVideo = () => {
+  const [channel_id, setChannel_id] = useState(1);
+  const [list_id, setList_id] = useState(1);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [video, setVideo] = useState("");
   const dispatch = useDispatch();
   const { isLoggedIn, token, videos } = useSelector((state) => {
     return {
@@ -15,43 +20,63 @@ const AddVideo = () => {
     };
   });
 
+  const uploadVideo = async (e) => {
+    e.preventDefault();
+    try {
+      const result = await axios.post(
+        `http://localhost:5000/video`,
+        { channel_id, list_id, title, description, video },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
   return (
     <>
       <div className="addVideo_container">
         <div className="addVideo">{/* <img src={logo} alt="logo" /> */}</div>
-        <form>
+        <form
+          onSubmit={(e) => {
+            uploadVideo(e);
+          }}
+        >
           <input
             onChange={(e) => {
-              //   setUserName(e.target.value);
+              setTitle(e.target.value);
             }}
             required
             autoComplete="off"
-            // value={userName}
+            value={title}
             type="text"
             placeholder="title"
           />
 
           <input
             onChange={(e) => {
-              //   setEmail(e.target.value);
+              setDescription(e.target.value);
             }}
             required
             autoComplete="off"
-            // value={email}
+            value={description}
             type="text"
             placeholder="description"
           />
           <input
             onChange={(e) => {
-              //   setPassword(e.target.value);
+              setVideo(e.target.value);
             }}
             required
             autoComplete="off"
-            // value={password}
+            value={video}
             type="text"
             placeholder="youtube link"
           />
-          <input
+          {/* <input
             onChange={(e) => {
               //   setRepeatPassword(e.target.value);
             }}
@@ -60,7 +85,7 @@ const AddVideo = () => {
             // value={repeatPassword}
             type="file"
             placeholder="video"
-          />
+          /> */}
           <button>upload</button>
         </form>
       </div>

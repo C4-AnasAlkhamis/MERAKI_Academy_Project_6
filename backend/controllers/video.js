@@ -7,18 +7,18 @@ const createNewVideo = async (req, res) => {
 
   const { channel_id, list_id, title, description, video } = req.body;
 
-  const query = `INSERT INTO users (user_id, channel_id, list_id, title, description, video ) VALUES (?,?,?,?,?,?)`;
-  const data = [user_id, channel_id, list_id, title, description, video];
-
+  const query = `INSERT INTO videos (user_id, channel_id, title, description, video ) VALUES (?,?,?,?,?)`;
+  const data = [user_id, channel_id, title, description, video];
+  console.log(data);
   connection.query(query, data, (err, result) => {
     if (err) {
-      return res.status(409).json({
+      return res.status(500).json({
         success: false,
         message: "server Error",
         err: err,
       });
     }
-    res.status(200).json({
+    res.status(201).json({
       success: true,
       message: "Success video Added",
       results: result,

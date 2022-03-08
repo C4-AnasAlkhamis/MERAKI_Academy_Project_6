@@ -6,14 +6,6 @@ import YouTube from "react-youtube";
 import { useSelector, useDispatch } from "react-redux";
 
 const Home = () => {
-  const opts = {
-    height: "390",
-    width: "640",
-    playerVars: {
-      https: "//www.youtube.com/watch?v=KsaXLHOrqPI",
-      autoplay: 1,
-    },
-  };
   const dispatch = useDispatch();
   const { isLoggedIn, token, videos } = useSelector((state) => {
     return {
@@ -22,7 +14,20 @@ const Home = () => {
       token: state.loginReducer.token,
     };
   });
+  const opts = {
+    height: "390",
+    width: "640",
+    playerVars: {
+      autoplay: 0,
+    },
+  };
+
   console.log(videos);
+  const videoOnReady = (event) => {
+    // access to player in all event handlers via event.target
+    event.target.pauseVideo();
+    console.log(event);
+  };
   return (
     <>
       <div className="container">
@@ -34,8 +39,8 @@ const Home = () => {
               // className={string} // defaults -> null
               // containerClassName={string} // defaults -> ''
               // title={string} // defaults -> null
-              // opts={opts} // defaults -> {}
-              // onReady={func} // defaults -> noop
+              opts={opts} // defaults -> {}
+              onReady={videoOnReady} // defaults -> noop
               // onPlay={func} // defaults -> noop
               // onPause={func} // defaults -> noop
               // onEnd={func} // defaults -> noop

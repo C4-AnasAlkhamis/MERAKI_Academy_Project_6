@@ -23,8 +23,9 @@ const App = () => {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="home" element={<Home />} />
-        <Route path="add-video" element={<AddVideo />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/add-video" element={<AddVideo />} />
+        <Route path="/add-channel" element={<AddChannel />} />
 
         <Route path="/profile" element={<Profile />} />
       </Routes>

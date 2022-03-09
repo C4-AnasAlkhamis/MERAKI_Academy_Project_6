@@ -59,6 +59,33 @@ const getAllVideos = (req, res) => {
     });
   });
 };
+// ================================================ //
+
+// This function get all videos like value
+const getFilteredVideo = (req, res) => {
+  const { value } = req.body;
+  const query = `SELECT * FROM videos WHERE videos.title LIKE ?;`;
+  const data = [value];
+  connection.query(query, data, (err, result) => {
+    if (err) {
+      return res.status(500).json({
+        success: false,
+        message: `Server Error`,
+      });
+    }
+    if (!result) {
+      return res.status(200).json({
+        success: false,
+        message: `No videos Yet`,
+      });
+    }
+    res.status(200).json({
+      success: true,
+      message: `all the videos`,
+      result: result,
+    });
+  });
+};
 // ================================================
 const uploadVideo = async (req, res) => {
   try {
@@ -89,5 +116,5 @@ const uploadVideo = async (req, res) => {
 module.exports = {
   createNewVideo,
   getAllVideos,
-  // uploadVideo,
+  getFilteredVideo,
 };

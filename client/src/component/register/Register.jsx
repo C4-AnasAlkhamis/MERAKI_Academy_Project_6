@@ -41,131 +41,79 @@ const Register = () => {
   };
   return (
     <>
-      <FloatingLabel
-        controlId="floatingInput"
-        label="User Name"
-        className="mb-3"
-      >
-        <Form.Control
-          onChange={(e) => {
-            setUserName(e.target.value);
+      <div className="center">
+        <Form
+          style={{
+            width: "80%",
+            margin: "2vh auto",
           }}
-          required
-          autoComplete="off"
-          value={userName}
-          type="text"
-          placeholder="User Name"
-        />
-      </FloatingLabel>
-      <FloatingLabel
-        controlId="floatingInput"
-        label="Email address"
-        className="mb-3"
-        onChange={(e) => {
-          setEmail(e.target.value);
-        }}
-        required
-        autoComplete="off"
-        value={email}
-      >
-        <Form.Control
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
-          value={email}
-          required
-          autoComplete="off"
-          type="email"
-          placeholder="name@example.com"
-        />
-      </FloatingLabel>
-      <FloatingLabel
-        controlId="floatingInput"
-        label="Password"
-        className="mb-3"
-      >
-        <Form.Control
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
-          required
-          autoComplete="off"
-          value={password}
-          type="password"
-          placeholder="Password"
-        />
-      </FloatingLabel>
-      <FloatingLabel controlId="floatingPassword" label="Confirm">
-        <Form.Control
-          onChange={(e) => {
-            setRepeatPassword(e.target.value);
-          }}
-          required
-          autoComplete="off"
-          value={repeatPassword}
-          type="Password"
-          placeholder="Confirm"
-        />
-      </FloatingLabel>
-      <Button  onClick={createUser} variant="outline-success">
-        Login
-      </Button>
-    </>
-    // <div className="register">
-    //   <div className="group">
-    //     <div className="regImg">{/* <img src={logo} alt="logo" /> */}</div>
-    //     <form onSubmit={createUser}>
-    //       <input
-    //         onChange={(e) => {
-    //           setUserName(e.target.value);
-    //         }}
-    //         required
-    //         autoComplete="off"
-    //         value={userName}
-    //         type="text"
-    //         placeholder="UserName"
-    //       />
+        >
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label>User Name</Form.Label>
+              <Form.Control
+                onChange={(e) => {
+                  setUserName(e.target.value);
+                }}
+                required
+                autoComplete="off"
+                value={userName}
+                type="text"
+                placeholder="User Name"
+              />
+            </Form.Group>
+            <Form.Label>Email address</Form.Label>
+            <Form.Control
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+              value={email}
+              required
+              autoComplete="off"
+              type="email"
+              placeholder="Enter email"
+            />
+            <Form.Text className="text-muted">
+              We'll never share your email with anyone else.
+            </Form.Text>
+          </Form.Group>
 
-    //       <input
-    //         onChange={(e) => {
-    //           setEmail(e.target.value);
-    //         }}
-    //         required
-    //         autoComplete="off"
-    //         value={email}
-    //         type="email"
-    //         placeholder="Email"
-    //       />
-    //       <input
-    //         onChange={(e) => {
-    //           setPassword(e.target.value);
-    //         }}
-    //         required
-    //         autoComplete="off"
-    //         value={password}
-    //         type="password"
-    //         placeholder="Password"
-    //       />
-    //       <input
-    //         onChange={(e) => {
-    //           setRepeatPassword(e.target.value);
-    //         }}
-    //         required
-    //         autoComplete="off"
-    //         value={repeatPassword}
-    //         type="Password"
-    //         placeholder="Confirm"
-    //       />
-    //       <button>Register</button>
-    //       <span
-    //         style={{
-    //           color: `${done ? "#24dc3a" : "#dc2424"}`,
-    //           textShadow: `1px 0 1px  ${done ? "#24dc3a" : "#dc2424"}`,
-    //         }}
-    //       ></span>
-    //     </form>
-    //   </div>
-    // </div>
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+              required
+              autoComplete="off"
+              value={password}
+              type="password"
+              placeholder="Password"
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>Confirm</Form.Label>
+            <Form.Control
+              onChange={(e) => {
+                setRepeatPassword(e.target.value);
+              }}
+              required
+              autoComplete="off"
+              value={repeatPassword}
+              type="password"
+              placeholder="Confirm"
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicCheckbox">
+            <Form.Check type="checkbox" label="Check me out" />
+          </Form.Group>
+          <Button onClick={createUser} variant="outline-primary">
+            Register
+          </Button>
+        </Form>
+      </div>
+    </>
   );
 };
 

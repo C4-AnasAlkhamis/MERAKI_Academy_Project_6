@@ -76,45 +76,6 @@ const Login = () => {
             Login
           </Button>
         </Form>
-
-        {/* ---------------------------------- */}
-        {/* <Form.Group
-          controlId="formBasicEmail"
-          className="mb-3"
-          style={{
-            width: "80%",
-            margin: "0 auto",
-          }}
-        >
-          <FloatingLabel
-            controlId="floatingInput"
-            label="Email address"
-            className="mb-3"
-          >
-            <Form.Control
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
-              value={email}
-              required
-              autoComplete="off"
-              type="email"
-              placeholder="name@example.com"
-            />
-          </FloatingLabel>
-          <FloatingLabel controlId="floatingPassword" label="Password">
-            <Form.Control
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-              required
-              autoComplete="off"
-              value={password}
-              type="password"
-              placeholder="Password"
-            />
-          </FloatingLabel>
-        </Form.Group> */}
       </div>
     </>
   );

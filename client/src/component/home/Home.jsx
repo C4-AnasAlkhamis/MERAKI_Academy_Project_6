@@ -75,7 +75,7 @@ const Home = () => {
     <>
       <Row xs={1} md={3} className="g-4">
         {videos.map((_, idx) => (
-          <Col>
+          <Col key={idx}>
             <Card>
               <Card.Img
                 variant="top"

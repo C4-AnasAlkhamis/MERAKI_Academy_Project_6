@@ -1,10 +1,10 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./home.css";
 import YouTube from "react-youtube";
+import { setVideos } from "../../reducer/video/index";
 import { useSelector, useDispatch } from "react-redux";
-
 const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -27,11 +27,28 @@ const Home = () => {
     // access to player in all event handlers via event.target
     event.target.pauseVideo();
   };
+  const getAllVideos = async () => {
+    try {
+      const result = await axios.get(`http://localhost:5000/video`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(result);
+      dispatch(setVideos(result.data.result));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getAllVideos();
+  }, []);
   return (
     <>
       <div className="container">
         <div className="videos_box">
-          <div
+          {/* <div
             onClick={() => navigate("/login")}
             key={videos[0].id}
             className="video"
@@ -65,7 +82,7 @@ const Home = () => {
               <span>{videos[0].title}</span>
               <span>{videos[0].description}</span>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </>

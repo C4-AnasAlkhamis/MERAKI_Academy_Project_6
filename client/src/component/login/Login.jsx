@@ -20,11 +20,14 @@ const Login = () => {
       .then((result) => {
         if (result) {
           localStorage.setItem("token", result.data.token);
+          localStorage.setItem("user_name", result.data.name);
+
           setEmail("");
           setPassword("");
 
           navigate(`/home`);
           dispatch(logIn(result.data.token));
+          console.log(result);
         }
       })
       .catch((err) => {});

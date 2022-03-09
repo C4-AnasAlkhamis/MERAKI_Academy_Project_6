@@ -7,8 +7,7 @@ const createNewVideo = async (req, res) => {
   const user_id = req.token.userId;
 
   const { user_name, channel_id, title, description, image, video } = req.body;
-
-  const query = `INSERT INTO videos (user_name,user_id, channel_id, title, description, image, video ) VALUES (?,?,?,?,?,?,?)`;
+  const query = `INSERT INTO videos (user_name, user_id, channel_id, title, description, image, video ) VALUES (?,?,?,?,?,?,?)`;
   const data = [
     user_name,
     user_id,
@@ -18,6 +17,7 @@ const createNewVideo = async (req, res) => {
     image,
     video,
   ];
+
   connection.query(query, data, (err, result) => {
     if (err) {
       return res.status(500).json({
@@ -29,7 +29,7 @@ const createNewVideo = async (req, res) => {
     res.status(201).json({
       success: true,
       message: "Success video Added",
-      results: result,
+      result: result,
     });
   });
 };
@@ -55,7 +55,7 @@ const getAllVideos = (req, res) => {
     res.status(200).json({
       success: true,
       message: `all the videos`,
-      items: result,
+      result: result,
     });
   });
 };
@@ -89,5 +89,5 @@ const uploadVideo = async (req, res) => {
 module.exports = {
   createNewVideo,
   getAllVideos,
-  uploadVideo,
+  // uploadVideo,
 };

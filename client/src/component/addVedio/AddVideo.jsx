@@ -9,22 +9,22 @@ const AddVideo = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState();
-  const [video, setVideo] = useState("");
+  const [videoUrl, setVideoUrl] = useState("");
   const dispatch = useDispatch();
   const [percentage, setPercentage] = useState(0);
-  const { isLoggedIn, token, videos } = useSelector((state) => {
+  const { isLoggedIn, token, videos, user_name } = useSelector((state) => {
     return {
       videos: state.videosReducer.videos,
       isLoggedIn: state.loginReducer.isLoggedIn,
       token: state.loginReducer.token,
+      user_name: state.loginReducer.name,
     };
   });
-
   const uploadVideo = async (video) => {
     try {
       const result = await axios.post(
         `http://localhost:5000/video`,
-        { channel_id, list_id, title, description, image, video },
+        { user_name, channel_id, title, description, image, video },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -47,7 +47,7 @@ const AddVideo = () => {
     };
     const formData = new FormData();
 
-    formData.append("file", video);
+    formData.append("file", videoUrl);
     formData.append("upload_preset", "fzupywns");
     axios
       .post(
@@ -57,7 +57,34 @@ const AddVideo = () => {
       )
       .then((res) => {
         console.log(res);
-        // uploadVideo(res.data.secure_url);
+        uploadVideo(res.data.secure_url);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const uploadImage = async (image) => {
+    const option = {
+      onUploadProgress: (ProgressEvent) => {
+        const { loaded, total } = ProgressEvent;
+        let PercentageMath = Math.floor((loaded * 100) / total);
+        setPercentage(PercentageMath);
+      },
+    };
+    const formData = new FormData();
+
+    formData.append("file", image);
+    formData.append("upload_preset", "fzupywns");
+    axios
+      .post(
+        `https://api.cloudinary.com/v1_1/how-to-tube/upload`,
+        formData,
+        option
+      )
+      .then((res) => {
+        console.log(res);
+        setImage(res.data.secure_url);
+        setPercentage(0);
       })
       .catch((err) => {
         console.log(err);
@@ -66,9 +93,12 @@ const AddVideo = () => {
   console.log(percentage);
   return (
     <>
-      <div className="addVideo_container">
-        <div className="addVideo">{/* <img src={logo} alt="logo" /> */}</div>
+      <div className="input-group mb-3">
+        {/* <div className="input-group mb-2">
+          <img src={logo} alt="logo" />
+        </div> */}
         <form
+          className="row g-3"
           onSubmit={(e) => {
             uploadCloud(e);
           }}
@@ -77,6 +107,7 @@ const AddVideo = () => {
             onChange={(e) => {
               setTitle(e.target.value);
             }}
+            className="form-control"
             required
             autoComplete="off"
             value={title}
@@ -84,10 +115,11 @@ const AddVideo = () => {
             placeholder="title"
           />
 
-          <input
+          <textarea
             onChange={(e) => {
               setDescription(e.target.value);
             }}
+            className="form-control"
             required
             autoComplete="off"
             value={description}
@@ -99,17 +131,21 @@ const AddVideo = () => {
               setVideoUrl(e.target.value);
             }}
             // required
+            className="form-control"
             autoComplete="off"
             value={videoUrl}
             type="text"
             placeholder="youtube link"
           />
-          <label htmlFor="image">video</label>
+          <label className="form-label" htmlFor="image">
+            video
+          </label>
 
           <input
             onChange={(e) => {
-              setVideo(e.target.files[0]);
+              setVideoUrl(e.target.files[0]);
             }}
+            className="form-control"
             // required
             autoComplete="off"
             // value={video}
@@ -117,11 +153,16 @@ const AddVideo = () => {
             placeholder="video"
             name="video"
           />
-          <label htmlFor="image">image</label>
+          <label className="form-label" htmlFor="image">
+            image
+          </label>
           <input
             onChange={(e) => {
-              setImage(e.target.files[0]);
+              uploadImage(e.target.files[0]);
+
+              // setImage(e.target.files[0]);
             }}
+            className="form-control"
             // required
             autoComplete="off"
             // value={video}
@@ -129,8 +170,8 @@ const AddVideo = () => {
             placeholder="image"
             name="image"
           />
-          <button type="button" class="btn btn-primary">
-            Primary
+          <button type="submit" class="btn btn-primary">
+            upload
           </button>
         </form>
       </div>

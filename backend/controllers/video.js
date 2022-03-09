@@ -62,7 +62,7 @@ const getAllVideos = (req, res) => {
 // This function get all videos like value
 const getFilteredVideo = (req, res) => {
   const { value } = req.body;
-  const query = `SELECT * FROM videos WHERE videos.title LIKE ?;`;
+  const query = `SELECT * FROM videos WHERE title LIKE ?;`;
   const data = [value];
   connection.query(query, data, (err, result) => {
     if (err) {

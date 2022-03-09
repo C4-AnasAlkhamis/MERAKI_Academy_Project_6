@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 // import "./navbar.css";
+import axios from "axios";
 import { logOut } from "../../reducer/login/index";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -11,7 +12,10 @@ import {
   FormControl,
   Button,
 } from "react-bootstrap";
+import { useState } from "react";
+import { setVideos } from "../../reducer/video/index";
 const NavBar = () => {
+  const [value, setValue] = useState("");
   const dispatch = useDispatch();
   const { isLoggedIn, token, name } = useSelector((state) => {
     return {
@@ -20,6 +24,19 @@ const NavBar = () => {
       name: state.loginReducer.name,
     };
   });
+
+  const search = async () => {
+    console.log(value);
+    try {
+      const result = await axios.post(`http://localhost:5000/video/search`, {
+        value,
+      });
+      console.log(result);
+      dispatch(setVideos(result.data.result));
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
 
   return (
     <>
@@ -64,12 +81,17 @@ const NavBar = () => {
             </Nav>
             <Form className="d-flex">
               <FormControl
+                onChange={(e) => {
+                  setValue(`%${e.target.value}%`);
+                }}
                 type="search"
                 placeholder="Search"
                 className="me-2"
                 aria-label="Search"
               />
-              <Button variant="outline-success">Search</Button>
+              <Button onClick={search} variant="outline-success">
+                Search
+              </Button>
             </Form>
           </Navbar.Collapse>
         </Container>

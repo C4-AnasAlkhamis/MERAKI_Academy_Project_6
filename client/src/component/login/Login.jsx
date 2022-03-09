@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "./login.css";
 import { logIn, setName } from "../../reducer/login/index";
 import { useDispatch } from "react-redux";
-import { FloatingLabel, Form, Button } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();

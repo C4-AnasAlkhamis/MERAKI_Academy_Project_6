@@ -5,7 +5,7 @@ import "./home.css";
 import YouTube from "react-youtube";
 import { setVideos } from "../../reducer/video/index";
 import { useSelector, useDispatch } from "react-redux";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Ratio } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 const Home = () => {
   const [search, setSearch] = useState("");
@@ -19,8 +19,8 @@ const Home = () => {
     };
   });
   const opts = {
-    height: "390",
-    width: "640",
+    height: "300",
+    width: "100%",
     playerVars: {
       autoplay: 0,
     },
@@ -39,33 +39,10 @@ const Home = () => {
       console.log(error.response);
     }
   };
-  const getFilteredItems = async (value) => {
-    try {
-      const res = await axios.post(
-        `http://localhost:5000/video/search`,
-        { value },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      if (res.data.success) {
-        // setIsFilter(true);
-        // dispatch(setItems(res.data.items));
-        // setMessage("");
-      } else throw Error;
-    } catch (error) {
-      if (!error.response.data.success) {
-        // return setMessage(error.response.data.message);
-      }
-      // setMessage("Error happened while Get Data, please try again");
-    }
-  };
+
   useEffect(() => {
     getAllVideos();
   }, []);
-  // setSearch(`%${e.target.value}%`);
 
   return (
     <>
@@ -73,14 +50,26 @@ const Home = () => {
         {videos.map((_, idx) => (
           <Col key={idx}>
             <Card>
-              <Card.Img
+              <Card.Body style={{ height: "300px" }}>
+                <YouTube
+                  videoId="KsaXLHOrqPI"
+                  onPlay={(e) => {
+                    console.log(e);
+
+                    e.target.mute();
+                  }}
+                  opts={opts}
+                  onReady={videoOnReady}
+                />
+                {/* <Card.Img
                 variant="top"
                 width="200px"
                 height="200px"
-                src={_.image}
-              />
+                src={_.video}
+              /> */}
+              </Card.Body>
               <Card.Body style={{ height: "200px" }}>
-                <Card.Title>Card title</Card.Title>
+                <Card.Title>{_.title}</Card.Title>
                 <Card.Text>{_.description}</Card.Text>
               </Card.Body>
               <Card.Footer>

@@ -42,7 +42,7 @@ const NavBar = () => {
     <>
       <Navbar bg="light" expand="lg">
         <Container fluid>
-          <Navbar.Brand href="#">Navbar scroll</Navbar.Brand>
+          <Navbar.Brand href="/">How To</Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav
@@ -76,7 +76,7 @@ const NavBar = () => {
                 )}
               </NavDropdown>
               <Container>
-                <Navbar.Brand href="#home">
+                <Navbar.Brand>
                   <img
                     alt=""
                     src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"
@@ -98,7 +98,7 @@ const NavBar = () => {
                 className="me-2"
                 aria-label="Search"
               />
-              <Button onClick={search} variant="outline-success">
+              <Button onClick={search} variant="outline-dark">
                 Search
               </Button>
             </Form>

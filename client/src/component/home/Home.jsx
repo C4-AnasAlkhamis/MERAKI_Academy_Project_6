@@ -5,6 +5,8 @@ import "./home.css";
 import YouTube from "react-youtube";
 import { setVideos } from "../../reducer/video/index";
 import { useSelector, useDispatch } from "react-redux";
+import { Row, Col } from "react-bootstrap";
+import Card from "react-bootstrap/Card";
 const Home = () => {
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
@@ -71,35 +73,27 @@ const Home = () => {
 
   return (
     <>
-      <div className="container">
-        <div className="row">
-          {videos.map((video, index) => {
-            console.log(video);
-            return (
-              <div key={index} className="card col" style={{ width: "18rem" }}>
-                <img src={video.image} className="card-img-top" alt="..." />
-                <div className="card-body">
-                  <h5 className="card-title">{video.title}</h5>
-                  <p className="card-text">{video.description}</p>
-                </div>
-                <ul className="list-group list-group-flush">
-                  <li className="list-group-item">{video.user_name}</li>
-                  <li className="list-group-item">{video.channel_id}</li>
-                  <li className="list-group-item">{video.list_id}</li>
-                </ul>
-                <div className="card-body">
-                  <a href="#" className="card-link">
-                    Card link
-                  </a>
-                  <a href="#" className="card-link">
-                    Another link
-                  </a>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
+      <Row xs={1} md={3} className="g-4">
+        {videos.map((_, idx) => (
+          <Col>
+            <Card>
+              <Card.Img
+                variant="top"
+                width="200px"
+                height="200px"
+                src={_.image}
+              />
+              <Card.Body style={{ height: "200px" }}>
+                <Card.Title>Card title</Card.Title>
+                <Card.Text>{_.description}</Card.Text>
+              </Card.Body>
+              <Card.Footer>
+                <small className="text-muted">Last updated 3 mins ago</small>
+              </Card.Footer>
+            </Card>
+          </Col>
+        ))}
+      </Row>
 
       {/* <div
             onClick={() => navigate("/login")}

@@ -32,37 +32,90 @@ const Login = () => {
 
   return (
     <>
-      <FloatingLabel
-        controlId="floatingInput"
-        label="Email address"
-        className="mb-3"
-      >
-        <Form.Control
-          onChange={(e) => {
-            setEmail(e.target.value);
+      <div className="center">
+        <Form
+          style={{
+            width: "80%",
+            margin: "10% auto",
           }}
-          value={email}
-          required
-          autoComplete="off"
-          type="email"
-          placeholder="name@example.com"
-        />
-      </FloatingLabel>
-      <FloatingLabel controlId="floatingPassword" label="Password">
-        <Form.Control
-          onChange={(e) => {
-            setPassword(e.target.value);
+        >
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Email address</Form.Label>
+            <Form.Control
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+              value={email}
+              required
+              autoComplete="off"
+              type="email"
+              placeholder="Enter email"
+            />
+            <Form.Text className="text-muted">
+              We'll never share your email with anyone else.
+            </Form.Text>
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+              required
+              autoComplete="off"
+              value={password}
+              type="password"
+              placeholder="Password"
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicCheckbox">
+            <Form.Check type="checkbox" label="Check me out" />
+          </Form.Group>
+          <Button onClick={verifyUser} variant="outline-primary">
+            Login
+          </Button>
+        </Form>
+
+        {/* ---------------------------------- */}
+        {/* <Form.Group
+          controlId="formBasicEmail"
+          className="mb-3"
+          style={{
+            width: "80%",
+            margin: "0 auto",
           }}
-          required
-          autoComplete="off"
-          value={password}
-          type="password"
-          placeholder="Password"
-        />
-      </FloatingLabel>
-      <Button onClick={verifyUser} variant="outline-success">
-        Login
-      </Button>
+        >
+          <FloatingLabel
+            controlId="floatingInput"
+            label="Email address"
+            className="mb-3"
+          >
+            <Form.Control
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+              value={email}
+              required
+              autoComplete="off"
+              type="email"
+              placeholder="name@example.com"
+            />
+          </FloatingLabel>
+          <FloatingLabel controlId="floatingPassword" label="Password">
+            <Form.Control
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+              required
+              autoComplete="off"
+              value={password}
+              type="password"
+              placeholder="Password"
+            />
+          </FloatingLabel>
+        </Form.Group> */}
+      </div>
     </>
   );
 };

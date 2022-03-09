@@ -1,17 +1,6 @@
 const initialState = {
-  videos: [
-    {
-      id: 1,
-      user_id: 1,
-      channel_id: 2,
-      list_id: null,
-      title: "learn redux",
-      description:
-        "description description description description description description ",
-      video: "https://www.youtube.com/watch?v=CVpUuw9XSjY",
-      is_deleted: 0,
-    },
-  ],
+  videos: [],
+  id: null,
 };
 // =======================  //
 
@@ -19,6 +8,9 @@ const videosReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case "SET_VIDEOS":
       return { ...state, videos: payload };
+
+    case "SET_ID":
+      return { ...state, id: payload };
 
     case "ADD_VIDEO":
       return { ...state, videos: [...state.videos, payload] };
@@ -53,6 +45,11 @@ export default videosReducer;
 
 export const setVideos = (videos) => {
   return { type: "SET_VIDEOS", payload: videos };
+};
+// =======================  //
+
+export const setId = (id) => {
+  return { type: "SET_ID", payload: id };
 };
 // =======================  //
 

@@ -8,6 +8,8 @@ import Profile from "./component/profile/Profile";
 import AddVideo from "./component/addVedio/AddVideo";
 import AddList from "./component/addList/AddList";
 import AddChannel from "./component/addchannel/AddChannel";
+import Video from "./component/video/Video";
+
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 const App = () => {
@@ -28,6 +30,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/add-video" element={<AddVideo />} />
         <Route path="/add-channel" element={<AddChannel />} />
+        <Route path="/video" element={<Video />} />
 
         <Route path="/profile" element={<Profile />} />
       </Routes>

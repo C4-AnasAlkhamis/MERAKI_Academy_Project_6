@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./home.css";
 import YouTube from "react-youtube";
-import { setVideos } from "../../reducer/video/index";
+import { setVideos, setId } from "../../reducer/video/index";
 import { useSelector, useDispatch } from "react-redux";
 import { Row, Col, Ratio } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
@@ -43,24 +43,36 @@ const Home = () => {
   useEffect(() => {
     getAllVideos();
   }, []);
-
+  const goto = (id) => {
+    dispatch(setId(id));
+    navigate(`/video`);
+  };
   return (
     <>
       <Row style={{ padding: "3rem 1rem" }} xs={1} md={3} className="g-4">
         {videos.map((_, idx) => (
           <Col key={idx}>
-            <Card>
+            <Card onClick={() => goto(_.id)}>
               <Card.Body style={{ height: "300px" }}>
-                <YouTube
-                  videoId="KsaXLHOrqPI"
-                  onPlay={(e) => {
-                    console.log(e);
+                {_.video.includes("youtube") ? (
+                  <YouTube
+                    videoId="KsaXLHOrqPI"
+                    onPlay={(e) => {
+                      console.log(e);
 
-                    e.target.mute();
-                  }}
-                  opts={opts}
-                  onReady={videoOnReady}
-                />
+                      e.target.mute();
+                    }}
+                    opts={opts}
+                    onReady={videoOnReady}
+                  />
+                ) : (
+                  <div style={{ height: "300", width: "100%" }}>
+                    <Ratio aspectRatio="16x9">
+                      <iframe src={_.video} frameborder="0"></iframe>
+                    </Ratio>
+                  </div>
+                )}
+
                 {/* <Card.Img
                 variant="top"
                 width="200px"
@@ -79,42 +91,6 @@ const Home = () => {
           </Col>
         ))}
       </Row>
-
-      {/* <div
-            onClick={() => navigate("/login")}
-            key={videos[0].id}
-            className="video"
-          >
-            <YouTube
-              videoId="KsaXLHOrqPI" // defaults -> null
-              // id="KsaXLHOrqPI" // defaults -> null
-              // className={string} // defaults -> null
-              // containerClassName={string} // defaults -> ''
-              // title={string} // defaults -> null
-              onPlay={(e) => {
-                console.log(e);
-                // navigate("/login");
-                e.target.mute();
-                e.target.stopVideo();
-              }} // defaults -> noop
-              opts={opts} // defaults -> {}
-              onReady={videoOnReady} // defaults -> noop
-
-              // onPause={func} // defaults -> noop
-              // onEnd={func} // defaults -> noop
-              // onError={func} // defaults -> noop
-              // onStateChange={func} // defaults -> noop
-              // onPlaybackRateChange={func} // defaults -> noop
-              // onPlaybackQualityChange={func} // defaults -> noop
-            />
-
-            <div className="video_info">
-              <span>{videos[0].user_id}</span>
-              <span>{videos[0].channel_id}</span>
-              <span>{videos[0].title}</span>
-              <span>{videos[0].description}</span>
-            </div>
-          </div> */}
     </>
   );
 };

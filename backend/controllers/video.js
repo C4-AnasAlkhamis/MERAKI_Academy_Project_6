@@ -59,6 +59,27 @@ const getAllVideos = (req, res) => {
 };
 // ================================== //
 
+// This function get all videos from videos
+const getVideoById = (req, res) => {
+  const id = req.params.id;
+  const query = `SELECT * FROM videos WHERE id = ?`;
+  const data = [id];
+  connection.query(query, data, (err, result) => {
+    if (err) {
+      return res.status(500).json({
+        success: false,
+        message: `Server Error`,
+      });
+    }
+    res.status(200).json({
+      success: true,
+      message: `video with id ${id}`,
+      result: result,
+    });
+  });
+};
+// ================================== //
+
 // This function get all videos like value
 const getFilteredVideo = (req, res) => {
   const { value } = req.body;
@@ -149,4 +170,5 @@ module.exports = {
   getFilteredVideo,
   deleteVideoById,
   updateItemById,
+  getVideoById,
 };

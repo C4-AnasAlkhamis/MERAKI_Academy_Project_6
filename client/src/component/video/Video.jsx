@@ -1,15 +1,17 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./home.css";
+import { Ratio } from "react-bootstrap";
+
 import YouTube from "react-youtube";
 import { setVideos } from "../../reducer/video/index";
 import { useSelector, useDispatch } from "react-redux";
-const Home = () => {
+const Video = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isLoggedIn, token, videos } = useSelector((state) => {
+  const { isLoggedIn, token, videos, id } = useSelector((state) => {
     return {
+      id: state.videosReducer.id,
       videos: state.videosReducer.videos,
       isLoggedIn: state.loginReducer.isLoggedIn,
       token: state.loginReducer.token,
@@ -27,9 +29,9 @@ const Home = () => {
     // access to player in all event handlers via event.target
     event.target.pauseVideo();
   };
-  const getAllVideos = async () => {
+  const getVideoById = async () => {
     try {
-      const result = await axios.get(`http://localhost:5000/video`, {
+      const result = await axios.get(`http://localhost:5000/video/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -38,56 +40,36 @@ const Home = () => {
       dispatch(setVideos(result.data.result));
     } catch (error) {
       console.log(error);
+      console.log(error);
     }
   };
 
   useEffect(() => {
-    getAllVideos();
+    getVideoById();
   }, []);
-
+  console.log(id, videos);
   return (
     <>
-      <div className="container">
-        <div className="videos_box">
-          {/* <div
-            onClick={() => navigate("/login")}
-            key={videos[0].id}
-            className="video"
-          >
-            <YouTube
-              videoId="KsaXLHOrqPI" // defaults -> null
-              // id="KsaXLHOrqPI" // defaults -> null
-              // className={string} // defaults -> null
-              // containerClassName={string} // defaults -> ''
-              // title={string} // defaults -> null
-              onPlay={(e) => {
-                console.log(e);
-                // navigate("/login");
-                e.target.mute();
-                e.target.stopVideo();
-              }} // defaults -> noop
-              opts={opts} // defaults -> {}
-              onReady={videoOnReady} // defaults -> noop
+      {videos[0] && videos[0].video.includes("youtube") ? (
+        <YouTube
+          videoId="KsaXLHOrqPI"
+          onPlay={(e) => {
+            console.log(e);
 
-              // onPause={func} // defaults -> noop
-              // onEnd={func} // defaults -> noop
-              // onError={func} // defaults -> noop
-              // onStateChange={func} // defaults -> noop
-              // onPlaybackRateChange={func} // defaults -> noop
-              // onPlaybackQualityChange={func} // defaults -> noop
-            />
-
-            <div className="video_info">
-              <span>{videos[0].user_id}</span>
-              <span>{videos[0].channel_id}</span>
-              <span>{videos[0].title}</span>
-              <span>{videos[0].description}</span>
-            </div>
-          </div> */}
+            e.target.mute();
+          }}
+          opts={opts}
+          onReady={videoOnReady}
+        />
+      ) : (
+        <div>
+          <Ratio aspectRatio="16x9">
+            <iframe src={videos[0].video}></iframe>
+          </Ratio>
         </div>
-      </div>
+      )}
     </>
   );
 };
 
-export default Home;
+export default Video;

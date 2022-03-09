@@ -11,7 +11,7 @@ const {
 //   ===========================
 
 channelRouter.post("/", authentication, createNewChannel);
-channelRouter.get("/:id", authentication, getAllVideoByChannelId);
+channelRouter.get("/", authentication, getAllVideoByChannelId);
 
 //   ===========================
 

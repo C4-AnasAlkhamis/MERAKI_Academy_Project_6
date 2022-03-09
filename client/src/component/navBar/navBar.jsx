@@ -53,18 +53,27 @@ const NavBar = () => {
               <Nav.Link href="/">Home</Nav.Link>
               <Nav.Link href="/channel">Channel</Nav.Link>
               <NavDropdown title="Link" id="navbarScrollingDropdown">
-                <NavDropdown.Item href="/login">Login</NavDropdown.Item>
-                <NavDropdown.Item href="/register">Register</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item
-                  onClick={() => {
-                    dispatch(logOut());
-                    localStorage.clear();
-                  }}
-                  href="/"
-                >
-                  Logout
-                </NavDropdown.Item>
+                {!isLoggedIn ? (
+                  <>
+                    <NavDropdown.Item href="/login">Login</NavDropdown.Item>
+
+                    <NavDropdown.Item href="/register">
+                      Register
+                    </NavDropdown.Item>
+
+                    {/* <NavDropdown.Divider /> */}
+                  </>
+                ) : (
+                  <NavDropdown.Item
+                    onClick={() => {
+                      dispatch(logOut());
+                      localStorage.clear();
+                    }}
+                    href="/"
+                  >
+                    Logout
+                  </NavDropdown.Item>
+                )}
               </NavDropdown>
               <Container>
                 <Navbar.Brand href="#home">

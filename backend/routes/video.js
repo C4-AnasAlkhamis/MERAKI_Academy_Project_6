@@ -9,7 +9,7 @@ const { authentication } = require("../middleware/authentication");
 
 // -------------------------
 videoRouter.post("/", authentication, createNewVideo);
-videoRouter.get("/", authentication, getAllVideos);
+videoRouter.get("/", getAllVideos);
 videoRouter.post("/search", getFilteredVideo);
 
 // -------------------------

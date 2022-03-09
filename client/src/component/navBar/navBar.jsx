@@ -13,10 +13,11 @@ import {
 } from "react-bootstrap";
 const NavBar = () => {
   const dispatch = useDispatch();
-  const { isLoggedIn, token } = useSelector((state) => {
+  const { isLoggedIn, token, name } = useSelector((state) => {
     return {
       isLoggedIn: state.loginReducer.isLoggedIn,
       token: state.loginReducer.token,
+      name: state.loginReducer.name,
     };
   });
 
@@ -32,7 +33,7 @@ const NavBar = () => {
               style={{ maxHeight: "100px" }}
               navbarScroll
             >
-              <Nav.Link href="/home">Home</Nav.Link>
+              <Nav.Link href="/">Home</Nav.Link>
               <Nav.Link href="/channel">Channel</Nav.Link>
               <NavDropdown title="Link" id="navbarScrollingDropdown">
                 <NavDropdown.Item href="/login">Login</NavDropdown.Item>
@@ -43,14 +44,23 @@ const NavBar = () => {
                     dispatch(logOut());
                     localStorage.clear();
                   }}
-                  href="/home"
+                  href="/"
                 >
                   Logout
                 </NavDropdown.Item>
               </NavDropdown>
-              <Nav.Link href="#" disabled>
-                Link
-              </Nav.Link>
+              <Container>
+                <Navbar.Brand href="#home">
+                  <img
+                    alt=""
+                    src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"
+                    width="30"
+                    height="30"
+                    className="d-inline-block align-top"
+                  />
+                  {name}
+                </Navbar.Brand>
+              </Container>
             </Nav>
             <Form className="d-flex">
               <FormControl

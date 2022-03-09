@@ -32,11 +32,7 @@ const Home = () => {
   };
   const getAllVideos = async () => {
     try {
-      const result = await axios.get(`http://localhost:5000/video`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const result = await axios.get(`http://localhost:5000/video`);
       console.log(result);
       dispatch(setVideos(result.data.result));
     } catch (error) {
@@ -73,7 +69,7 @@ const Home = () => {
 
   return (
     <>
-      <Row xs={1} md={3} className="g-4">
+      <Row style={{ padding: "3rem 1rem" }} xs={1} md={3} className="g-4">
         {videos.map((_, idx) => (
           <Col key={idx}>
             <Card>

@@ -33,7 +33,6 @@ const login = (req, res) => {
         expiresIn: "60m",
       };
       const name = result[0].user_name;
-      console.log(name);
       const token = await jwt.sign(payload, process.env.SECRET, options);
       return res.status(200).json({
         success: true,

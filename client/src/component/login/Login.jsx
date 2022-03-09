@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
-import { logIn } from "../../reducer/login/index";
+import { logIn, setName } from "../../reducer/login/index";
 import { useDispatch } from "react-redux";
 import { FloatingLabel, Form, Button } from "react-bootstrap";
 const Login = () => {
@@ -21,10 +21,12 @@ const Login = () => {
         if (result) {
           localStorage.setItem("token", result.data.token);
           localStorage.setItem("user_name", result.data.name);
+          dispatch(setName(result.data.name));
+
           setEmail("");
           setPassword("");
           dispatch(logIn(result.data.token));
-          navigate(`/home`);
+          navigate(`/`);
         }
       })
       .catch((err) => {});

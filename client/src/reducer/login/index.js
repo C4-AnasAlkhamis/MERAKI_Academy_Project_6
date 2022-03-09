@@ -12,9 +12,9 @@ const loginReducer = (state = initialState, { type, payload }) => {
     case "LOG_IN":
       return { ...state, token: payload, isLoggedIn: true };
     case "LOG_OUT":
-      return { ...state, token: null, isLoggedIn: false, isAdmin: false };
-    case "IS_ADMIN":
-      return { ...state, isAdmin: true };
+      return { ...state, token: null, isLoggedIn: false };
+    case "SET_NAME":
+      return { ...state, name: payload };
     default:
       return state;
   }
@@ -24,6 +24,10 @@ export default loginReducer;
 // =======================  //
 export const logIn = (token) => {
   return { type: "LOG_IN", payload: token };
+};
+// =======================  //
+export const setName = (name) => {
+  return { type: "SET_NAME", payload: name };
 };
 // =======================  //
 

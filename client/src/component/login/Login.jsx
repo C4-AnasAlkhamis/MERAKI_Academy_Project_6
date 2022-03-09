@@ -63,35 +63,6 @@ const Login = () => {
       <Button onClick={verifyUser} variant="outline-success">
         Login
       </Button>
-      {/* <div className="login_box">
-        <div className="group1">
-          <form onSubmit={verifyUser} className="form">
-            <input
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
-              required
-              autoComplete="off"
-              value={email}
-              type="email"
-              placeholder="Email"
-            />
-
-            <input
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-              className="input_name"
-              required
-              autoComplete="off"
-              value={password}
-              type="password"
-              placeholder="Password"
-            />
-            <button>Login</button>
-          </form>
-        </div>
-      </div> */}
     </>
   );
 };

@@ -6,6 +6,7 @@ import YouTube from "react-youtube";
 import { setVideos } from "../../reducer/video/index";
 import { useSelector, useDispatch } from "react-redux";
 const Home = () => {
+  const [search, setSearch] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isLoggedIn, token, videos } = useSelector((state) => {
@@ -66,16 +67,16 @@ const Home = () => {
   useEffect(() => {
     getAllVideos();
   }, []);
-  // getFilteredItems(`%${e.target.value}%`);
+  // setSearch(`%${e.target.value}%`);
 
   return (
     <>
       <div className="container">
-        <div className="videos_box">
+        <div className="row">
           {videos.map((video, index) => {
             console.log(video);
             return (
-              <div key={index} className="card" style={{ width: "18rem" }}>
+              <div key={index} className="card col" style={{ width: "18rem" }}>
                 <img src={video.image} className="card-img-top" alt="..." />
                 <div className="card-body">
                   <h5 className="card-title">{video.title}</h5>
@@ -97,8 +98,10 @@ const Home = () => {
               </div>
             );
           })}
+        </div>
+      </div>
 
-          {/* <div
+      {/* <div
             onClick={() => navigate("/login")}
             key={videos[0].id}
             className="video"
@@ -133,8 +136,6 @@ const Home = () => {
               <span>{videos[0].description}</span>
             </div>
           </div> */}
-        </div>
-      </div>
     </>
   );
 };

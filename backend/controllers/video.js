@@ -1,6 +1,4 @@
 const connection = require("../database/db");
-const { cloudinary } = require("./uploadVideo");
-// ================================================ //
 
 // This function to register(new user) .
 const createNewVideo = async (req, res) => {
@@ -34,7 +32,7 @@ const createNewVideo = async (req, res) => {
   });
 };
 
-// ================================================ //
+// ================================== //
 
 // This function get all videos from videos
 const getAllVideos = (req, res) => {
@@ -59,7 +57,7 @@ const getAllVideos = (req, res) => {
     });
   });
 };
-// ================================================ //
+// ================================== //
 
 // This function get all videos like value
 const getFilteredVideo = (req, res) => {
@@ -86,35 +84,69 @@ const getFilteredVideo = (req, res) => {
     });
   });
 };
-// ================================================
-const uploadVideo = async (req, res) => {
-  try {
-    const { video } = req.body;
-    console.log(video);
-    const res = await cloudinary.uploader.upload(video, {
-      upload_preset: "how-to-tube",
+// ================================== //
+// This function update on is_deleted video By Id
+const deleteVideoById = (req, res) => {
+  const id = req.params.id;
+  const query = `UPDATE videos SET is_deleted = 1 WHERE id = ?`;
+  const data = [id];
+  connection.query(query, data, (err, result) => {
+    if (err) {
+      return res.status(500).json({
+        success: false,
+        message: ` No video with id ${id}`,
+      });
+    }
+    res.status(200).json({
+      success: true,
+      message: `Succeeded to update is_deleted video with id ${id}`,
+      result: result,
     });
-    console.log(res);
-  } catch (error) {
-    console.log(error);
-  }
-  // const formData = new FormData();
-
-  // formData.append("file", video);
-  // formData.append("upload_preset", "rwnvwutb");
-  // axios
-  //   .post(`https://api.cloudinary.com/v1_1/debtpixx1/image/upload/`, formData)
-  //   .then((res) => {
-  //     // updateWorkerById(res.data.secure_url);
-  //     console.log(res);
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
+  });
 };
 
+// ================================== //
+// This function to update video by id.
+const updateItemById = (req, res) => {
+  const { title, description, image, list_id } = req.body;
+  const id = req.params.id;
+  const query = `UPDATE videos SET title= IF(${
+    title != ""
+  }, ?, title), descriptions=IF(${
+    description != ""
+  }, ?, descriptions) , list_id = IF(${
+    list_id != ""
+  }, ?, list_id)  WHERE id=?;`;
+
+  const data = [title, description, image, list_id, id];
+
+  connection.query(query, data, (err, results) => {
+    if (err) {
+      return res.status(404).json({
+        success: false,
+        massage: `Server error`,
+        err: err,
+      });
+    }
+    if (results.changedRows == 0) {
+      return res.status(500).json({
+        success: false,
+        massage: `The video : ${id} is not found`,
+        err: err,
+      });
+    }
+
+    res.status(201).json({
+      success: true,
+      massage: `the video updated`,
+      result: results,
+    });
+  });
+};
 module.exports = {
   createNewVideo,
   getAllVideos,
   getFilteredVideo,
+  deleteVideoById,
+  updateItemById,
 };

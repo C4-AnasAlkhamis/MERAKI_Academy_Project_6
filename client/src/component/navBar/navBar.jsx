@@ -90,6 +90,10 @@ const NavBar = () => {
                 type="search"
                 placeholder="Search"
                 aria-label="Search"
+                onChange={
+                  ""
+                  // setSearch(`%${e.target.value}%`);
+                }
               />
               <button class="btn btn-outline-success" type="submit">
                 Search

@@ -50,18 +50,20 @@ CREATE TABLE lists (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     list VARCHAR(255) NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
 -- ============================ // done
 CREATE TABLE videos (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
+    user_name VARCHAR(255),
     channel_id INT NOT NULL,
     list_id INT,
     title VARCHAR(255),
-    description VARCHAR(255),
+    description MEDIUMTEXT NOT NULL,
     video VARCHAR(250) NOT NULL,
+    image VARCHAR(250),
     FOREIGN KEY (channel_id) REFERENCES channels(id),
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (list_id) REFERENCES lists(id),

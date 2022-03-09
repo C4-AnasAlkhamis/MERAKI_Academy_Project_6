@@ -8,7 +8,7 @@ const AddVideo = () => {
   const [list_id, setList_id] = useState(1);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [videoUrl, setVideoUrl] = useState();
+  const [image, setImage] = useState();
   const [video, setVideo] = useState("");
   const dispatch = useDispatch();
   const [percentage, setPercentage] = useState(0);
@@ -24,7 +24,7 @@ const AddVideo = () => {
     try {
       const result = await axios.post(
         `http://localhost:5000/video`,
-        { channel_id, list_id, title, description, video },
+        { channel_id, list_id, title, description, image, video },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -104,6 +104,8 @@ const AddVideo = () => {
             type="text"
             placeholder="youtube link"
           />
+          <label htmlFor="image">video</label>
+
           <input
             onChange={(e) => {
               setVideo(e.target.files[0]);
@@ -113,8 +115,23 @@ const AddVideo = () => {
             // value={video}
             type="file"
             placeholder="video"
+            name="video"
           />
-          <button>upload</button>
+          <label htmlFor="image">image</label>
+          <input
+            onChange={(e) => {
+              setImage(e.target.files[0]);
+            }}
+            // required
+            autoComplete="off"
+            // value={video}
+            type="file"
+            placeholder="image"
+            name="image"
+          />
+          <button type="button" class="btn btn-primary">
+            Primary
+          </button>
         </form>
       </div>
     </>

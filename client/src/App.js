@@ -8,7 +8,8 @@ import Profile from "./component/profile/Profile";
 import AddVideo from "./component/addVedio/AddVideo";
 import AddList from "./component/addList/AddList";
 import AddChannel from "./component/addchannel/AddChannel";
-
+import "../node_modules/bootstrap/dist/css/bootstrap.css";
+// client\node_modules\bootstrap\dist\css\bootstrap.min.css
 import { useSelector } from "react-redux";
 const App = () => {
   const { token, isLoggedIn } = useSelector((state) => {

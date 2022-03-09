@@ -6,10 +6,18 @@ const { cloudinary } = require("./uploadVideo");
 const createNewVideo = async (req, res) => {
   const user_id = req.token.userId;
 
-  const { channel_id, list_id, title, description, video } = req.body;
+  const { user_name, channel_id, title, description, image, video } = req.body;
 
-  const query = `INSERT INTO videos (user_id, channel_id, title, description, video ) VALUES (?,?,?,?,?)`;
-  const data = [user_id, channel_id, title, description, video];
+  const query = `INSERT INTO videos (user_name,user_id, channel_id, title, description, image, video ) VALUES (?,?,?,?,?,?,?)`;
+  const data = [
+    user_name,
+    user_id,
+    channel_id,
+    title,
+    description,
+    image,
+    video,
+  ];
   connection.query(query, data, (err, result) => {
     if (err) {
       return res.status(500).json({

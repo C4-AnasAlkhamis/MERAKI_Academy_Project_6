@@ -61,23 +61,32 @@ const Home = () => {
     <>
       <Navbar>
         <Container>
-          <div class="btn-group">
-            <button class="btn btn-secondary btn-lg" type="button">
-              Filter By Dates
-            </button>
+          <div class="dropdown">
             <button
+              class="btn dropdown-toggle"
               type="button"
-              class="btn btn-lg btn-secondary dropdown-toggle dropdown-toggle-split"
+              id="dropdownMenuButton1"
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              <span class="visually-hidden">Toggle Dropdown</span>
+              Filter By Date
             </button>
-            <ul class="dropdown-menu">
-              <li>11</li>
-              <li>111</li>
-              <li>1</li>
-              <li>1</li>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li>
+                <a class="dropdown-item" href="#">
+                  Action
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#">
+                  Another action
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#">
+                  Something else here
+                </a>
+              </li>
             </ul>
           </div>
         </Container>

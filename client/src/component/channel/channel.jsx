@@ -186,7 +186,6 @@ const Channel = () => {
                 Update Profile
               </Offcanvas.Title>
             </Offcanvas.Header>
-            {/* ---------------- */}
             <Form
               style={{
                 width: "80%",
@@ -231,13 +230,13 @@ const Channel = () => {
                   type="file"
                 />
               </Form.Group>
-              <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                <Form.Check type="checkbox" label="Check me out" />
-              </Form.Group>
 
               <Button onClick={uploadImage} variant="outline-primary">
                 Submit
               </Button>
+              <div className="d-grid gap-2 d-md-block">
+                <span>{percentage ? `Uploading ${percentage} %` : null}</span>
+              </div>
             </Form>
           </Navbar.Offcanvas>
         </Container>

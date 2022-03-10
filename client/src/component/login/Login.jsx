@@ -18,19 +18,15 @@ const Login = () => {
         password,
       })
       .then((result) => {
-        if (result) {
-          localStorage.setItem("token", result.data.token);
-          localStorage.setItem("user_name", result.data.name);
-          localStorage.setItem("image", result.data.image);
-
-          dispatch(setUserName(result.data.name));
-          dispatch(setUserImage(result.data.image));
-
-          setEmail("");
-          setPassword("");
-          dispatch(logIn(result.data.token));
-          navigate(`/`);
-        }
+        dispatch(setUserName(result.data.name));
+        dispatch(setUserImage(result.data.image));
+        localStorage.setItem("token", result.data.token);
+        localStorage.setItem("user_name", result.data.name);
+        localStorage.setItem("image", result.data.image);
+        setEmail("");
+        setPassword("");
+        dispatch(logIn(result.data.token));
+        navigate(`/`);
       })
       .catch((err) => {});
   };

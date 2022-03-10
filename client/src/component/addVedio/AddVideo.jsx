@@ -11,12 +11,13 @@ const AddVideo = () => {
   const [select, setSelect] = useState(1);
   const [videoUrl, setVideoUrl] = useState("");
   const [percentage, setPercentage] = useState(0);
-  const { token, videos, user_name } = useSelector((state) => {
+  const { token, videos, user_name, image } = useSelector((state) => {
     return {
       videos: state.videosReducer.videos,
       isLoggedIn: state.loginReducer.isLoggedIn,
       token: state.loginReducer.token,
       user_name: state.loginReducer.name,
+      image: state.loginReducer.image,
     };
   });
   // ------------------------------
@@ -24,13 +25,17 @@ const AddVideo = () => {
     try {
       const result = await axios.post(
         `http://localhost:5000/video`,
-        { user_name, channel_id, title, description, video },
+        { user_name, channel_id, title, description, video, image },
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
       );
+      setTitle("");
+      setDescription("");
+      setVideoUrl("");
+      setPercentage(0);
     } catch (error) {
       console.log(error.response);
     }
@@ -69,7 +74,6 @@ const AddVideo = () => {
     }
   };
 
-  console.log(select);
   return (
     <>
       <div
@@ -113,7 +117,7 @@ const AddVideo = () => {
           />
           <select
             onChange={(e) => setSelect(e.target.value)}
-            class="form-select"
+            className="form-select"
             aria-label="Default select example"
           >
             <option value="1">YouTube Link</option>
@@ -153,10 +157,13 @@ const AddVideo = () => {
             </>
           ) : null}
 
-          <div class="d-grid gap-2 d-md-block">
-            <button type="submit" class="btn btn-lg btn-primary">
+          <div className="d-grid gap-2 d-md-block">
+            <button type="submit" className="btn btn-lg btn-primary">
               upload
             </button>
+          </div>
+          <div className="d-grid gap-2 d-md-block">
+            <span>{percentage ? `Uploading ${percentage} %` : null}</span>
           </div>
         </form>
       </div>

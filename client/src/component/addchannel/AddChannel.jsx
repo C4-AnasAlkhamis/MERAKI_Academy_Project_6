@@ -28,7 +28,7 @@ const AddChannel = () => {
           },
         }
       );
-      console.log(result);
+      setTitle("");
     } catch (error) {
       console.log(error.response);
     }

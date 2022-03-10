@@ -5,17 +5,19 @@ import "./home.css";
 import YouTube from "react-youtube";
 import { setVideos, setId } from "../../reducer/video/index";
 import { useSelector, useDispatch } from "react-redux";
-import { Row, Col, Ratio } from "react-bootstrap";
+import { Row, Col, Ratio, Navbar } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 const Home = () => {
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isLoggedIn, token, videos } = useSelector((state) => {
+  const { isLoggedIn, token, videos, image, name } = useSelector((state) => {
     return {
       videos: state.videosReducer.videos,
       isLoggedIn: state.loginReducer.isLoggedIn,
       token: state.loginReducer.token,
+      image: state.loginReducer.image,
+      name: state.loginReducer.name,
     };
   });
   const opts = {
@@ -72,13 +74,27 @@ const Home = () => {
                     </Ratio>
                   </div>
                 )}
-
-                {/* <Card.Img
-                variant="top"
-                width="200px"
-                height="200px"
-                src={_.video}
-              /> */}
+                <Card.Body
+                  style={{
+                    paddingLeft: "0",
+                  }}
+                >
+                  <img
+                    style={{
+                      marginRight: ".5rem",
+                      borderRadius: "50%",
+                    }}
+                    alt="user image"
+                    src={
+                      image
+                        ? image
+                        : "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"
+                    }
+                    width="30"
+                    height="30"
+                  />
+                  {name}
+                </Card.Body>
               </Card.Body>
               <Card.Body style={{ height: "200px" }}>
                 <Card.Title>{_.title}</Card.Title>

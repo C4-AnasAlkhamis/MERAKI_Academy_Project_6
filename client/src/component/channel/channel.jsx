@@ -27,15 +27,19 @@ const Channel = () => {
   const [newUserName, setNewUserName] = useState("");
   const [email, setEmail] = useState("");
   const dispatch = useDispatch();
-  const { isLoggedIn, token, videos, name, image } = useSelector((state) => {
-    return {
-      videos: state.videosReducer.videos,
-      isLoggedIn: state.loginReducer.isLoggedIn,
-      token: state.loginReducer.token,
-      name: state.loginReducer.name,
-      image: state.loginReducer.image,
-    };
-  });
+  const { isLoggedIn, token, videos, name, image, channel } = useSelector(
+    (state) => {
+      return {
+        videos: state.videosReducer.videos,
+        channel: state.videosReducer.channel,
+
+        isLoggedIn: state.loginReducer.isLoggedIn,
+        token: state.loginReducer.token,
+        name: state.loginReducer.name,
+        image: state.loginReducer.image,
+      };
+    }
+  );
   const updateVideos = async (image) => {
     await axios
       .put(
@@ -146,7 +150,7 @@ const Channel = () => {
       autoplay: 0,
     },
   };
-
+  console.log(channel);
   const videoOnReady = (event) => {
     event.target.pauseVideo();
   };
@@ -175,24 +179,30 @@ const Channel = () => {
             {name}
           </Navbar.Brand>
           <Container>
-            <Nav
-              className=" my-2 my-lg-0"
-              style={{ maxHeight: "100px", margin: "0 1rem" }}
-            >
-              <Nav.Link href="/add-video">Update Video</Nav.Link>
-            </Nav>
-            <Nav
-              className="my-2 my-lg-0"
-              style={{ maxHeight: "100px", margin: "0 1rem" }}
-            >
-              <Nav.Link href="/add-list">Add List</Nav.Link>
-            </Nav>
-            <Nav
-              className="my-2 my-lg-0"
-              style={{ maxHeight: "100px", margin: "0 1rem" }}
-            >
-              <Nav.Link href="/add-channel">Create Channel</Nav.Link>
-            </Nav>
+            {channel ? (
+              <>
+                <Nav
+                  className=" my-2 my-lg-0"
+                  style={{ maxHeight: "100px", margin: "0 1rem" }}
+                >
+                  <Nav.Link href="/add-video">Update Video</Nav.Link>
+                </Nav>
+                <Nav
+                  className="my-2 my-lg-0"
+                  style={{ maxHeight: "100px", margin: "0 1rem" }}
+                >
+                  <Nav.Link href="/add-list">Add List</Nav.Link>
+                </Nav>
+              </>
+            ) : null}
+            {!channel ? (
+              <Nav
+                className="my-2 my-lg-0"
+                style={{ maxHeight: "100px", margin: "0 1rem" }}
+              >
+                <Nav.Link href="/add-channel">Create Channel</Nav.Link>
+              </Nav>
+            ) : null}
           </Container>
           <Navbar.Toggle aria-controls="offcanvasNavbar" />
           <Navbar.Offcanvas

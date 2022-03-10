@@ -3,23 +3,18 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
 import { logIn, setUserName, setUserImage } from "../../reducer/login/index";
+import { setChannel } from "../../reducer/video/index";
+
 import { useDispatch, useSelector } from "react-redux";
 import { Form, Button } from "react-bootstrap";
 const Login = () => {
-  const { token } = useSelector((state) => {
-    return {
-      videos: state.videosReducer.videos,
-      isLoggedIn: state.loginReducer.isLoggedIn,
-      token: state.loginReducer.token,
-    };
-  });
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   // ----------------------------------------
-  const getChannel = async () => {
+  const getChannel = async (token) => {
     await axios
       .get("http://localhost:5000/channel/my-channel", {
         headers: {
@@ -27,8 +22,8 @@ const Login = () => {
         },
       })
       .then((result) => {
-        console.log(result);
-        // dispatch(logIn(result.data.token));
+        localStorage.setItem("channel", result.data.result[0].title);
+        dispatch(setChannel(result.data.result[0].title));
       })
       .catch((err) => {
         console.log(err);
@@ -43,6 +38,7 @@ const Login = () => {
         password,
       })
       .then((result) => {
+        getChannel(result.data.token);
         dispatch(setUserName(result.data.name));
         dispatch(setUserImage(result.data.image));
         localStorage.setItem("token", result.data.token);

@@ -6,6 +6,7 @@ import YouTube from "react-youtube";
 import { useSelector, useDispatch } from "react-redux";
 import { setVideos, setId } from "../../reducer/video/index";
 import { setUserName, setUserImage } from "../../reducer/login/index";
+import { format } from "timeago.js";
 
 import {
   Navbar,
@@ -264,19 +265,34 @@ const Channel = () => {
                   </div>
                 )}
 
-                {/* <Card.Img
-                variant="top"
-                width="200px"
-                height="200px"
-                src={_.video}
-              /> */}
+                <Card.Body
+                  style={{
+                    paddingLeft: "0",
+                  }}
+                >
+                  <img
+                    style={{
+                      marginRight: ".5rem",
+                      borderRadius: "50%",
+                    }}
+                    alt="user image"
+                    src={
+                      image
+                        ? image
+                        : "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"
+                    }
+                    width="30"
+                    height="30"
+                  />
+                  {name}
+                </Card.Body>
               </Card.Body>
               <Card.Body style={{ height: "200px" }}>
                 <Card.Title>{_.title}</Card.Title>
                 <Card.Text>{_.description}</Card.Text>
               </Card.Body>
               <Card.Footer>
-                <small className="text-muted">Last updated 3 mins ago</small>
+                <small className="text-muted">{format(_.dt)}</small>
               </Card.Footer>
             </Card>
           </Col>

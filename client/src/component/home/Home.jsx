@@ -2,6 +2,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./home.css";
+import { format } from "timeago.js";
+
 import YouTube from "react-youtube";
 import { setVideos, setId } from "../../reducer/video/index";
 import { useSelector, useDispatch } from "react-redux";
@@ -101,7 +103,7 @@ const Home = () => {
                 <Card.Text>{_.description}</Card.Text>
               </Card.Body>
               <Card.Footer>
-                <small className="text-muted">Last updated 3 mins ago</small>
+                <small className="text-muted">{format(_.dt)}</small>
               </Card.Footer>
             </Card>
           </Col>

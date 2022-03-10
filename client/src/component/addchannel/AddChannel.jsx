@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "./addChannel.css";
 import YouTube from "react-youtube";
 import { useSelector, useDispatch } from "react-redux";
+import { Form, Button } from "react-bootstrap";
 
 const AddChannel = () => {
   const [title, setTitle] = useState("");
@@ -34,23 +35,31 @@ const AddChannel = () => {
   };
   return (
     <>
-      <div className="addList_container">
-        <div className="addList">{/* <img src={logo} alt="logo" /> */}</div>
-        <form onSubmit={createNewChannel}>
-          <input
-            onChange={(e) => {
-              setTitle(e.target.value);
-            }}
-            required
-            autoComplete="off"
-            value={title}
-            type="text"
-            placeholder="title"
-          />
-
-          <button>add</button>
-        </form>
-      </div>
+      {" "}
+      <Form
+        className="center"
+        style={{ height: "auto" }}
+        onSubmit={createNewChannel}
+      >
+        <div style={{ width: "80%", margin: "2rem auto" }}>
+          <Form.Group className="mb-3" controlId="formBasicText">
+            <Form.Label>Create new channel</Form.Label>
+            <Form.Control
+              onChange={(e) => {
+                setTitle(e.target.value);
+              }}
+              required
+              autoComplete="off"
+              value={title}
+              type="text"
+              placeholder="channel Name"
+            />
+          </Form.Group>
+          <Button variant="primary" type="submit">
+            Submit
+          </Button>
+        </div>
+      </Form>
     </>
   );
 };

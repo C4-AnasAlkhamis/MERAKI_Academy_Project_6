@@ -42,7 +42,7 @@ const updateUserById = (req, res) => {
     if (err) {
       return res.status(500).json({
         success: false,
-        message: `Server Error`,
+        message: `Server Errorsss`,
       });
     }
     return res.status(202).json({

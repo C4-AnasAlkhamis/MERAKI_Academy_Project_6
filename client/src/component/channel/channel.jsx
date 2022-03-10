@@ -13,50 +13,87 @@ import {
   Container,
   Nav,
   Offcanvas,
-  NavDropdown,
   Form,
   Card,
+  Button,
 } from "react-bootstrap";
 
 const Channel = () => {
   const [image, setImage] = useState();
   const [percentage, setPercentage] = useState(0);
+  const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
   const dispatch = useDispatch();
-  const { isLoggedIn, token, videos } = useSelector((state) => {
+  const { isLoggedIn, token, videos, name } = useSelector((state) => {
     return {
       videos: state.videosReducer.videos,
       isLoggedIn: state.loginReducer.isLoggedIn,
       token: state.loginReducer.token,
+      name: state.loginReducer.name,
     };
   });
-  // -------------------------------------------------
-
-  const uploadImage = async (image) => {
-    const option = {
-      onUploadProgress: (ProgressEvent) => {
-        const { loaded, total } = ProgressEvent;
-        let PercentageMath = Math.floor((loaded * 100) / total);
-        setPercentage(PercentageMath);
-      },
-    };
-    const formData = new FormData();
-
-    formData.append("file", image);
-    formData.append("upload_preset", "fzupywns");
-    axios
-      .post(
-        `https://api.cloudinary.com/v1_1/how-to-tube/upload`,
-        formData,
-        option
+  const updateUser = async (image) => {
+    //   POST -> /user
+    await axios
+      .put(
+        "http://localhost:5000/register",
+        {
+          user_name: userName.toLowerCase(),
+          email: email.toLowerCase(),
+          image,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       )
-      .then((res) => {
-        console.log(res);
-        setImage(res.data.secure_url);
-        setPercentage(0);
+      .then((result) => {
+        setUserName("");
+        setEmail("");
+        console.log(result);
       })
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  // -------------------------------------------------
+
+  const uploadImage = async (e) => {
+    e.preventDefault();
+
+    if (!image) {
+      updateUser();
+    } else {
+      const option = {
+        onUploadProgress: (ProgressEvent) => {
+          const { loaded, total } = ProgressEvent;
+          let PercentageMath = Math.floor((loaded * 100) / total);
+          setPercentage(PercentageMath);
+          console.log(PercentageMath);
+        },
+      };
+      const formData = new FormData();
+
+      formData.append("file", image);
+      formData.append("upload_preset", "fzupywns");
+      axios
+        .post(
+          `https://api.cloudinary.com/v1_1/how-to-tube/upload`,
+          formData,
+          option
+        )
+        .then((res) => {
+          console.log(res);
+          setImage(res.data.secure_url);
+          setPercentage(0);
+          updateUser(res.data.secure_url);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
   // -------------------------------------------------
   const getAllVideoByChannelId = async () => {
@@ -93,7 +130,16 @@ const Channel = () => {
 
       <Navbar bg="light" expand={false}>
         <Container fluid>
-          <Navbar.Brand href="#">channel name</Navbar.Brand>
+          <Navbar.Brand>
+            <img
+              alt=""
+              src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"
+              width="30"
+              height="30"
+              className="d-inline-block align-top"
+            />
+            {name}
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls="offcanvasNavbar" />
           <Navbar.Offcanvas
             id="offcanvasNavbar"
@@ -102,31 +148,62 @@ const Channel = () => {
           >
             <Offcanvas.Header closeButton>
               <Offcanvas.Title id="offcanvasNavbarLabel">
-                Offcanvas
+                Update Profile
               </Offcanvas.Title>
             </Offcanvas.Header>
-            <Offcanvas.Body>
-              <Nav className="justify-content-end flex-grow-1 pe-3">
-                <Nav.Link href="#action1">Home</Nav.Link>
-                <Nav.Link href="#action2">Link</Nav.Link>
-                <NavDropdown title="Dropdown" id="offcanvasNavbarDropdown">
-                  <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                  <NavDropdown.Item href="#action4">
-                    Another action
-                  </NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item href="#action5">
-                    Something else here
-                  </NavDropdown.Item>
-                </NavDropdown>
-              </Nav>
-              <Form className="d-flex">
-                <Form.Group controlId="formFile" className="mb-3">
-                  <Form.Label>Drag & Drop</Form.Label>
-                  <Form.Control onChange={(e) => {}} type="file" />
+            {/* ---------------- */}
+            <Form
+              style={{
+                width: "80%",
+                margin: "2vh auto",
+              }}
+            >
+              <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Group className="mb-3" controlId="formBasicPassword">
+                  <Form.Label>User Name</Form.Label>
+                  <Form.Control
+                    onChange={(e) => {
+                      setUserName(e.target.value);
+                    }}
+                    required
+                    autoComplete="off"
+                    value={userName}
+                    type="text"
+                    placeholder="User Name"
+                  />
                 </Form.Group>
-              </Form>
-            </Offcanvas.Body>
+                <Form.Label>Email address</Form.Label>
+                <Form.Control
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
+                  value={email}
+                  required
+                  autoComplete="off"
+                  type="email"
+                  placeholder="Enter email"
+                />
+                <Form.Text className="text-muted">
+                  We'll never share your email with anyone else.
+                </Form.Text>
+              </Form.Group>
+              <Form.Group controlId="formFile" className="mb-3">
+                <Form.Label>Drag & Drop</Form.Label>
+                <Form.Control
+                  onChange={(e) => {
+                    setImage(e.target.files[0]);
+                  }}
+                  type="file"
+                />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                <Form.Check type="checkbox" label="Check me out" />
+              </Form.Group>
+
+              <Button onClick={uploadImage} variant="outline-primary">
+                Submit
+              </Button>
+            </Form>
           </Navbar.Offcanvas>
         </Container>
       </Navbar>

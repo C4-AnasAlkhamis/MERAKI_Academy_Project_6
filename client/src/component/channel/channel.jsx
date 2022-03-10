@@ -22,6 +22,7 @@ import {
 } from "react-bootstrap";
 
 const Channel = () => {
+  const navigate = useNavigate();
   const [imageUrl, setImageUrl] = useState();
   const [percentage, setPercentage] = useState(0);
   const [newUserName, setNewUserName] = useState("");
@@ -54,11 +55,9 @@ const Channel = () => {
         }
       )
       .then((result) => {
-        console.log(result);
+        getAllVideoByChannelId();
       })
-      .catch((err) => {
-        console.log(err.response);
-      });
+      .catch((err) => {});
   };
   const updateUser = async (image) => {
     //   POST -> /user
@@ -163,20 +162,11 @@ const Channel = () => {
 
       <Navbar bg="light" expand={false}>
         <Container fluid>
-          <Navbar.Brand>
-            <img
-              style={{ margin: " 0 .5rem", borderRadius: "50%" }}
-              alt="user image"
-              src={
-                image
-                  ? image
-                  : "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"
-              }
-              width="30"
-              height="30"
-              className="d-inline-block align-top"
-            />
-            {name}
+          <Navbar.Brand
+            style={{ cursor: "pointer" }}
+            onClick={() => navigate("/channel")}
+          >
+            {channel}
           </Navbar.Brand>
           <Container>
             {channel ? (
@@ -312,7 +302,7 @@ const Channel = () => {
                     width="30"
                     height="30"
                   />
-                  {name}
+                  {_.user_name}
                 </Card.Body>
               </Card.Body>
               <Card.Body style={{ height: "200px" }}>

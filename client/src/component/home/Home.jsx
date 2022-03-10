@@ -7,7 +7,14 @@ import { format } from "timeago.js";
 import YouTube from "react-youtube";
 import { setVideos, setId } from "../../reducer/video/index";
 import { useSelector, useDispatch } from "react-redux";
-import { Row, Col, Ratio, Navbar } from "react-bootstrap";
+import {
+  Row,
+  Col,
+  Ratio,
+  Navbar,
+  Container,
+  NavDropdown,
+} from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 const Home = () => {
   const [search, setSearch] = useState("");
@@ -52,6 +59,29 @@ const Home = () => {
   };
   return (
     <>
+      <Navbar>
+        <Container>
+          <div class="btn-group">
+            <button class="btn btn-secondary btn-lg" type="button">
+              Filter By Dates
+            </button>
+            <button
+              type="button"
+              class="btn btn-lg btn-secondary dropdown-toggle dropdown-toggle-split"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <span class="visually-hidden">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu">
+              <li>11</li>
+              <li>111</li>
+              <li>1</li>
+              <li>1</li>
+            </ul>
+          </div>
+        </Container>
+      </Navbar>
       <Row style={{ padding: "3rem 1rem" }} xs={1} md={3} className="g-4">
         {videos.map((_, idx) => (
           <Col key={idx}>
@@ -89,7 +119,7 @@ const Home = () => {
                     width="30"
                     height="30"
                   />
-                  {name}
+                  {_.user_name}
                 </Card.Body>
               </Card.Body>
               <Card.Body style={{ height: "200px" }}>

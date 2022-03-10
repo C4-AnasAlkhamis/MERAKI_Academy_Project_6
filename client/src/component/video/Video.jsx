@@ -51,15 +51,11 @@ const Video = () => {
   // console.log(videos[0].video.match(/([A-Z])\w+/)[0]);
   return (
     <>
-      <Card style={{ width: "60%", height: "90vh", margin: "0 auto" }}>
+      <Card style={{ width: "60%", height: "90vh", margin: "1rem auto" }}>
         {videos[0] && videos[0].video.includes("youtube") ? (
           <YouTube
             videoId={videos[0].video.match(/([A-Z])\w+/)[0]}
-            onPlay={(e) => {
-              e.target.mute();
-            }}
             opts={opts}
-            // onReady={videoOnReady}
           />
         ) : (
           <div>
@@ -74,10 +70,25 @@ const Video = () => {
           </div>
         )}
         <Card.Body>
-          <Card.Text>
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-          </Card.Text>
+          <img
+            style={{
+              marginRight: ".5rem",
+              borderRadius: "50%",
+            }}
+            alt="user image"
+            src={
+              videos[0].image
+                ? videos[0].image
+                : "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"
+            }
+            width="30"
+            height="30"
+          />
+          {videos[0].user_name}
+        </Card.Body>
+        <Card.Body>
+          <Card.Title>{videos[0].title}</Card.Title>
+          <Card.Text>{videos[0].description}</Card.Text>
         </Card.Body>
       </Card>
     </>

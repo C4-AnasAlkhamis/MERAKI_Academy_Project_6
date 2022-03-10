@@ -56,7 +56,7 @@ const Home = () => {
               <Card.Body style={{ height: "300px" }}>
                 {_.video.includes("youtube") ? (
                   <YouTube
-                    videoId="KsaXLHOrqPI"
+                    videoId={_.video.match(/([A-Z])\w+/)[0]}
                     onPlay={(e) => {
                       console.log(e);
 
@@ -66,7 +66,7 @@ const Home = () => {
                     onReady={videoOnReady}
                   />
                 ) : (
-                  <div style={{ height: "300", width: "100%" }}>
+                  <div>
                     <Ratio aspectRatio="16x9">
                       <iframe src={_.video} frameborder="0"></iframe>
                     </Ratio>

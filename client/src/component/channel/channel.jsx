@@ -5,9 +5,22 @@ import "./channel.css";
 import YouTube from "react-youtube";
 import { useSelector, useDispatch } from "react-redux";
 import { setVideos, setId } from "../../reducer/video/index";
-import { Row, Col, Ratio } from "react-bootstrap";
-import Card from "react-bootstrap/Card";
+import {
+  Navbar,
+  Row,
+  Col,
+  Ratio,
+  Container,
+  Nav,
+  Offcanvas,
+  NavDropdown,
+  Form,
+  Card,
+} from "react-bootstrap";
+
 const Channel = () => {
+  const [image, setImage] = useState();
+  const [percentage, setPercentage] = useState(0);
   const dispatch = useDispatch();
   const { isLoggedIn, token, videos } = useSelector((state) => {
     return {
@@ -16,6 +29,36 @@ const Channel = () => {
       token: state.loginReducer.token,
     };
   });
+  // -------------------------------------------------
+
+  const uploadImage = async (image) => {
+    const option = {
+      onUploadProgress: (ProgressEvent) => {
+        const { loaded, total } = ProgressEvent;
+        let PercentageMath = Math.floor((loaded * 100) / total);
+        setPercentage(PercentageMath);
+      },
+    };
+    const formData = new FormData();
+
+    formData.append("file", image);
+    formData.append("upload_preset", "fzupywns");
+    axios
+      .post(
+        `https://api.cloudinary.com/v1_1/how-to-tube/upload`,
+        formData,
+        option
+      )
+      .then((res) => {
+        console.log(res);
+        setImage(res.data.secure_url);
+        setPercentage(0);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  // -------------------------------------------------
   const getAllVideoByChannelId = async () => {
     try {
       const result = await axios.get(`http://localhost:5000/channel`, {
@@ -30,7 +73,7 @@ const Channel = () => {
     }
   };
   const opts = {
-    height: "300",
+    height: "220",
     width: "100%",
     playerVars: {
       autoplay: 0,
@@ -46,6 +89,48 @@ const Channel = () => {
   }, []);
   return (
     <>
+      <br />
+
+      <Navbar bg="light" expand={false}>
+        <Container fluid>
+          <Navbar.Brand href="#">channel name</Navbar.Brand>
+          <Navbar.Toggle aria-controls="offcanvasNavbar" />
+          <Navbar.Offcanvas
+            id="offcanvasNavbar"
+            aria-labelledby="offcanvasNavbarLabel"
+            placement="end"
+          >
+            <Offcanvas.Header closeButton>
+              <Offcanvas.Title id="offcanvasNavbarLabel">
+                Offcanvas
+              </Offcanvas.Title>
+            </Offcanvas.Header>
+            <Offcanvas.Body>
+              <Nav className="justify-content-end flex-grow-1 pe-3">
+                <Nav.Link href="#action1">Home</Nav.Link>
+                <Nav.Link href="#action2">Link</Nav.Link>
+                <NavDropdown title="Dropdown" id="offcanvasNavbarDropdown">
+                  <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
+                  <NavDropdown.Item href="#action4">
+                    Another action
+                  </NavDropdown.Item>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item href="#action5">
+                    Something else here
+                  </NavDropdown.Item>
+                </NavDropdown>
+              </Nav>
+              <Form className="d-flex">
+                <Form.Group controlId="formFile" className="mb-3">
+                  <Form.Label>Drag & Drop</Form.Label>
+                  <Form.Control onChange={(e) => {}} type="file" />
+                </Form.Group>
+              </Form>
+            </Offcanvas.Body>
+          </Navbar.Offcanvas>
+        </Container>
+      </Navbar>
+      {/* ---------------------------------- */}
       <Row style={{ padding: "3rem 1rem" }} xs={1} md={3} className="g-4">
         {videos.map((_, idx) => (
           <Col key={idx}>
@@ -55,8 +140,6 @@ const Channel = () => {
                   <YouTube
                     videoId="KsaXLHOrqPI"
                     onPlay={(e) => {
-                      console.log(e);
-
                       e.target.mute();
                     }}
                     opts={opts}

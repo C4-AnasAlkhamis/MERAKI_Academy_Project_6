@@ -26,7 +26,6 @@ const createNewChannel = (req, res) => {
 // This function get all videos from videos
 const getAllVideoByChannelId = (req, res) => {
   const user_id = req.token.userId;
-  console.log(user_id);
   const query = `SELECT * FROM videos WHERE user_id = ?`;
   const data = [user_id];
   connection.query(query, data, (err, result) => {

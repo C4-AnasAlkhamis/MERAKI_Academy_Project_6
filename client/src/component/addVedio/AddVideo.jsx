@@ -69,33 +69,7 @@ const AddVideo = () => {
         });
     }
   };
-  const uploadImage = async (image) => {
-    const option = {
-      onUploadProgress: (ProgressEvent) => {
-        const { loaded, total } = ProgressEvent;
-        let PercentageMath = Math.floor((loaded * 100) / total);
-        setPercentage(PercentageMath);
-      },
-    };
-    const formData = new FormData();
 
-    formData.append("file", image);
-    formData.append("upload_preset", "fzupywns");
-    axios
-      .post(
-        `https://api.cloudinary.com/v1_1/how-to-tube/upload`,
-        formData,
-        option
-      )
-      .then((res) => {
-        console.log(res);
-        setImage(res.data.secure_url);
-        setPercentage(0);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
   console.log(percentage);
   return (
     <>

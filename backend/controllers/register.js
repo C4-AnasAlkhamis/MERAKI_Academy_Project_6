@@ -5,7 +5,6 @@ const SECRET = process.env.SALT;
 
 // This function to register(new user) .
 const register = async (req, res) => {
-  console.log(SECRET);
   const { user_name, email, password, role_id } = req.body;
 
   const hashingPass = await bcrypt.hash(password, 7);
@@ -29,6 +28,32 @@ const register = async (req, res) => {
   });
 };
 
+// This function to update user information by user id
+const updateUserById = (req, res) => {
+  const id = req.token.userId;
+  const { user_name, email, image } = req.body;
+  const query = `UPDATE users SET user_name =IF(${
+    user_name != ""
+  }, ?, user_name) , email = IF(${email != ""}, ?, email) , image = IF(${
+    image != ""
+  }, ?, image) WHERE id = ?;`;
+  const data = [user_name, email, image, id];
+  connection.query(query, data, (err, result) => {
+    if (err) {
+      return res.status(500).json({
+        success: false,
+        message: `Server Error`,
+      });
+    }
+    return res.status(202).json({
+      success: true,
+      message: `user with id ${id} updated successfully`,
+      result: result,
+    });
+  });
+};
+
 module.exports = {
   register,
+  updateUserById,
 };

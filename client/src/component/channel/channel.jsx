@@ -156,6 +156,17 @@ const Channel = () => {
             />
             {name}
           </Navbar.Brand>
+          <Container>
+            <Nav className=" my-2 my-lg-0" style={{ maxHeight: "100px" ,margin:"0 1rem"}}>
+              <Nav.Link href="/add-video">Update Video</Nav.Link>
+            </Nav>
+            <Nav
+              className="my-2 my-lg-0"
+              style={{ maxHeight: "100px" }}
+            >
+              <Nav.Link href="/add-list">Add List</Nav.Link>
+            </Nav>
+          </Container>
           <Navbar.Toggle aria-controls="offcanvasNavbar" />
           <Navbar.Offcanvas
             id="offcanvasNavbar"

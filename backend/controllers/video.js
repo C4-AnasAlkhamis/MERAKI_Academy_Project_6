@@ -166,10 +166,11 @@ const updateVideosById = (req, res) => {
 };
 const updateAllVideos = (req, res) => {
   const { image } = req.body;
-  const id = req.params.id;
-  const query = `UPDATE videos SET image=? WHERE user_id = ?;`;
+  const user_id = req.token.userId;
 
-  const data = [image,id];
+  const query = `UPDATE videos SET image = ? WHERE user_id = ?;`;
+
+  const data = [image, user_id];
 
   connection.query(query, data, (err, results) => {
     if (err) {
@@ -193,5 +194,5 @@ module.exports = {
   deleteVideoById,
   updateVideosById,
   getVideoById,
-  updateAllVideos
+  updateAllVideos,
 };

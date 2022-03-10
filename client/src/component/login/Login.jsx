@@ -3,13 +3,38 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
 import { logIn, setUserName, setUserImage } from "../../reducer/login/index";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Form, Button } from "react-bootstrap";
 const Login = () => {
+  const { token } = useSelector((state) => {
+    return {
+      videos: state.videosReducer.videos,
+      isLoggedIn: state.loginReducer.isLoggedIn,
+      token: state.loginReducer.token,
+    };
+  });
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  // ----------------------------------------
+  const getChannel = async () => {
+    await axios
+      .get("http://localhost:5000/channel/my-channel", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((result) => {
+        console.log(result);
+        // dispatch(logIn(result.data.token));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  // ----------------------------------------
 
   const verifyUser = async () => {
     await axios

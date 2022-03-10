@@ -85,7 +85,6 @@ const Channel = () => {
 
         setUserName("");
         setEmail("");
-        console.log(result);
       })
       .catch((err) => {
         console.log(err.response);
@@ -105,7 +104,6 @@ const Channel = () => {
           const { loaded, total } = ProgressEvent;
           let PercentageMath = Math.floor((loaded * 100) / total);
           setPercentage(PercentageMath);
-          console.log(PercentageMath);
         },
       };
       const formData = new FormData();
@@ -119,7 +117,6 @@ const Channel = () => {
           option
         )
         .then((res) => {
-          console.log(res);
           setPercentage(0);
           updateUser(res.data.secure_url);
         })
@@ -281,7 +278,7 @@ const Channel = () => {
                 ) : (
                   <div style={{ height: "300", width: "100%" }}>
                     <Ratio aspectRatio="16x9">
-                      <iframe src={_.video} frameborder="0"></iframe>
+                      <iframe src={_.video} frameBorder="0"></iframe>
                     </Ratio>
                   </div>
                 )}
@@ -298,8 +295,8 @@ const Channel = () => {
                     }}
                     alt="user image"
                     src={
-                      image
-                        ? image
+                      _.image
+                        ? _.image
                         : "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"
                     }
                     width="30"
@@ -313,7 +310,9 @@ const Channel = () => {
                 <Card.Text>{_.description}</Card.Text>
               </Card.Body>
               <Card.Footer>
-                <small className="text-muted">{format(_.dt)}</small>
+                <small className="text-muted">
+                  {format(_.dt.match(/\W*\S*(?=T)/)[0])}
+                </small>
               </Card.Footer>
             </Card>
           </Col>

@@ -37,7 +37,6 @@ const Home = () => {
   const getAllVideos = async () => {
     try {
       const result = await axios.get(`http://localhost:5000/video`);
-      console.log(result);
       dispatch(setVideos(result.data.result));
     } catch (error) {
       console.log(error.response);
@@ -61,18 +60,13 @@ const Home = () => {
                 {_.video.includes("youtube") ? (
                   <YouTube
                     videoId={_.video.match(/([A-Z])\w+/)[0]}
-                    onPlay={(e) => {
-                      console.log(e);
-
-                      e.target.mute();
-                    }}
                     opts={opts}
                     onReady={videoOnReady}
                   />
                 ) : (
                   <div>
                     <Ratio aspectRatio="16x9">
-                      <iframe src={_.video} frameborder="0"></iframe>
+                      <iframe src={_.video} frameBorder="0"></iframe>
                     </Ratio>
                   </div>
                 )}
@@ -88,8 +82,8 @@ const Home = () => {
                     }}
                     alt="user image"
                     src={
-                      image
-                        ? image
+                      _.image
+                        ? _.image
                         : "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"
                     }
                     width="30"
@@ -103,7 +97,9 @@ const Home = () => {
                 <Card.Text>{_.description}</Card.Text>
               </Card.Body>
               <Card.Footer>
-                <small className="text-muted">{format(_.dt)}</small>
+                <small className="text-muted">
+                  {format(_.dt.match(/\W*\S*(?=T)/)[0])}
+                </small>
               </Card.Footer>
             </Card>
           </Col>

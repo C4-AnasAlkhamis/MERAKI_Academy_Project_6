@@ -1,6 +1,9 @@
 const initialState = {
   videos: [],
   id: null,
+  channel: localStorage.getItem("channel")
+    ? localStorage.getItem("channel")
+    : null,
 };
 // =======================  //
 
@@ -11,6 +14,9 @@ const videosReducer = (state = initialState, { type, payload }) => {
 
     case "SET_ID":
       return { ...state, id: payload };
+
+    case "SET_CHANNEL":
+      return { ...state, channel: payload };
 
     case "ADD_VIDEO":
       return { ...state, videos: [...state.videos, payload] };
@@ -50,6 +56,11 @@ export const setVideos = (videos) => {
 
 export const setId = (id) => {
   return { type: "SET_ID", payload: id };
+};
+// =======================  //
+
+export const setChannel = (channel) => {
+  return { type: "SET_CHANNEL", payload: channel };
 };
 // =======================  //
 

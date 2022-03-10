@@ -52,17 +52,14 @@ const NavBar = () => {
               navbarScroll
             >
               <Nav.Link href="/">Home</Nav.Link>
-              <Nav.Link href="/channel">Channel</Nav.Link>
+              {isLoggedIn ? <Nav.Link href="/channel">Channel</Nav.Link> : null}
               <NavDropdown title="Option" id="navbarScrollingDropdown">
                 {!isLoggedIn ? (
                   <>
                     <NavDropdown.Item href="/login">Login</NavDropdown.Item>
-
                     <NavDropdown.Item href="/register">
                       Register
                     </NavDropdown.Item>
-
-                    {/* <NavDropdown.Divider /> */}
                   </>
                 ) : (
                   <NavDropdown.Item

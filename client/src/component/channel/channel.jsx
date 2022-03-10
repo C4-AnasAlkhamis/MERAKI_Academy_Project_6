@@ -66,7 +66,7 @@ const Channel = () => {
         console.log(result);
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.response);
       });
   };
 
@@ -157,14 +157,23 @@ const Channel = () => {
             {name}
           </Navbar.Brand>
           <Container>
-            <Nav className=" my-2 my-lg-0" style={{ maxHeight: "100px" ,margin:"0 1rem"}}>
+            <Nav
+              className=" my-2 my-lg-0"
+              style={{ maxHeight: "100px", margin: "0 1rem" }}
+            >
               <Nav.Link href="/add-video">Update Video</Nav.Link>
             </Nav>
             <Nav
               className="my-2 my-lg-0"
-              style={{ maxHeight: "100px" }}
+              style={{ maxHeight: "100px", margin: "0 1rem" }}
             >
               <Nav.Link href="/add-list">Add List</Nav.Link>
+            </Nav>
+            <Nav
+              className="my-2 my-lg-0"
+              style={{ maxHeight: "100px", margin: "0 1rem" }}
+            >
+              <Nav.Link href="/add-channel">Create Channel</Nav.Link>
             </Nav>
           </Container>
           <Navbar.Toggle aria-controls="offcanvasNavbar" />
@@ -242,7 +251,7 @@ const Channel = () => {
               <Card.Body style={{ height: "300px" }}>
                 {_.video.includes("youtube") ? (
                   <YouTube
-                    videoId="KsaXLHOrqPI"
+                    videoId={_.video.match(/([A-Z])\w+/)[0]}
                     onPlay={(e) => {
                       e.target.mute();
                     }}

@@ -8,7 +8,8 @@ const AddVideo = () => {
   const [file, setFile] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [image, setImage] = useState();
+  const [select, setSelect] = useState(1);
+  // const [image, setImage] = useState();
   const [videoUrl, setVideoUrl] = useState("");
   const dispatch = useDispatch();
   const [percentage, setPercentage] = useState(0);
@@ -25,7 +26,7 @@ const AddVideo = () => {
     try {
       const result = await axios.post(
         `http://localhost:5000/video`,
-        { user_name, channel_id, title, description, image, video },
+        { user_name, channel_id, title, description, video },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -70,14 +71,20 @@ const AddVideo = () => {
     }
   };
 
-  console.log(percentage);
+  console.log(select);
   return (
     <>
-      <div className="input-group mb-3">
-        {/* <div className="input-group mb-2">
-          <img src={logo} alt="logo" />
-        </div> */}
+      <div
+        style={{
+          width: "80%",
+        }}
+        className="input-group mb-3 center"
+      >
         <form
+          style={{
+            width: "80%",
+            margin: "10% auto",
+          }}
           className="row g-3"
           onSubmit={(e) => {
             uploadCloud(e);
@@ -106,53 +113,53 @@ const AddVideo = () => {
             type="text"
             placeholder="description"
           />
-          <input
-            onChange={(e) => {
-              setVideoUrl(e.target.value);
-            }}
-            // required
-            className="form-control"
-            autoComplete="off"
-            value={videoUrl}
-            type="text"
-            placeholder="youtube link"
-          />
-          <label className="form-label" htmlFor="image">
-            video
-          </label>
+          <select
+            onChange={(e) => setSelect(e.target.value)}
+            class="form-select"
+            aria-label="Default select example"
+          >
+            <option value="1">YouTube Link</option>
+            <option value="2">Upload Video</option>
+          </select>
+          {select == 1 ? (
+            <input
+              onChange={(e) => {
+                setVideoUrl(e.target.value);
+              }}
+              // required
+              className="form-control"
+              autoComplete="off"
+              value={videoUrl}
+              type="text"
+              placeholder="youtube link"
+            />
+          ) : null}
 
-          <input
-            onChange={(e) => {
-              setVideoUrl(e.target.files[0]);
-              setFile(!file);
-            }}
-            className="form-control"
-            // required
-            autoComplete="off"
-            type="file"
-            placeholder="video"
-            name="video"
-          />
-          {/* <label className="form-label" htmlFor="image">
-            image
-          </label>
-          <input
-            onChange={(e) => {
-              uploadImage(e.target.files[0]);
+          {select == 2 ? (
+            <>
+              <label className="form-label" htmlFor="image">
+                video
+              </label>
+              <input
+                onChange={(e) => {
+                  setVideoUrl(e.target.files[0]);
+                  setFile(!file);
+                }}
+                className="form-control"
+                required
+                autoComplete="off"
+                type="file"
+                placeholder="video"
+                name="video"
+              />
+            </>
+          ) : null}
 
-              // setImage(e.target.files[0]);
-            }}
-            className="form-control"
-            // required
-            autoComplete="off"
-            // value={video}
-            type="file"
-            placeholder="image"
-            name="image"
-          /> */}
-          <button type="submit" class="btn btn-primary">
-            upload
-          </button>
+          <div class="d-grid gap-2 d-md-block">
+            <button type="submit" class="btn btn-lg btn-primary">
+              upload
+            </button>
+          </div>
         </form>
       </div>
     </>

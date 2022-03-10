@@ -129,7 +129,6 @@ const Channel = () => {
   };
 
   const videoOnReady = (event) => {
-    // access to player in all event handlers via event.target
     event.target.pauseVideo();
   };
   useEffect(() => {
@@ -224,7 +223,7 @@ const Channel = () => {
                 </Form.Text>
               </Form.Group>
               <Form.Group controlId="formFile" className="mb-3">
-                <Form.Label>Drag & Drop</Form.Label>
+                <Form.Label>Drag & Drop Image</Form.Label>
                 <Form.Control
                   onChange={(e) => {
                     setImageUrl(e.target.files[0]);

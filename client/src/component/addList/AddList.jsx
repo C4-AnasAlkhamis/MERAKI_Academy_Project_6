@@ -5,10 +5,11 @@ import "./addList.css";
 import YouTube from "react-youtube";
 import { useSelector, useDispatch } from "react-redux";
 
+import { Form, Button } from "react-bootstrap";
 const AddList = () => {
   const [list, setList] = useState("");
   const dispatch = useDispatch();
-  const { isLoggedIn, token, videos } = useSelector((state) => {
+  const { token } = useSelector((state) => {
     return {
       videos: state.videosReducer.videos,
       isLoggedIn: state.loginReducer.isLoggedIn,
@@ -28,29 +29,37 @@ const AddList = () => {
         }
       );
       console.log(result);
+      setList("");
     } catch (error) {
       console.log(error.response);
     }
   };
   return (
     <>
-      <div className="addList_container">
-        <div className="addList">{/* <img src={logo} alt="logo" /> */}</div>
-        <form onSubmit={createNewList}>
-          <input
-            onChange={(e) => {
-              setList(e.target.value);
-            }}
-            required
-            autoComplete="off"
-            value={list}
-            type="text"
-            placeholder="list"
-          />
-
-          <button>add</button>
-        </form>
-      </div>
+      <Form
+        className="center"
+        style={{ height: "auto" }}
+        onSubmit={createNewList}
+      >
+        <div style={{ width: "80%", margin: "2rem auto" }}>
+          <Form.Group className="mb-3" controlId="formBasicText">
+            <Form.Label>Create new Video lists</Form.Label>
+            <Form.Control
+              onChange={(e) => {
+                setList(e.target.value);
+              }}
+              required
+              autoComplete="off"
+              value={list}
+              type="text"
+              placeholder="list Name"
+            />
+          </Form.Group>
+          <Button variant="primary" type="submit">
+            Submit
+          </Button>
+        </div>
+      </Form>
     </>
   );
 };

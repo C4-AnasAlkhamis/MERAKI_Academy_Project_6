@@ -53,7 +53,7 @@ const NavBar = () => {
             >
               <Nav.Link href="/">Home</Nav.Link>
               <Nav.Link href="/channel">Channel</Nav.Link>
-              <NavDropdown title="Link" id="navbarScrollingDropdown">
+              <NavDropdown title="Option" id="navbarScrollingDropdown">
                 {!isLoggedIn ? (
                   <>
                     <NavDropdown.Item href="/login">Login</NavDropdown.Item>

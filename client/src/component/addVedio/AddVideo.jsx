@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import "./addVideo.css";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 const AddVideo = () => {
   const [channel_id, setChannel_id] = useState(1);
@@ -9,11 +9,9 @@ const AddVideo = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [select, setSelect] = useState(1);
-  // const [image, setImage] = useState();
   const [videoUrl, setVideoUrl] = useState("");
-  const dispatch = useDispatch();
   const [percentage, setPercentage] = useState(0);
-  const { isLoggedIn, token, videos, user_name } = useSelector((state) => {
+  const { token, videos, user_name } = useSelector((state) => {
     return {
       videos: state.videosReducer.videos,
       isLoggedIn: state.loginReducer.isLoggedIn,
@@ -138,7 +136,7 @@ const AddVideo = () => {
           {select == 2 ? (
             <>
               <label className="form-label" htmlFor="image">
-                video
+                Drag & Drop video
               </label>
               <input
                 onChange={(e) => {

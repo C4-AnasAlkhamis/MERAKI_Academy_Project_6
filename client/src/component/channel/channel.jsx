@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "./channel.css";
 import YouTube from "react-youtube";
 import { useSelector, useDispatch } from "react-redux";
-import { setVideos, setId } from "../../reducer/video/index";
+import { setVideos } from "../../reducer/video/index";
 import { setUserName, setUserImage } from "../../reducer/login/index";
 import { format } from "timeago.js";
 
@@ -36,6 +36,26 @@ const Channel = () => {
       image: state.loginReducer.image,
     };
   });
+  const updateVideos = async (image) => {
+    await axios
+      .put(
+        "http://localhost:5000/video/all",
+        {
+          image,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  };
   const updateUser = async (image) => {
     //   POST -> /user
     await axios
@@ -60,6 +80,7 @@ const Channel = () => {
         if (image) {
           localStorage.setItem("image", image);
           dispatch(setUserImage(image));
+          updateVideos(image);
         }
 
         setUserName("");

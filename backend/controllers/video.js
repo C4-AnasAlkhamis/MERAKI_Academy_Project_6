@@ -128,8 +128,8 @@ const deleteVideoById = (req, res) => {
 
 // ================================== //
 // This function to update video by id.
-const updateItemById = (req, res) => {
-  const { title, description, image, list_id } = req.body;
+const updateVideosById = (req, res) => {
+  const { title, description, list_id } = req.body;
   const id = req.params.id;
   const query = `UPDATE videos SET title= IF(${
     title != ""
@@ -139,7 +139,7 @@ const updateItemById = (req, res) => {
     list_id != ""
   }, ?, list_id)  WHERE id=?;`;
 
-  const data = [title, description, image, list_id, id];
+  const data = [title, description, list_id, id];
 
   connection.query(query, data, (err, results) => {
     if (err) {
@@ -164,11 +164,34 @@ const updateItemById = (req, res) => {
     });
   });
 };
+const updateAllVideos = (req, res) => {
+  const { image } = req.body;
+  const id = req.params.id;
+  const query = `UPDATE videos SET image=? WHERE user_id = ?;`;
+
+  const data = [image,id];
+
+  connection.query(query, data, (err, results) => {
+    if (err) {
+      return res.status(500).json({
+        success: false,
+        massage: `Server error`,
+        err: err,
+      });
+    }
+    res.status(200).json({
+      success: true,
+      massage: `the videos updated`,
+      result: results,
+    });
+  });
+};
 module.exports = {
   createNewVideo,
   getAllVideos,
   getFilteredVideo,
   deleteVideoById,
-  updateItemById,
+  updateVideosById,
   getVideoById,
+  updateAllVideos
 };

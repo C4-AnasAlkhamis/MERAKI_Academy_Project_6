@@ -5,6 +5,8 @@ import "./channel.css";
 import YouTube from "react-youtube";
 import { useSelector, useDispatch } from "react-redux";
 import { setVideos, setId } from "../../reducer/video/index";
+import { setUserName, setUserImage } from "../../reducer/login/index";
+
 import {
   Navbar,
   Row,
@@ -19,17 +21,18 @@ import {
 } from "react-bootstrap";
 
 const Channel = () => {
-  const [image, setImage] = useState();
+  const [imageUrl, setImageUrl] = useState();
   const [percentage, setPercentage] = useState(0);
-  const [userName, setUserName] = useState("");
+  const [newUserName, setNewUserName] = useState("");
   const [email, setEmail] = useState("");
   const dispatch = useDispatch();
-  const { isLoggedIn, token, videos, name } = useSelector((state) => {
+  const { isLoggedIn, token, videos, name, image } = useSelector((state) => {
     return {
       videos: state.videosReducer.videos,
       isLoggedIn: state.loginReducer.isLoggedIn,
       token: state.loginReducer.token,
       name: state.loginReducer.name,
+      image: state.loginReducer.image,
     };
   });
   const updateUser = async (image) => {
@@ -38,7 +41,7 @@ const Channel = () => {
       .put(
         "http://localhost:5000/register",
         {
-          user_name: userName.toLowerCase(),
+          user_name: newUserName.toLowerCase(),
           email: email.toLowerCase(),
           image,
         },
@@ -49,6 +52,15 @@ const Channel = () => {
         }
       )
       .then((result) => {
+        if (newUserName) {
+          localStorage.setItem("user_name", newUserName);
+          dispatch(setUserName(newUserName));
+        }
+        if (image) {
+          localStorage.setItem("image", image);
+          dispatch(setUserImage(image));
+        }
+
         setUserName("");
         setEmail("");
         console.log(result);
@@ -63,7 +75,7 @@ const Channel = () => {
   const uploadImage = async (e) => {
     e.preventDefault();
 
-    if (!image) {
+    if (!imageUrl) {
       updateUser();
     } else {
       const option = {
@@ -76,7 +88,7 @@ const Channel = () => {
       };
       const formData = new FormData();
 
-      formData.append("file", image);
+      formData.append("file", imageUrl);
       formData.append("upload_preset", "fzupywns");
       axios
         .post(
@@ -86,7 +98,6 @@ const Channel = () => {
         )
         .then((res) => {
           console.log(res);
-          setImage(res.data.secure_url);
           setPercentage(0);
           updateUser(res.data.secure_url);
         })
@@ -132,8 +143,13 @@ const Channel = () => {
         <Container fluid>
           <Navbar.Brand>
             <img
-              alt=""
-              src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"
+              style={{ margin: " 0 .5rem", borderRadius: "50%" }}
+              alt="user image"
+              src={
+                image
+                  ? image
+                  : "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"
+              }
               width="30"
               height="30"
               className="d-inline-block align-top"
@@ -163,11 +179,11 @@ const Channel = () => {
                   <Form.Label>User Name</Form.Label>
                   <Form.Control
                     onChange={(e) => {
-                      setUserName(e.target.value);
+                      setNewUserName(e.target.value);
                     }}
                     required
                     autoComplete="off"
-                    value={userName}
+                    value={newUserName}
                     type="text"
                     placeholder="User Name"
                   />
@@ -191,7 +207,7 @@ const Channel = () => {
                 <Form.Label>Drag & Drop</Form.Label>
                 <Form.Control
                   onChange={(e) => {
-                    setImage(e.target.files[0]);
+                    setImageUrl(e.target.files[0]);
                   }}
                   type="file"
                 />

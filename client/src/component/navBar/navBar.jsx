@@ -17,11 +17,12 @@ import { setVideos } from "../../reducer/video/index";
 const NavBar = () => {
   const [value, setValue] = useState("");
   const dispatch = useDispatch();
-  const { isLoggedIn, token, name } = useSelector((state) => {
+  const { isLoggedIn, token, name, image } = useSelector((state) => {
     return {
       isLoggedIn: state.loginReducer.isLoggedIn,
       token: state.loginReducer.token,
       name: state.loginReducer.name,
+      image: state.loginReducer.image,
     };
   });
 
@@ -78,8 +79,13 @@ const NavBar = () => {
               <Container>
                 <Navbar.Brand>
                   <img
-                    alt=""
-                    src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"
+                    alt="user image"
+                    src={
+                      image
+                        ? image
+                        : "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"
+                    }
+                    style={{ margin: " 0 .5rem", borderRadius: "50%" }}
                     width="30"
                     height="30"
                     className="d-inline-block align-top"

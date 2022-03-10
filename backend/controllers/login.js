@@ -33,12 +33,15 @@ const login = (req, res) => {
         expiresIn: "60m",
       };
       const name = result[0].user_name;
+      const image = result[0].image;
+
       const token = await jwt.sign(payload, process.env.SECRET, options);
       return res.status(200).json({
         success: true,
         message: `Valid login credentials`,
         token: token,
         name: name,
+        image: image,
       });
     } catch (err) {
       return res.status(500).json({

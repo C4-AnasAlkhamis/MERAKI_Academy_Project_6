@@ -19,7 +19,7 @@ const Home = () => {
     };
   });
   const opts = {
-    height: "300",
+    height: "220",
     width: "100%",
     playerVars: {
       autoplay: 0,

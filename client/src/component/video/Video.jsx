@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Ratio } from "react-bootstrap";
+import { Ratio, Card } from "react-bootstrap";
 
 import YouTube from "react-youtube";
 import { setVideos } from "../../reducer/video/index";
@@ -19,16 +19,17 @@ const Video = () => {
   });
   const opts = {
     height: "390",
-    width: "640",
+    width: "100%",
     playerVars: {
+      // https://developers.google.com/youtube/player_parameters
       autoplay: 0,
     },
   };
 
-  const videoOnReady = (event) => {
-    // access to player in all event handlers via event.target
-    event.target.pauseVideo();
-  };
+  // const videoOnReady = (event) => {
+  //   // access to player in all event handlers via event.target
+  //   event.target.pauseVideo();
+  // };
   const getVideoById = async () => {
     try {
       const result = await axios.get(`http://localhost:5000/video/${id}`, {
@@ -47,27 +48,38 @@ const Video = () => {
   useEffect(() => {
     getVideoById();
   }, []);
-  console.log(id, videos);
+  // console.log(videos[0].video.match(/([A-Z])\w+/)[0]);
   return (
     <>
-      {videos[0] && videos[0].video.includes("youtube") ? (
-        <YouTube
-          videoId="KsaXLHOrqPI"
-          onPlay={(e) => {
-            console.log(e);
-
-            e.target.mute();
-          }}
-          opts={opts}
-          onReady={videoOnReady}
-        />
-      ) : (
-        <div>
-          <Ratio aspectRatio="16x9">
-            <iframe src={videos[0].video}></iframe>
-          </Ratio>
-        </div>
-      )}
+      <Card style={{ width: "60%", height: "90vh", margin: "0 auto" }}>
+        {videos[0] && videos[0].video.includes("youtube") ? (
+          <YouTube
+            videoId={videos[0].video.match(/([A-Z])\w+/)[0]}
+            onPlay={(e) => {
+              e.target.mute();
+            }}
+            opts={opts}
+            // onReady={videoOnReady}
+          />
+        ) : (
+          <div>
+            <Ratio aspectRatio="16x9">
+              <iframe
+                frameborder="0"
+                allow="fullscreen;"
+                allowfullscreen
+                src={videos[0].video}
+              ></iframe>
+            </Ratio>
+          </div>
+        )}
+        <Card.Body>
+          <Card.Text>
+            Some quick example text to build on the card title and make up the
+            bulk of the card's content.
+          </Card.Text>
+        </Card.Body>
+      </Card>
     </>
   );
 };

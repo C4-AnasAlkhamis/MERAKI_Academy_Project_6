@@ -2,7 +2,7 @@ const initialState = {
   videos: [],
   id: null,
   channel: localStorage.getItem("channel")
-    ? localStorage.getItem("channel")
+    ? JSON.parse(localStorage.getItem("channel"))
     : null,
 };
 // =======================  //

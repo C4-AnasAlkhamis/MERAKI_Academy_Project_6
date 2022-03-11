@@ -135,7 +135,6 @@ const Channel = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(result);
       dispatch(setVideos(result.data.result));
     } catch (error) {
       console.log(error);
@@ -148,7 +147,6 @@ const Channel = () => {
       autoplay: 0,
     },
   };
-  console.log(channel);
   const videoOnReady = (event) => {
     event.target.pauseVideo();
   };
@@ -165,7 +163,7 @@ const Channel = () => {
             style={{ cursor: "pointer" }}
             onClick={() => navigate("/channel")}
           >
-            {channel}
+            {channel.title}
           </Navbar.Brand>
           <Container>
             {channel ? (
@@ -267,7 +265,7 @@ const Channel = () => {
               <Card.Body style={{ height: "300px" }}>
                 {_.video.includes("youtube") ? (
                   <YouTube
-                    videoId={_.video.match(/([A-Z])\w+/)[0]}
+                    videoId={_.video.match(/(?<==)\w*/)[0]}
                     onPlay={(e) => {
                       e.target.mute();
                     }}

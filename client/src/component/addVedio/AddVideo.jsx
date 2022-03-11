@@ -4,15 +4,15 @@ import "./addVideo.css";
 import { useSelector } from "react-redux";
 
 const AddVideo = () => {
-  const [channel_id, setChannel_id] = useState(1);
   const [file, setFile] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [select, setSelect] = useState("1");
   const [videoUrl, setVideoUrl] = useState("");
   const [percentage, setPercentage] = useState(0);
-  const { token, user_name, image } = useSelector((state) => {
+  const { token, user_name, image, channel } = useSelector((state) => {
     return {
+      channel: state.videosReducer.channel,
       isLoggedIn: state.loginReducer.isLoggedIn,
       token: state.loginReducer.token,
       user_name: state.loginReducer.name,
@@ -24,7 +24,7 @@ const AddVideo = () => {
     try {
       await axios.post(
         `http://localhost:5000/video`,
-        { user_name, channel_id, title, description, video, image },
+        { user_name, channel_id: channel.id, title, description, video, image },
         {
           headers: {
             Authorization: `Bearer ${token}`,

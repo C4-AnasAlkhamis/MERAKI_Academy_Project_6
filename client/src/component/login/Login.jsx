@@ -24,9 +24,8 @@ const Login = () => {
           },
         }
       );
-      console.log(result);
-      localStorage.setItem("channel", result.data.result[0].title);
-      dispatch(setChannel(result.data.result[0].title));
+      localStorage.setItem("channel", JSON.stringify(result.data.result[0]));
+      dispatch(setChannel(result.data.result[0]));
     } catch (error) {
       console.log(error);
     }

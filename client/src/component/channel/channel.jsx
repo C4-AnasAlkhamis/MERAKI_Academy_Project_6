@@ -33,7 +33,6 @@ const Channel = () => {
       return {
         videos: state.videosReducer.videos,
         channel: state.videosReducer.channel,
-
         isLoggedIn: state.loginReducer.isLoggedIn,
         token: state.loginReducer.token,
         name: state.loginReducer.name,

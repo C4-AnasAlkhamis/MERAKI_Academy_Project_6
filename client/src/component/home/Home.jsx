@@ -1,32 +1,19 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./home.css";
 import { format } from "timeago.js";
-
 import YouTube from "react-youtube";
 import { setVideos, setId } from "../../reducer/video/index";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  Row,
-  Col,
-  Ratio,
-  Navbar,
-  Container,
-  NavDropdown,
-} from "react-bootstrap";
+import { Row, Col, Ratio, Navbar, Container } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 const Home = () => {
-  const [search, setSearch] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isLoggedIn, token, videos, image, name } = useSelector((state) => {
+  const { videos } = useSelector((state) => {
     return {
       videos: state.videosReducer.videos,
-      isLoggedIn: state.loginReducer.isLoggedIn,
-      token: state.loginReducer.token,
-      image: state.loginReducer.image,
-      name: state.loginReducer.name,
     };
   });
   const opts = {
@@ -61,32 +48,19 @@ const Home = () => {
     <>
       <Navbar>
         <Container>
-          <div class="dropdown">
+          <div className="dropdown">
             <button
-              class="btn dropdown-toggle"
-              type="button"
+              className="btn dropdown-toggle"
               id="dropdownMenuButton1"
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
               Filter By Date
             </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li>
-                <a class="dropdown-item" href="#">
-                  Action
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="#">
-                  Another action
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="#">
-                  Something else here
-                </a>
-              </li>
+            <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li>Action</li>
+              <li>Another action</li>
+              <li>Something else here</li>
             </ul>
           </div>
         </Container>
@@ -105,7 +79,11 @@ const Home = () => {
                 ) : (
                   <div>
                     <Ratio aspectRatio="16x9">
-                      <iframe src={_.video} frameBorder="0"></iframe>
+                      <iframe
+                        title={_.title}
+                        src={_.video}
+                        frameBorder="0"
+                      ></iframe>
                     </Ratio>
                   </div>
                 )}

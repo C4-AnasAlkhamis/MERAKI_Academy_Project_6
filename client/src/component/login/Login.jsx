@@ -5,7 +5,7 @@ import "./login.css";
 import { logIn, setUserName, setUserImage } from "../../reducer/login/index";
 import { setChannel } from "../../reducer/video/index";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Form, Button } from "react-bootstrap";
 const Login = () => {
   const dispatch = useDispatch();
@@ -15,19 +15,21 @@ const Login = () => {
 
   // ----------------------------------------
   const getChannel = async (token) => {
-    await axios
-      .get("http://localhost:5000/channel/my-channel", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((result) => {
-        localStorage.setItem("channel", result.data.result[0].title);
-        dispatch(setChannel(result.data.result[0].title));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    try {
+      const result = await axios.get(
+        "http://localhost:5000/channel/my-channel",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(result);
+      localStorage.setItem("channel", result.data.result[0].title);
+      dispatch(setChannel(result.data.result[0].title));
+    } catch (error) {
+      console.log(error);
+    }
   };
   // ----------------------------------------
 
@@ -38,12 +40,12 @@ const Login = () => {
         password,
       })
       .then((result) => {
-        getChannel(result.data.token);
         dispatch(setUserName(result.data.name));
         dispatch(setUserImage(result.data.image));
         localStorage.setItem("token", result.data.token);
         localStorage.setItem("user_name", result.data.name);
         localStorage.setItem("image", result.data.image);
+        getChannel(result.data.token);
         setEmail("");
         setPassword("");
         dispatch(logIn(result.data.token));

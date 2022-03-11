@@ -1,25 +1,20 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import "./addChannel.css";
-import YouTube from "react-youtube";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { Form, Button } from "react-bootstrap";
 
 const AddChannel = () => {
   const [title, setTitle] = useState("");
-  const dispatch = useDispatch();
-  const { isLoggedIn, token, videos } = useSelector((state) => {
+  const { token } = useSelector((state) => {
     return {
-      videos: state.videosReducer.videos,
-      isLoggedIn: state.loginReducer.isLoggedIn,
       token: state.loginReducer.token,
     };
   });
   const createNewChannel = async (e) => {
     e.preventDefault();
     try {
-      const result = await axios.post(
+ await axios.post(
         `http://localhost:5000/channel`,
         { title },
         {

@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-// import "./navbar.css";
 import axios from "axios";
 import { logOut } from "../../reducer/login/index";
 import { useSelector, useDispatch } from "react-redux";
@@ -17,10 +15,9 @@ import { setVideos } from "../../reducer/video/index";
 const NavBar = () => {
   const [value, setValue] = useState("");
   const dispatch = useDispatch();
-  const { isLoggedIn, token, name, image } = useSelector((state) => {
+  const { isLoggedIn, name, image } = useSelector((state) => {
     return {
       isLoggedIn: state.loginReducer.isLoggedIn,
-      token: state.loginReducer.token,
       name: state.loginReducer.name,
       image: state.loginReducer.image,
     };

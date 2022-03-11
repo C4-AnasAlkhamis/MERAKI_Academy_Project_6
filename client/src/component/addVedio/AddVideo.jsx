@@ -8,12 +8,11 @@ const AddVideo = () => {
   const [file, setFile] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [select, setSelect] = useState(1);
+  const [select, setSelect] = useState("1");
   const [videoUrl, setVideoUrl] = useState("");
   const [percentage, setPercentage] = useState(0);
-  const { token, videos, user_name, image } = useSelector((state) => {
+  const { token, user_name, image } = useSelector((state) => {
     return {
-      videos: state.videosReducer.videos,
       isLoggedIn: state.loginReducer.isLoggedIn,
       token: state.loginReducer.token,
       user_name: state.loginReducer.name,
@@ -23,7 +22,7 @@ const AddVideo = () => {
   // ------------------------------
   const uploadVideo = async (video) => {
     try {
-      const result = await axios.post(
+      await axios.post(
         `http://localhost:5000/video`,
         { user_name, channel_id, title, description, video, image },
         {
@@ -123,7 +122,7 @@ const AddVideo = () => {
             <option value="1">YouTube Link</option>
             <option value="2">Upload Video</option>
           </select>
-          {select == 1 ? (
+          {select === "1" ? (
             <input
               onChange={(e) => {
                 setVideoUrl(e.target.value);
@@ -137,7 +136,7 @@ const AddVideo = () => {
             />
           ) : null}
 
-          {select == 2 ? (
+          {select === "2" ? (
             <>
               <label className="form-label" htmlFor="image">
                 Drag & Drop video

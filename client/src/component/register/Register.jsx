@@ -2,7 +2,7 @@ import "./register.css";
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { FloatingLabel, Form, Button } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 // import logo from "../../image/cones.jpg";
 const Register = () => {
   const navigate = useNavigate();
@@ -10,7 +10,6 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
-  const [done, setDone] = useState(false);
 
   const createUser = async (e) => {
     e.preventDefault();
@@ -29,7 +28,6 @@ const Register = () => {
           setRepeatPassword("");
           setEmail("");
           setPassword("");
-          setDone(true);
           navigate("/login");
         })
         .catch((err) => {

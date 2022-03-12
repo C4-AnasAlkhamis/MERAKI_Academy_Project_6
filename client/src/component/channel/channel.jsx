@@ -270,7 +270,7 @@ const Channel = () => {
         {videos.map((_, idx) => (
           <Col key={idx}>
             <Card>
-              <DeleteVideo />
+              <DeleteVideo id={_.id} />
               <Card.Body style={{ height: "300px" }}>
                 {_.video.includes("youtube") ? (
                   <YouTube

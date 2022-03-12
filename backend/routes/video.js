@@ -5,7 +5,8 @@ const {
   getFilteredVideo,
   getVideoById,
   updateVideosById,
-  updateAllVideos
+  updateAllVideos,
+  deleteVideoById,
 } = require("../controllers/video");
 const videoRouter = express.Router();
 const { authentication } = require("../middleware/authentication");
@@ -17,7 +18,7 @@ videoRouter.get("/:id", getVideoById);
 videoRouter.post("/search", getFilteredVideo);
 videoRouter.put("/", authentication, updateVideosById);
 videoRouter.put("/all", authentication, updateAllVideos);
-
+videoRouter.put("/delete/:id", authentication, deleteVideoById);
 
 // -------------------------
 module.exports = videoRouter;

@@ -26,7 +26,7 @@ const createNewChannel = (req, res) => {
 // This function get all videos from videos
 const getAllVideoByChannelId = (req, res) => {
   const user_id = req.token.userId;
-  const query = `SELECT * FROM videos WHERE user_id = ?`;
+  const query = `SELECT * FROM videos WHERE  is_deleted = 0 AND user_id = ?`;
   const data = [user_id];
   connection.query(query, data, (err, result) => {
     if (err) {
@@ -50,7 +50,7 @@ const getAllVideoByChannelId = (req, res) => {
 };
 const getChannelByUserId = (req, res) => {
   const user_id = req.token.userId;
-  const query = `SELECT * FROM channels WHERE user_id = ?`;
+  const query = `SELECT * FROM channels WHERE user_id = ? `;
   const data = [user_id];
   connection.query(query, data, (err, result) => {
     if (err) {

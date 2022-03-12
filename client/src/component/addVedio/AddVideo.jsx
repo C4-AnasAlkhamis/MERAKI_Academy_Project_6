@@ -92,6 +92,7 @@ const AddVideo = () => {
           }}
         >
           <input
+            disabled={percentage ? true : false}
             onChange={(e) => {
               setTitle(e.target.value);
             }}
@@ -104,6 +105,7 @@ const AddVideo = () => {
           />
 
           <textarea
+            disabled={percentage ? true : false}
             onChange={(e) => {
               setDescription(e.target.value);
             }}
@@ -115,6 +117,7 @@ const AddVideo = () => {
             placeholder="description"
           />
           <select
+            disabled={percentage ? true : false}
             onChange={(e) => setSelect(e.target.value)}
             className="form-select"
             aria-label="Default select example"
@@ -124,10 +127,11 @@ const AddVideo = () => {
           </select>
           {select === "1" ? (
             <input
+              disabled={percentage ? true : false}
               onChange={(e) => {
                 setVideoUrl(e.target.value);
               }}
-              // required
+              required
               className="form-control"
               autoComplete="off"
               value={videoUrl}
@@ -142,12 +146,13 @@ const AddVideo = () => {
                 Drag & Drop video
               </label>
               <input
+                required
+                disabled={percentage ? true : false}
                 onChange={(e) => {
                   setVideoUrl(e.target.files[0]);
                   setFile(!file);
                 }}
                 className="form-control"
-                required
                 autoComplete="off"
                 type="file"
                 placeholder="video"
@@ -157,7 +162,11 @@ const AddVideo = () => {
           ) : null}
 
           <div className="d-grid gap-2 d-md-block">
-            <button type="submit" className="btn btn-lg btn-primary">
+            <button
+              disabled={percentage ? true : false}
+              type="submit"
+              className="btn btn-lg btn-primary"
+            >
               upload
             </button>
           </div>

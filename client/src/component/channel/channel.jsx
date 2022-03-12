@@ -215,7 +215,7 @@ const Channel = () => {
                     onChange={(e) => {
                       setNewUserName(e.target.value);
                     }}
-                    required
+                    disabled={percentage ? true : false}
                     autoComplete="off"
                     value={newUserName}
                     type="text"
@@ -227,8 +227,8 @@ const Channel = () => {
                   onChange={(e) => {
                     setEmail(e.target.value);
                   }}
+                  disabled={percentage ? true : false}
                   value={email}
-                  required
                   autoComplete="off"
                   type="email"
                   placeholder="Enter email"
@@ -240,6 +240,7 @@ const Channel = () => {
               <Form.Group controlId="formFile" className="mb-3">
                 <Form.Label>Drag & Drop Image</Form.Label>
                 <Form.Control
+                  disabled={percentage ? true : false}
                   onChange={(e) => {
                     setImageUrl(e.target.files[0]);
                   }}
@@ -247,7 +248,11 @@ const Channel = () => {
                 />
               </Form.Group>
 
-              <Button onClick={uploadImage} variant="outline-primary">
+              <Button
+                disabled={percentage ? true : false}
+                onClick={uploadImage}
+                variant="outline-primary"
+              >
                 Submit
               </Button>
               <div className="d-grid gap-2 d-md-block">

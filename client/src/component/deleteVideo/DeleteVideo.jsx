@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { Form, Modal, Button } from "react-bootstrap";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import { setVideos } from "../../reducer/video/index";
+import { deleteVideo } from "../../reducer/video/index";
 
-const DeleteVideo = ({ id }) => {
+const DeleteVideos = ({ id }) => {
+  console.log(id);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -15,14 +16,20 @@ const DeleteVideo = ({ id }) => {
       token: state.loginReducer.token,
     };
   });
-  const deleteVideo = async () => {
+  const deleteVideoById = async () => {
     try {
-      const result = axios.put(`http://localhost:5000/video/delete/${id}`, {
-        header: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const result = await axios.put(
+        `http://localhost:5000/video/delete/${id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      dispatch(deleteVideo(id));
       console.log(result);
+      handleClose();
     } catch (error) {
       console.log(error);
     }
@@ -59,11 +66,13 @@ const DeleteVideo = ({ id }) => {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary">Understood</Button>
+          <Button onClick={deleteVideoById} variant="primary">
+            Confirm
+          </Button>
         </Modal.Footer>
       </Modal>
     </div>
   );
 };
 
-export default DeleteVideo;
+export default DeleteVideos;

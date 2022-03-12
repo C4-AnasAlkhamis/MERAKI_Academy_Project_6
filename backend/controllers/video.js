@@ -109,7 +109,7 @@ const getFilteredVideo = (req, res) => {
 // This function update on is_deleted video By Id
 const deleteVideoById = (req, res) => {
   const id = req.params.id;
-  const query = `UPDATE videos SET is_deleted = 1 WHERE id = ?`;
+  const query = `UPDATE videos SET is_deleted = 1 WHERE videos.id = ?`;
   const data = [id];
   connection.query(query, data, (err, result) => {
     if (err) {

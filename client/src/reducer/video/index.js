@@ -21,18 +21,18 @@ const videosReducer = (state = initialState, { type, payload }) => {
     case "ADD_VIDEO":
       return { ...state, videos: [...state.videos, payload] };
 
-    case "UPDATE_VIDEO":
+    case "DELETE_VIDEO":
       return {
         ...state,
-        items: state.videos.filter((video) => {
+        videos: state.videos.filter((video) => {
           return video.id !== payload;
         }),
       };
 
-    case "DELETE_VIDEO":
+    case "UPDATE_VIDEO":
       return {
         ...state,
-        items: state.videos.map((video) => {
+        videos: state.videos.map((video) => {
           if (video.id === payload.id) {
             return payload;
           }

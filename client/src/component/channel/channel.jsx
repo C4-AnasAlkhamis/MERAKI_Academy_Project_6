@@ -28,7 +28,7 @@ const Channel = () => {
   const [newUserName, setNewUserName] = useState("");
   const [email, setEmail] = useState("");
   const dispatch = useDispatch();
-  const { isLoggedIn, token, videos, name, image, channel } = useSelector(
+  const { isLoggedIn, token, videos, name, img, channel } = useSelector(
     (state) => {
       return {
         videos: state.videosReducer.videos,
@@ -36,7 +36,7 @@ const Channel = () => {
         isLoggedIn: state.loginReducer.isLoggedIn,
         token: state.loginReducer.token,
         name: state.loginReducer.name,
-        image: state.loginReducer.image,
+        img: state.loginReducer.img,
       };
     }
   );
@@ -269,6 +269,11 @@ const Channel = () => {
         {videos.map((_, idx) => (
           <Col key={idx}>
             <Card>
+              <Form.Select size="sm">
+                <option>Option</option>
+                <option>Delete</option>
+                <option>update</option>
+              </Form.Select>
               <Card.Body style={{ height: "300px" }}>
                 {_.video.includes("youtube") ? (
                   <YouTube
@@ -297,7 +302,7 @@ const Channel = () => {
                       marginRight: ".5rem",
                       borderRadius: "50%",
                     }}
-                    alt="user image"
+                    alt={_.user_name}
                     src={
                       _.image
                         ? _.image

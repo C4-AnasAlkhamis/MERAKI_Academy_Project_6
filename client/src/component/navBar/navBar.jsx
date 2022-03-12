@@ -15,11 +15,11 @@ import { setVideos } from "../../reducer/video/index";
 const NavBar = () => {
   const [value, setValue] = useState("");
   const dispatch = useDispatch();
-  const { isLoggedIn, name, image } = useSelector((state) => {
+  const { isLoggedIn, name, img } = useSelector((state) => {
     return {
       isLoggedIn: state.loginReducer.isLoggedIn,
       name: state.loginReducer.name,
-      image: state.loginReducer.image,
+      img: state.loginReducer.img,
     };
   });
 
@@ -74,10 +74,10 @@ const NavBar = () => {
                 <Container>
                   <Navbar.Brand>
                     <img
-                      alt="user image"
+                      alt={name}
                       src={
-                        image
-                          ? image
+                        img
+                          ? img
                           : "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"
                       }
                       style={{ margin: " 0 .5rem", borderRadius: "50%" }}

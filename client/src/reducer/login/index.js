@@ -4,8 +4,7 @@ const initialState = {
   name: localStorage.getItem("user_name")
     ? localStorage.getItem("user_name")
     : null,
-    image:localStorage.getItem("image")
-    ? localStorage.getItem("image"): null,
+  img: localStorage.getItem("image") ? localStorage.getItem("image") : null,
 };
 // =======================  //
 
@@ -17,8 +16,8 @@ const loginReducer = (state = initialState, { type, payload }) => {
       return { ...state, token: null, isLoggedIn: false };
     case "SET_NAME":
       return { ...state, name: payload };
-      case "SET_IMAGE":
-        return { ...state, image: payload };
+    case "SET_IMAGE":
+      return { ...state, img: payload };
     default:
       return state;
   }
@@ -34,8 +33,8 @@ export const setUserName = (name) => {
   return { type: "SET_NAME", payload: name };
 };
 // =======================  //
-export const setUserImage = (image) => {
-  return { type: "SET_IMAGE", payload: image };
+export const setUserImage = (img) => {
+  return { type: "SET_IMAGE", payload: img };
 };
 // =======================  //
 

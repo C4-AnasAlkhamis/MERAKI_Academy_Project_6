@@ -135,7 +135,9 @@ const Channel = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      dispatch(setVideos(result.data.result));
+      if (result.data.result) {
+        dispatch(setVideos(result.data.result));
+      }
     } catch (error) {
       console.log(error);
     }
@@ -163,7 +165,7 @@ const Channel = () => {
             style={{ cursor: "pointer" }}
             onClick={() => navigate("/channel")}
           >
-            {channel.title}
+            {channel && channel.title}
           </Navbar.Brand>
           <Container>
             {channel ? (

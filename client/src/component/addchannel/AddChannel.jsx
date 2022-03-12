@@ -3,8 +3,13 @@ import React, { useState } from "react";
 import "./addChannel.css";
 import { useSelector } from "react-redux";
 import { Form, Button } from "react-bootstrap";
-
+import { setChannel } from "../../reducer/video/index";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 const AddChannel = () => {
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
   const [title, setTitle] = useState("");
   const { token } = useSelector((state) => {
     return {
@@ -14,7 +19,7 @@ const AddChannel = () => {
   const createNewChannel = async (e) => {
     e.preventDefault();
     try {
- await axios.post(
+      const result = await axios.post(
         `http://localhost:5000/channel`,
         { title },
         {
@@ -23,7 +28,14 @@ const AddChannel = () => {
           },
         }
       );
+      console.log(result);
+      localStorage.setItem(
+        "channel",
+        JSON.stringify({ title: title, id: result.data.result.insertId })
+      );
+      dispatch(setChannel({ title: title, id: result.data.result.insertId }));
       setTitle("");
+      navigate("/channel");
     } catch (error) {
       console.log(error.response);
     }

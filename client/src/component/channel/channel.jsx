@@ -20,6 +20,7 @@ import {
   Card,
   Button,
 } from "react-bootstrap";
+import DeleteVideo from "../deleteVideo/DeleteVideo";
 
 const Channel = () => {
   const navigate = useNavigate();
@@ -269,11 +270,7 @@ const Channel = () => {
         {videos.map((_, idx) => (
           <Col key={idx}>
             <Card>
-              <Form.Select size="sm">
-                <option>Option</option>
-                <option>Delete</option>
-                <option>update</option>
-              </Form.Select>
+              <DeleteVideo />
               <Card.Body style={{ height: "300px" }}>
                 {_.video.includes("youtube") ? (
                   <YouTube

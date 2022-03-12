@@ -92,9 +92,7 @@ const Login = () => {
               placeholder="Password"
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicCheckbox">
-            <Form.Check type="checkbox" label="Check me out" />
-          </Form.Group>
+
           <Button onClick={verifyUser} variant="outline-primary">
             Login
           </Button>

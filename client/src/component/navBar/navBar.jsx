@@ -70,23 +70,27 @@ const NavBar = () => {
                   </NavDropdown.Item>
                 )}
               </NavDropdown>
-              <Container>
-                <Navbar.Brand>
-                  <img
-                    alt="user image"
-                    src={
-                      image
-                        ? image
-                        : "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"
-                    }
-                    style={{ margin: " 0 .5rem", borderRadius: "50%" }}
-                    width="30"
-                    height="30"
-                    className="d-inline-block align-top"
-                  />
-                  {name}
-                </Navbar.Brand>
-              </Container>
+              {isLoggedIn ? (
+                <Container>
+                  <Navbar.Brand>
+                    <img
+                      alt="user image"
+                      src={
+                        image
+                          ? image
+                          : "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"
+                      }
+                      style={{ margin: " 0 .5rem", borderRadius: "50%" }}
+                      width="30"
+                      height="30"
+                      className="d-inline-block align-top"
+                    />
+                    {name}
+                  </Navbar.Brand>
+                </Container>
+              ) : (
+                <Nav.Link href="/login">Login</Nav.Link>
+              )}
             </Nav>
             <Form className="d-flex">
               <FormControl

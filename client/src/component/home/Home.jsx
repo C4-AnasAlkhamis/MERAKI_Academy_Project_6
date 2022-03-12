@@ -72,7 +72,7 @@ const Home = () => {
               <Card.Body style={{ height: "300px" }}>
                 {_.video.includes("youtube") ? (
                   <YouTube
-                    videoId={_.video.match(/([A-Z])\w+/)[0]}
+                    videoId={_.video.match(/(?<==)\w*/)[0]}
                     opts={opts}
                     onReady={videoOnReady}
                   />

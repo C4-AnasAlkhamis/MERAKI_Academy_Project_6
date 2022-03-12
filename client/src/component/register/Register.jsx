@@ -30,11 +30,8 @@ const Register = () => {
           setPassword("");
           navigate("/login");
         })
-        .catch((err) => {
-          // wrongRegister("The Email already exists");
-        });
+        .catch((err) => {});
     } else {
-      // wrongRegister("The password should be the same in the repeat password");
     }
   };
   return (
@@ -103,9 +100,6 @@ const Register = () => {
             />
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicCheckbox">
-            <Form.Check type="checkbox" label="Check me out" />
-          </Form.Group>
           <Button onClick={createUser} variant="outline-primary">
             Register
           </Button>

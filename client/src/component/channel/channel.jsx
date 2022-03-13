@@ -21,6 +21,7 @@ import {
   Button,
 } from "react-bootstrap";
 import DeleteVideos from "../deleteVideo/DeleteVideo";
+import UpdateVideo from "../updateVideo/UpdateVideo";
 
 const Channel = () => {
   const navigate = useNavigate();
@@ -28,6 +29,7 @@ const Channel = () => {
   const [percentage, setPercentage] = useState(0);
   const [newUserName, setNewUserName] = useState("");
   const [email, setEmail] = useState("");
+  const [value, setValue] = useState(null);
   const dispatch = useDispatch();
   const { isLoggedIn, token, videos, name, img, channel } = useSelector(
     (state) => {
@@ -270,7 +272,18 @@ const Channel = () => {
         {videos.map((_, idx) => (
           <Col key={idx}>
             <Card>
-              <DeleteVideos id={_.id} />
+              <Form.Select
+                onChange={(e) => {
+                  setValue(e.target.value);
+                }}
+                size="sm"
+              >
+                <option>Option</option>
+                <option value="1">Delete</option>
+                <option value="2">update</option>
+              </Form.Select>
+              {value === "1" ? <DeleteVideos id={_.id} /> : null}
+              {value === "2" ? <UpdateVideo id={_.id} /> : null}
               <Card.Body style={{ height: "300px" }}>
                 {_.video.includes("youtube") ? (
                   <YouTube

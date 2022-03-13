@@ -130,28 +130,26 @@ const deleteVideoById = (req, res) => {
 // ================================== //
 // This function to update video by id.
 const updateVideosById = (req, res) => {
-  const { title, description, list_id } = req.body;
+  const { title, description } = req.body;
   const id = req.params.id;
   const query = `UPDATE videos SET title= IF(${
     title != ""
   }, ?, title), descriptions=IF(${
     description != ""
-  }, ?, descriptions) , list_id = IF(${
-    list_id != ""
-  }, ?, list_id)  WHERE id=?;`;
+  }, ?, descriptions) WHERE id=?;`;
 
-  const data = [title, description, list_id, id];
+  const data = [title, description, id];
 
   connection.query(query, data, (err, results) => {
     if (err) {
-      return res.status(404).json({
+      return res.status(500).json({
         success: false,
         massage: `Server error`,
         err: err,
       });
     }
     if (results.changedRows == 0) {
-      return res.status(500).json({
+      return res.status(404).json({
         success: false,
         massage: `The video : ${id} is not found`,
         err: err,
@@ -165,6 +163,8 @@ const updateVideosById = (req, res) => {
     });
   });
 };
+// ================================== //
+// this function update all videos image by userId
 const updateAllVideos = (req, res) => {
   const { image } = req.body;
   const user_id = req.token.userId;

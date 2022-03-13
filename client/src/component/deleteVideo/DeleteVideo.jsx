@@ -4,12 +4,11 @@ import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteVideo } from "../../reducer/video/index";
 
-const DeleteVideos = ({ id }) => {
+const DeleteVideos = ({ id}) => {
   console.log(id);
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
   const dispatch = useDispatch();
   const { token } = useSelector((state) => {
     return {
@@ -36,19 +35,6 @@ const DeleteVideos = ({ id }) => {
   };
   return (
     <div>
-      <Form.Select
-        onChange={(e) => {
-          if (e.target.value === "1") {
-            handleShow();
-          }
-        }}
-        size="sm"
-      >
-        <option>Option</option>
-        <option value="1">Delete</option>
-
-        <option value="2">update</option>
-      </Form.Select>
       <Modal
         show={show}
         onHide={handleClose}

@@ -8,7 +8,6 @@ const DeleteVideos = ({ id}) => {
   console.log(id);
   const [show, setShow] = useState(true);
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
   const dispatch = useDispatch();
   const { token } = useSelector((state) => {
     return {

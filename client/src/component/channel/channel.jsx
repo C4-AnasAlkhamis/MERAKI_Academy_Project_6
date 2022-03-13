@@ -279,11 +279,16 @@ const Channel = () => {
                 size="sm"
               >
                 <option>Option</option>
-                <option value="1">Delete</option>
+                <option
+             
+                  value="1"
+                >
+                  Delete
+                </option>
                 <option value="2">update</option>
               </Form.Select>
-              {value === "1" ? <DeleteVideos id={_.id} /> : null}
-              {value === "2" ? <UpdateVideo id={_.id} /> : null}
+              {value == "1" ? <DeleteVideos id={_.id} /> : null}
+              {value === "2" ? <UpdateVideo obj={_} /> : null}
               <Card.Body style={{ height: "300px" }}>
                 {_.video.includes("youtube") ? (
                   <YouTube

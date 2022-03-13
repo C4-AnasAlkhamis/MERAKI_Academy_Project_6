@@ -64,11 +64,6 @@ export const setChannel = (channel) => {
 };
 // =======================  //
 
-export const addVideo = (newVideo) => {
-  return { type: "ADD_VIDEO", payload: newVideo };
-};
-// =======================  //
-
 export const updateVideo = (newVideo) => {
   return { type: "UPDATE_VIDEO", payload: newVideo };
 };

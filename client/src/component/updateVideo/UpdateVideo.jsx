@@ -52,53 +52,46 @@ const UpdateVideo = ({ obj }) => {
     }
   };
   return (
-    <div>
-      <Modal
-        show={show}
-        onHide={handleClose}
-        backdrop="static"
-        keyboard={false}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Modal title</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Group className="mb-3" controlId="formBasicText">
-              <Form.Label>Title</Form.Label>
-              <Form.Control
-                onChange={(e) => {
-                  setTitle(e.target.value);
-                }}
-                type="text"
-                placeholder="Enter title"
-                value={title}
-              />
-            </Form.Group>
+    <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
+      <Modal.Header closeButton>
+        <Modal.Title>Modal title</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form>
+          <Form.Group className="mb-3" controlId="formBasicText">
+            <Form.Label>Title</Form.Label>
+            <Form.Control
+              onChange={(e) => {
+                setTitle(e.target.value);
+              }}
+              type="text"
+              placeholder="Enter title"
+              value={title}
+            />
+          </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicText">
-              <Form.Label>Description</Form.Label>
-              <Form.Control
-                onChange={(e) => {
-                  setDescription(e.target.value);
-                }}
-                type="text"
-                placeholder="Enter Description"
-                value={description}
-              />
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button onClick={updateVideoById} variant="primary">
-            Update
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </div>
+          <Form.Group className="mb-3" controlId="formBasicText">
+            <Form.Label>Description</Form.Label>
+            <Form.Control
+              onChange={(e) => {
+                setDescription(e.target.value);
+              }}
+              type="text"
+              placeholder="Enter Description"
+              value={description}
+            />
+          </Form.Group>
+        </Form>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="secondary" onClick={handleClose}>
+          Close
+        </Button>
+        <Button onClick={updateVideoById} variant="primary">
+          Update
+        </Button>
+      </Modal.Footer>
+    </Modal>
   );
 };
 

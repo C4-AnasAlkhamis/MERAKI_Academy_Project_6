@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import "./addVideo.css";
 import { useSelector } from "react-redux";
 
+import { Spinner, Button } from "react-bootstrap";
 const AddVideo = () => {
   const [file, setFile] = useState(false);
   const [title, setTitle] = useState("");
@@ -171,7 +172,18 @@ const AddVideo = () => {
             </button>
           </div>
           <div className="d-grid gap-2 d-md-block">
-            <span>{percentage ? `Uploading ${percentage} %` : null}</span>
+            {percentage ? (
+              <Button variant="light" disabled>
+                <Spinner
+                  as="span"
+                  animation="grow"
+                  size="sm"
+                  role="status"
+                  aria-hidden="true"
+                />
+                <span>{`Uploading  ${percentage} %`}</span>
+              </Button>
+            ) : null}
           </div>
         </form>
       </div>

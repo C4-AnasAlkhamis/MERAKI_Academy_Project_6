@@ -19,6 +19,7 @@ import {
   Form,
   Card,
   Button,
+  Spinner,
 } from "react-bootstrap";
 import DeleteVideos from "../deleteVideo/DeleteVideo";
 import UpdateVideo from "../updateVideo/UpdateVideo";
@@ -43,7 +44,6 @@ const Channel = () => {
       };
     }
   );
-  console.log(channel);
   const updateVideos = async (image) => {
     await axios
       .put(
@@ -264,9 +264,18 @@ const Channel = () => {
               >
                 Submit
               </Button>
-              <div className="d-grid gap-2 d-md-block">
-                <span>{percentage ? `Uploading ${percentage} %` : null}</span>
-              </div>
+              {percentage ? (
+                <Button variant="light" disabled>
+                  <Spinner
+                    as="span"
+                    animation="grow"
+                    size="sm"
+                    role="status"
+                    aria-hidden="true"
+                  />
+                  <span>{`Uploading  ${percentage} %`}</span>
+                </Button>
+              ) : null}
             </Form>
           </Navbar.Offcanvas>
         </Container>

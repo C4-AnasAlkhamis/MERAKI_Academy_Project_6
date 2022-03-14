@@ -82,7 +82,7 @@ const getVideoById = (req, res) => {
 // This function get all videos like value
 const getFilteredVideo = (req, res) => {
   const { value } = req.body;
-  const query = `SELECT * FROM videos WHERE title LIKE ? is_deleted = 0;`;
+  const query = `SELECT * FROM videos WHERE title LIKE ? AND is_deleted = 0;`;
   const data = [value];
   connection.query(query, data, (err, result) => {
     if (err) {
@@ -104,6 +104,7 @@ const getFilteredVideo = (req, res) => {
     });
   });
 };
+
 // ================================== //
 // This function update on is_deleted video By Id
 const deleteVideoById = (req, res) => {

@@ -14,7 +14,6 @@ import {
 import { useState } from "react";
 import { setVideos } from "../../reducer/video/index";
 const NavBar = () => {
-  const [showFilter, setShowFilter] = useState(false);
   const [value, setValue] = useState("");
   const dispatch = useDispatch();
   const { isLoggedIn, name, img } = useSelector((state) => {
@@ -24,10 +23,10 @@ const NavBar = () => {
       img: state.loginReducer.img,
     };
   });
-  const search = async () => {
+  const search = async (filter) => {
     try {
       const result = await axios.post(`http://localhost:5000/video/search`, {
-        value,
+        value: filter ? filter : value,
       });
       console.log(result);
       dispatch(setVideos(result.data.result));
@@ -90,26 +89,47 @@ const NavBar = () => {
                 </Container>
               ) : null}
             </Nav>
-            {showFilter ? (
-              <Nav style={{ marginRight: "1rem" }}>
-                <NavDropdown title="Filter" id="basic-nav-dropdown">
-                  <NavDropdown.Item href="#action/3.1">
-                    last hour
-                  </NavDropdown.Item>
-                  <NavDropdown.Divider />
 
-                  <NavDropdown.Item href="#action/3.2">
-                    this day
-                  </NavDropdown.Item>
-                  <NavDropdown.Divider />
+            <Nav style={{ marginRight: "1rem" }}>
+              <NavDropdown title="Filter" id="basic-nav-dropdown">
+                <NavDropdown.Item
+                  onClick={(e) => {
+                    search("%JavaScript%");
+                  }}
+                >
+                  javascript
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
 
-                  <NavDropdown.Item href="#action/3.3">
-                    this month
-                  </NavDropdown.Item>
-                </NavDropdown>
-              </Nav>
-            ) : null}
-            <Form className="d-flex">
+                <NavDropdown.Item
+                  onClick={(e) => {
+                    search("%Node%");
+                  }}
+                >
+                  Node js
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+
+                <NavDropdown.Item
+                  onClick={(e) => {
+                    search("%Css%");
+                  }}
+                >
+                  Css
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+
+                <NavDropdown.Item
+                  onClick={(e) => {
+                    search("%HTML%");
+                  }}
+                >
+                  HTML
+                </NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
+
+            <Form className="position-relative d-flex" right="20px">
               <FormControl
                 onChange={(e) => {
                   setValue(`%${e.target.value}%`);
@@ -122,7 +142,6 @@ const NavBar = () => {
               <Button
                 onClick={() => {
                   search();
-                  setShowFilter(true);
                 }}
                 variant="outline-dark"
               >

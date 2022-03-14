@@ -166,7 +166,6 @@ const Channel = () => {
   }, []);
   return (
     <>
-      <br />
       <Navbar bg="light" expand={false}>
         <Container fluid>
           <Navbar.Brand

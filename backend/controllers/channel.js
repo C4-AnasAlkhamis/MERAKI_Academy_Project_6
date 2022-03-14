@@ -26,7 +26,7 @@ const createNewChannel = (req, res) => {
 // This function get all videos from videos by channel_id
 const getAllVideoByChannelId = (req, res) => {
   const channel_id = req.params.id;
-  const query = `SELECT * FROM videos WHERE  is_deleted = 0 AND channel_id = ?`;
+  const query = `SELECT * FROM videos WHERE  is_deleted = 0 AND channel_id = ? ORDER BY dt DESC`;
   const data = [channel_id];
   connection.query(query, data, (err, result) => {
     if (err) {

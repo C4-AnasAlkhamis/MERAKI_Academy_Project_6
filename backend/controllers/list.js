@@ -46,7 +46,7 @@ const getListByUserId = (req, res) => {
 // This function get all videos from videos by list_id
 const getAllVideoByListId = (req, res) => {
   const list_id = req.params.id;
-  const query = `SELECT * FROM videos WHERE is_deleted = 0 AND list_id = ?`;
+  const query = `SELECT * FROM videos WHERE is_deleted = 0 AND list_id = ? ORDER BY dt DESC`;
   const data = [list_id];
   connection.query(query, data, (err, result) => {
     if (err) {

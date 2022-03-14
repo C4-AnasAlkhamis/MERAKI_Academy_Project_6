@@ -36,7 +36,7 @@ const createNewVideo = async (req, res) => {
 
 // This function get all videos from videos
 const getAllVideos = (req, res) => {
-  const query = `SELECT * FROM videos WHERE is_deleted = 0`;
+  const query = `SELECT * FROM videos  WHERE is_deleted = 0  ORDER BY dt DESC`;
   connection.query(query, (err, result) => {
     if (err) {
       return res.status(500).json({
@@ -82,7 +82,7 @@ const getVideoById = (req, res) => {
 // This function get all videos like value
 const getFilteredVideo = (req, res) => {
   const { value } = req.body;
-  const query = `SELECT * FROM videos WHERE title LIKE ? AND is_deleted = 0;`;
+  const query = `SELECT * FROM videos WHERE title LIKE ? AND is_deleted = 0 ORDER BY dt DESC;`;
   const data = [value];
   connection.query(query, data, (err, result) => {
     if (err) {

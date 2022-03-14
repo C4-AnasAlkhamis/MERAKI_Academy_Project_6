@@ -39,7 +39,7 @@ const Video = () => {
       <Card style={{ width: "60%", height: "90vh", margin: "1rem auto" }}>
         {videos[0] && videos[0].video.includes("youtube") ? (
           <YouTube
-            videoId={videos[0].video.match(/([A-Z])\w+/)[0]}
+            videoId={videos[0].video.match(/(?<==)\w*/)[0]}
             opts={opts}
             nocookie
           />

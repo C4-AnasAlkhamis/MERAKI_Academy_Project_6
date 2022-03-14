@@ -129,16 +129,15 @@ const deleteVideoById = (req, res) => {
 // ================================== //
 // This function to update video by id.
 const updateVideosById = (req, res) => {
-  const { title, description } = req.body;
-
   const id = req.params.id;
+  const { title, description, list_id } = req.body;
   const query = `UPDATE videos SET title= IF(${
     title != ""
   }, ?, title), description=IF(${
     description != ""
-  }, ?, description) WHERE id=?;`;
+  }, ?, description), list_id=IF(${list_id != ""}, ?, list_id) WHERE id=?;`;
 
-  const data = [title, description, id];
+  const data = [title, description, list_id, id];
 
   connection.query(query, data, (err, results) => {
     if (err) {

@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setLists } from "../../reducer/list/index";
-import { Container, Nav, NavDropdown } from "react-bootstrap";
+import { NavDropdown } from "react-bootstrap";
 import axios from "axios";
 const List = () => {
   const dispatch = useDispatch();
-  const { isLoggedIn, token, lists } = useSelector((state) => {
+  const { token, lists } = useSelector((state) => {
     return {
       lists: state.listsReducer.lists,
       isLoggedIn: state.loginReducer.isLoggedIn,

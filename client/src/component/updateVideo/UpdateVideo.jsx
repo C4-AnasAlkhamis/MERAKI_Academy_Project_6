@@ -4,15 +4,17 @@ import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { updateVideo } from "../../reducer/video/index";
 const UpdateVideo = ({ obj }) => {
+  const [list_id, setList_id] = useState(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [show, setShow] = useState(true);
   const handleClose = () => setShow(false);
 
   const dispatch = useDispatch();
-  const { token } = useSelector((state) => {
+  const { token, lists } = useSelector((state) => {
     return {
       token: state.loginReducer.token,
+      lists: state.listsReducer.lists,
     };
   });
   const updateVideoById = async () => {
@@ -20,21 +22,20 @@ const UpdateVideo = ({ obj }) => {
     try {
       const result = await axios.put(
         `http://localhost:5000/video/${obj.id}`,
-        { title, description },
+        { title, description, list_id },
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
       );
-
       dispatch(
         updateVideo({
           id: obj.id,
           user_id: obj.user_id,
           user_name: obj.user_name,
           channel_id: obj.channel_id,
-          list_id: obj.list_id,
+          list_id: list_id ? list_id : obj.list_id,
           title: title ? title : obj.title,
           description: description ? description : obj.description,
           video: obj.video,
@@ -43,7 +44,6 @@ const UpdateVideo = ({ obj }) => {
           is_deleted: obj.is_deleted,
         })
       );
-      console.log(result);
       setTitle("");
       setDescription("");
       handleClose();
@@ -51,7 +51,6 @@ const UpdateVideo = ({ obj }) => {
       console.log(error);
     }
   };
-
   return (
     <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
       <Modal.Header closeButton>
@@ -83,6 +82,27 @@ const UpdateVideo = ({ obj }) => {
             />
           </Form.Group>
         </Form>
+        <Form.Group className="mb-3">
+          <Form.Label>Add video to a list</Form.Label>
+          <Form.Select
+            onChange={(e) => {
+              setList_id(e.target.value);
+            }}
+          >
+            <option>pick a list</option>
+            {lists ? (
+              lists.map((list) => {
+                return (
+                  <option key={list.id} value={list.id}>
+                    {list.list}
+                  </option>
+                );
+              })
+            ) : (
+              <option>No list</option>
+            )}
+          </Form.Select>
+        </Form.Group>
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>

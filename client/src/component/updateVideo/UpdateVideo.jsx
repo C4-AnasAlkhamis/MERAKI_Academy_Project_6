@@ -51,26 +51,7 @@ const UpdateVideo = ({ obj }) => {
       console.log(error);
     }
   };
-  const getAllListByUserId = async () => {
-    console.log(obj);
-    try {
-      const result = await axios.put(
-        `http://localhost:5000/list/${obj.id}`,
-        { title, description },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      console.log(result);
-      setTitle("");
-      setDescription("");
-      handleClose();
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
   return (
     <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
       <Modal.Header closeButton>

@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./channel.css";
 import YouTube from "react-youtube";
 import { useSelector, useDispatch } from "react-redux";
@@ -22,7 +22,7 @@ import {
 } from "react-bootstrap";
 import DeleteVideos from "../deleteVideo/DeleteVideo";
 import UpdateVideo from "../updateVideo/UpdateVideo";
-
+import List from "../list/List";
 const Channel = () => {
   const navigate = useNavigate();
   const [imageUrl, setImageUrl] = useState();
@@ -161,7 +161,6 @@ const Channel = () => {
   return (
     <>
       <br />
-
       <Navbar bg="light" expand={false}>
         <Container fluid>
           <Navbar.Brand
@@ -195,6 +194,7 @@ const Channel = () => {
                 <Nav.Link href="/add-channel">Create Channel</Nav.Link>
               </Nav>
             ) : null}
+            <List />
           </Container>
           <Navbar.Toggle aria-controls="offcanvasNavbar" />
           <Navbar.Offcanvas
@@ -267,6 +267,7 @@ const Channel = () => {
           </Navbar.Offcanvas>
         </Container>
       </Navbar>
+
       {/* ---------------------------------- */}
       <Row style={{ padding: "3rem 1rem" }} xs={1} md={3} className="g-4">
         {videos.map((_, idx) => (

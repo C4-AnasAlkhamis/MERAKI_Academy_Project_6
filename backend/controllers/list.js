@@ -37,7 +37,7 @@ const getListByUserId = (req, res) => {
     }
     res.status(200).json({
       success: true,
-      message: `list with UserId ${id}`,
+      message: `list with UserId ${user_id}`,
       result: result,
     });
   });

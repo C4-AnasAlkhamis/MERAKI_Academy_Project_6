@@ -31,6 +31,7 @@ const Channel = () => {
   const [newUserName, setNewUserName] = useState("");
   const [email, setEmail] = useState("");
   const [value, setValue] = useState("0");
+  const [id, setId] = useState(null);
   const dispatch = useDispatch();
   const { isLoggedIn, token, videos, name, img, channel } = useSelector(
     (state) => {
@@ -290,6 +291,7 @@ const Channel = () => {
                 id={_.id}
                 onChange={(e) => {
                   setValue(e.target.value);
+                  setId(_.id);
                 }}
                 value={"0" || value}
                 size="sm"
@@ -298,10 +300,10 @@ const Channel = () => {
                 <option value="1">Delete</option>
                 <option value="2">update</option>
               </Form.Select>
-              {value == "1" ? (
+              {value === "1" && id === _.id ? (
                 <DeleteVideos id={_.id} setValue={setValue} />
               ) : null}
-              {value === "2" ? (
+              {value === "2" && id === _.id ? (
                 <UpdateVideo obj={_} setValue={setValue} />
               ) : null}
               <Card.Body style={{ height: "300px" }}>

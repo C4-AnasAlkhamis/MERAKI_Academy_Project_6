@@ -35,12 +35,7 @@ const DeleteVideos = ({ id, setValue }) => {
   };
   return (
     <div>
-      <Modal
-        show={show}
-        onHide={handleClose}
-        backdrop="static"
-        keyboard={false}
-      >
+      <Modal show={show} onHide={handleClose} backdrop="static" keyboard={true}>
         <Modal.Header closeButton>
           <Modal.Title>Delete video</Modal.Title>
         </Modal.Header>

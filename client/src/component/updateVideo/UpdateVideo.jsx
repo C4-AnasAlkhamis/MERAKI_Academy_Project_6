@@ -49,11 +49,10 @@ const UpdateVideo = ({ obj, setValue }) => {
       setTitle("");
       setDescription("");
       handleClose();
-    } catch (error) {
-    }
+    } catch (error) {}
   };
   return (
-    <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
+    <Modal show={show} onHide={handleClose} backdrop="static" keyboard={true}>
       <Modal.Header closeButton>
         <Modal.Title>Update on video information</Modal.Title>
       </Modal.Header>

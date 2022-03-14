@@ -6,8 +6,16 @@ import { format } from "timeago.js";
 import YouTube from "react-youtube";
 import { setVideos, setId } from "../../reducer/video/index";
 import { useSelector, useDispatch } from "react-redux";
-import { Row, Col, Ratio, Navbar, Container } from "react-bootstrap";
-import Card from "react-bootstrap/Card";
+import {
+  Card,
+  Row,
+  Col,
+  Ratio,
+  Navbar,
+  Container,
+  Dropdown,
+} from "react-bootstrap";
+// import Card from "react-bootstrap/Card";
 const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -36,6 +44,8 @@ const Home = () => {
       console.log(error.response);
     }
   };
+  const date = new Date();
+  console.log(date.getMonth(), date.getDay());
 
   useEffect(() => {
     getAllVideos();
@@ -48,21 +58,17 @@ const Home = () => {
     <>
       <Navbar>
         <Container>
-          <div className="dropdown">
-            <button
-              className="btn dropdown-toggle"
-              id="dropdownMenuButton1"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              Filter By Date
-            </button>
-            <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li>Action</li>
-              <li>Another action</li>
-              <li>Something else here</li>
-            </ul>
-          </div>
+          <Dropdown>
+            <Dropdown.Toggle variant="Secondary" id="dropdown-basic">
+              Dropdown Button
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              <Dropdown.Item>Action</Dropdown.Item>
+              <Dropdown.Item>Another action</Dropdown.Item>
+              <Dropdown.Item>Something else</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
         </Container>
       </Navbar>
       <Row style={{ padding: "3rem 1rem" }} xs={1} md={3} className="g-4">
@@ -115,7 +121,8 @@ const Home = () => {
               </Card.Body>
               <Card.Footer>
                 <small className="text-muted">
-                  {format(_.dt.match(/\W*\S*(?=T)/)[0])}
+                  {format(_.dt)}
+                  {/* .match(/\W*\S*(?=T)/)[0] */}
                 </small>
               </Card.Footer>
             </Card>

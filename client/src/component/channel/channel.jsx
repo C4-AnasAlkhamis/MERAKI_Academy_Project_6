@@ -279,12 +279,7 @@ const Channel = () => {
                 size="sm"
               >
                 <option>Option</option>
-                <option
-             
-                  value="1"
-                >
-                  Delete
-                </option>
+                <option value="1">Delete</option>
                 <option value="2">update</option>
               </Form.Select>
               {value == "1" ? <DeleteVideos id={_.id} /> : null}
@@ -334,9 +329,7 @@ const Channel = () => {
                 <Card.Text>{_.description}</Card.Text>
               </Card.Body>
               <Card.Footer>
-                <small className="text-muted">
-                  {format(_.dt.match(/\W*\S*(?=T)/)[0])}
-                </small>
+                <small className="text-muted">{format(_.dt)}</small>
               </Card.Footer>
             </Card>
           </Col>

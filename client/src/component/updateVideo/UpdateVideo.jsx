@@ -3,12 +3,15 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { updateVideo } from "../../reducer/video/index";
-const UpdateVideo = ({ obj }) => {
+const UpdateVideo = ({ obj, setValue }) => {
   const [list_id, setList_id] = useState(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [show, setShow] = useState(true);
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setShow(false);
+    setValue("0");
+  };
 
   const dispatch = useDispatch();
   const { token, lists } = useSelector((state) => {
@@ -18,7 +21,6 @@ const UpdateVideo = ({ obj }) => {
     };
   });
   const updateVideoById = async () => {
-    console.log(obj);
     try {
       const result = await axios.put(
         `http://localhost:5000/video/${obj.id}`,
@@ -48,13 +50,12 @@ const UpdateVideo = ({ obj }) => {
       setDescription("");
       handleClose();
     } catch (error) {
-      console.log(error);
     }
   };
   return (
     <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
       <Modal.Header closeButton>
-        <Modal.Title>Modal title</Modal.Title>
+        <Modal.Title>Update on video information</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>

@@ -132,7 +132,6 @@ const Channel = () => {
   };
   // -------------------------------------------------
   const getAllVideoByChannelId = async () => {
-    console.log(channel.id);
     try {
       const result = await axios.get(
         `http://localhost:5000/channel/${channel.id}`,

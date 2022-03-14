@@ -1,7 +1,7 @@
 const connection = require("../database/db");
-// =================================================== // done
 
-// This function creates new cart
+// ================================= //
+// This function creates new channel
 const createNewChannel = (req, res) => {
   const { title } = req.body;
   const user_id = req.token.userId;
@@ -21,9 +21,9 @@ const createNewChannel = (req, res) => {
     });
   });
 };
-// ================================== //
 
-// This function get all videos from videos
+// ================================== //
+// This function get all videos from videos by channel_id
 const getAllVideoByChannelId = (req, res) => {
   const channel_id = req.params.id;
   const query = `SELECT * FROM videos WHERE  is_deleted = 0 AND channel_id = ?`;
@@ -48,6 +48,9 @@ const getAllVideoByChannelId = (req, res) => {
     });
   });
 };
+
+// ================================== //
+// This function get channel by user Id
 const getChannelByUserId = (req, res) => {
   const user_id = req.token.userId;
   const query = `SELECT * FROM channels WHERE user_id = ? `;

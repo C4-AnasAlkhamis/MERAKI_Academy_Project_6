@@ -1,10 +1,8 @@
 const initialState = {
   token: localStorage.getItem("token") ? localStorage.getItem("token") : "",
   isLoggedIn: !localStorage.getItem("token") ? false : true,
-  name: localStorage.getItem("user_name")
-    ? localStorage.getItem("user_name")
-    : null,
-  img: localStorage.getItem("image") ? localStorage.getItem("image") : null,
+  name: localStorage.getItem("user_name"),
+  img: localStorage.getItem("image"),
 };
 // =======================  //
 

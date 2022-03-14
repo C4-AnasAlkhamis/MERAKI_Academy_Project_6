@@ -17,7 +17,7 @@ const AddVideo = () => {
       isLoggedIn: state.loginReducer.isLoggedIn,
       token: state.loginReducer.token,
       user_name: state.loginReducer.name,
-      image: state.loginReducer.image,
+      image: state.loginReducer.img,
     };
   });
   // ------------------------------

@@ -45,7 +45,7 @@ const Login = () => {
         dispatch(setUserName(result.data.name));
         dispatch(
           setUserImage(
-            result.data.image
+            result.data.image != null
               ? result.data.image
               : "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"
           )
@@ -54,7 +54,7 @@ const Login = () => {
         localStorage.setItem("user_name", result.data.name);
         localStorage.setItem(
           "image",
-          result.data.image
+          result.data.image != null
             ? result.data.image
             : "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"
         );

@@ -1,9 +1,7 @@
-import "./register.css";
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
-// import logo from "../../image/cones.jpg";
 const Register = () => {
   const navigate = useNavigate();
   const [userName, setUserName] = useState("");
@@ -40,7 +38,7 @@ const Register = () => {
         <Form
           style={{
             width: "80%",
-            margin: "2vh auto",
+            margin: "6vh auto",
           }}
         >
           <Form.Group className="mb-3" controlId="formBasicEmail">

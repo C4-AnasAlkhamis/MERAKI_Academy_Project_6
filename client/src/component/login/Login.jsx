@@ -94,7 +94,6 @@ const Login = () => {
               placeholder="Password"
             />
           </Form.Group>
-
           <Button onClick={verifyUser} variant="outline-primary">
             Login
           </Button>

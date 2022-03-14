@@ -88,9 +88,7 @@ const NavBar = () => {
                     {name}
                   </Navbar.Brand>
                 </Container>
-              ) : (
-                <Nav.Link href="/login">Login</Nav.Link>
-              )}
+              ) : null}
             </Nav>
             <Form className="d-flex">
               <FormControl

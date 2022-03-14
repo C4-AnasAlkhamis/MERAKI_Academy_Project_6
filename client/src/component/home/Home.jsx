@@ -33,7 +33,6 @@ const Home = () => {
   };
 
   const videoOnReady = (event) => {
-    // access to player in all event handlers via event.target
     event.target.pauseVideo();
   };
   const getAllVideos = async () => {
@@ -60,9 +59,8 @@ const Home = () => {
         <Container>
           <Dropdown>
             <Dropdown.Toggle variant="Secondary" id="dropdown-basic">
-              Dropdown Button
+              Filter
             </Dropdown.Toggle>
-
             <Dropdown.Menu>
               <Dropdown.Item>Action</Dropdown.Item>
               <Dropdown.Item>Another action</Dropdown.Item>

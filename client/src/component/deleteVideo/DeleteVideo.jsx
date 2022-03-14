@@ -4,10 +4,12 @@ import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteVideo } from "../../reducer/video/index";
 
-const DeleteVideos = ({ id}) => {
-  console.log(id);
+const DeleteVideos = ({ id, setValue }) => {
   const [show, setShow] = useState(true);
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setShow(false);
+    setValue("0");
+  };
   const dispatch = useDispatch();
   const { token } = useSelector((state) => {
     return {
@@ -26,7 +28,6 @@ const DeleteVideos = ({ id}) => {
         }
       );
       dispatch(deleteVideo(id));
-      console.log(result);
       handleClose();
     } catch (error) {
       console.log(error);

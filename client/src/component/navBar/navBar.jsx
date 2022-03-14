@@ -22,9 +22,7 @@ const NavBar = () => {
       img: state.loginReducer.img,
     };
   });
-
   const search = async () => {
-    console.log(value);
     try {
       const result = await axios.post(`http://localhost:5000/video/search`, {
         value,

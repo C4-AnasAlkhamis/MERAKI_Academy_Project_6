@@ -24,6 +24,7 @@ const Login = () => {
           },
         }
       );
+      console.log(result);
       if (result.data.result[0]) {
         localStorage.setItem("channel", JSON.stringify(result.data.result[0]));
         dispatch(setChannel(result.data.result[0]));
@@ -42,10 +43,21 @@ const Login = () => {
       })
       .then((result) => {
         dispatch(setUserName(result.data.name));
-        dispatch(setUserImage(result.data.image));
+        dispatch(
+          setUserImage(
+            result.data.image
+              ? result.data.image
+              : "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"
+          )
+        );
         localStorage.setItem("token", result.data.token);
         localStorage.setItem("user_name", result.data.name);
-        localStorage.setItem("image", result.data.image);
+        localStorage.setItem(
+          "image",
+          result.data.image
+            ? result.data.image
+            : "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"
+        );
         getChannel(result.data.token);
         setEmail("");
         setPassword("");

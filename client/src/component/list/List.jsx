@@ -51,7 +51,7 @@ const List = () => {
     <>
       <NavDropdown title="Video List" id="navbarScrollingDropdown">
         <>
-          {lists ? (
+          {lists.length > 0 ? (
             lists.map((list) => {
               return (
                 <NavDropdown.Item

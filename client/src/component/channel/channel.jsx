@@ -43,6 +43,7 @@ const Channel = () => {
       };
     }
   );
+  console.log(channel);
   const updateVideos = async (image) => {
     await axios
       .put(
@@ -134,7 +135,7 @@ const Channel = () => {
   const getAllVideoByChannelId = async () => {
     try {
       const result = await axios.get(
-        `http://localhost:5000/channel/${channel.id}`,
+        `http://localhost:5000/channel/my-channel/${channel.id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -159,7 +160,9 @@ const Channel = () => {
     event.target.pauseVideo();
   };
   useEffect(() => {
-    getAllVideoByChannelId();
+    if (channel) {
+      getAllVideoByChannelId();
+    }
   }, []);
   return (
     <>
@@ -187,17 +190,16 @@ const Channel = () => {
                 >
                   <Nav.Link href="/add-list">Add List</Nav.Link>
                 </Nav>
+                <List />
               </>
-            ) : null}
-            {!channel ? (
+            ) : (
               <Nav
                 className="my-2 my-lg-0"
                 style={{ maxHeight: "100px", margin: "0 1rem" }}
               >
                 <Nav.Link href="/add-channel">Create Channel</Nav.Link>
               </Nav>
-            ) : null}
-            <List />
+            )}
           </Container>
           <Navbar.Toggle aria-controls="offcanvasNavbar" />
           <Navbar.Offcanvas

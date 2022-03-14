@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./home.css";
 import { format } from "timeago.js";
@@ -17,6 +17,7 @@ import {
 } from "react-bootstrap";
 // import Card from "react-bootstrap/Card";
 const Home = () => {
+  const [showFilter, setShowFilter] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { videos } = useSelector((state) => {
@@ -55,20 +56,6 @@ const Home = () => {
   };
   return (
     <>
-      <Navbar>
-        <Container>
-          <Dropdown>
-            <Dropdown.Toggle variant="Secondary" id="dropdown-basic">
-              Filter
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item>Action</Dropdown.Item>
-              <Dropdown.Item>Another action</Dropdown.Item>
-              <Dropdown.Item>Something else</Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-        </Container>
-      </Navbar>
       <Row style={{ padding: "3rem 1rem" }} xs={1} md={3} className="g-4">
         {videos.map((_, idx) => (
           <Col key={idx}>

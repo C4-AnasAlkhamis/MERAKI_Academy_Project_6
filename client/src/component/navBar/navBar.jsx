@@ -9,10 +9,12 @@ import {
   Form,
   FormControl,
   Button,
+  Dropdown,
 } from "react-bootstrap";
 import { useState } from "react";
 import { setVideos } from "../../reducer/video/index";
 const NavBar = () => {
+  const [showFilter, setShowFilter] = useState(false);
   const [value, setValue] = useState("");
   const dispatch = useDispatch();
   const { isLoggedIn, name, img } = useSelector((state) => {
@@ -88,6 +90,25 @@ const NavBar = () => {
                 </Container>
               ) : null}
             </Nav>
+            {showFilter ? (
+              <Nav style={{ marginRight: "1rem" }}>
+                <NavDropdown title="Filter" id="basic-nav-dropdown">
+                  <NavDropdown.Item href="#action/3.1">
+                    last hour
+                  </NavDropdown.Item>
+                  <NavDropdown.Divider />
+
+                  <NavDropdown.Item href="#action/3.2">
+                    this day
+                  </NavDropdown.Item>
+                  <NavDropdown.Divider />
+
+                  <NavDropdown.Item href="#action/3.3">
+                    this month
+                  </NavDropdown.Item>
+                </NavDropdown>
+              </Nav>
+            ) : null}
             <Form className="d-flex">
               <FormControl
                 onChange={(e) => {
@@ -98,7 +119,13 @@ const NavBar = () => {
                 className="me-2"
                 aria-label="Search"
               />
-              <Button onClick={search} variant="outline-dark">
+              <Button
+                onClick={() => {
+                  search();
+                  setShowFilter(true);
+                }}
+                variant="outline-dark"
+              >
                 Search
               </Button>
             </Form>

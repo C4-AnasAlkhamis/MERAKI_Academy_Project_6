@@ -132,12 +132,16 @@ const Channel = () => {
   };
   // -------------------------------------------------
   const getAllVideoByChannelId = async () => {
+    console.log(channel.id);
     try {
-      const result = await axios.get(`http://localhost:5000/channel`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const result = await axios.get(
+        `http://localhost:5000/channel/${channel.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (result.data.result) {
         dispatch(setVideos(result.data.result));
       }

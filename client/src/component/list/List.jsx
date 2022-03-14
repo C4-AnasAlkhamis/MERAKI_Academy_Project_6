@@ -27,7 +27,6 @@ const List = () => {
   useEffect(() => {
     getAllListByUserId();
   }, []);
-  console.log(lists);
   return (
     <>
       <NavDropdown title="Video List" id="navbarScrollingDropdown">

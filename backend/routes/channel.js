@@ -6,15 +6,14 @@ const { authentication } = require("../middleware/authentication");
 const {
   createNewChannel,
   getAllVideoByChannelId,
-  getChannelByUserId
+  getChannelByUserId,
 } = require("../controllers/channel");
 
 //   ===========================
 
 channelRouter.post("/", authentication, createNewChannel);
-channelRouter.get("/", authentication, getAllVideoByChannelId);
+channelRouter.get("/:id", authentication, getAllVideoByChannelId);
 channelRouter.get("/my-channel", authentication, getChannelByUserId);
-
 
 //   ===========================
 

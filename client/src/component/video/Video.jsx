@@ -27,12 +27,8 @@ const Video = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(result);
       dispatch(setVideos(result.data.result));
-    } catch (error) {
-      console.log(error);
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   useEffect(() => {
@@ -45,6 +41,7 @@ const Video = () => {
           <YouTube
             videoId={videos[0].video.match(/([A-Z])\w+/)[0]}
             opts={opts}
+            nocookie
           />
         ) : (
           <div>

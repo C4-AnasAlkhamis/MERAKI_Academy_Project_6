@@ -1,23 +1,13 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./home.css";
 import { format } from "timeago.js";
 import YouTube from "react-youtube";
 import { setVideos, setId } from "../../reducer/video/index";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  Card,
-  Row,
-  Col,
-  Ratio,
-  Navbar,
-  Container,
-  Dropdown,
-} from "react-bootstrap";
-// import Card from "react-bootstrap/Card";
+import { Card, Row, Col, Ratio } from "react-bootstrap";
 const Home = () => {
-  const [showFilter, setShowFilter] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { videos } = useSelector((state) => {
@@ -44,9 +34,6 @@ const Home = () => {
       console.log(error.response);
     }
   };
-  const date = new Date();
-  console.log(date.getMonth(), date.getDay());
-
   useEffect(() => {
     getAllVideos();
   }, []);
@@ -64,6 +51,7 @@ const Home = () => {
                 {_.video.includes("youtube") ? (
                   <YouTube
                     videoId={_.video.match(/(?<==)\w*/)[0]}
+                    nocookie
                     opts={opts}
                     onReady={videoOnReady}
                   />
@@ -88,7 +76,7 @@ const Home = () => {
                       marginRight: ".5rem",
                       borderRadius: "50%",
                     }}
-                    alt="user image"
+                    alt={_.user_name}
                     src={
                       _.image
                         ? _.image

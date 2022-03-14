@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Modal, Button } from "react-bootstrap";
+import { Modal, Button } from "react-bootstrap";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteVideo } from "../../reducer/video/index";
@@ -18,7 +18,7 @@ const DeleteVideos = ({ id, setValue }) => {
   });
   const deleteVideoById = async () => {
     try {
-      const result = await axios.put(
+      await axios.put(
         `http://localhost:5000/video/delete/${id}`,
         {},
         {
@@ -29,9 +29,7 @@ const DeleteVideos = ({ id, setValue }) => {
       );
       dispatch(deleteVideo(id));
       handleClose();
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
   return (
     <div>

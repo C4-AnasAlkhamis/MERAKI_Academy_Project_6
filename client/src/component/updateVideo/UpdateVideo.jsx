@@ -22,7 +22,7 @@ const UpdateVideo = ({ obj, setValue }) => {
   });
   const updateVideoById = async () => {
     try {
-      const result = await axios.put(
+      await axios.put(
         `http://localhost:5000/video/${obj.id}`,
         { title, description, list_id },
         {

@@ -33,18 +33,13 @@ const Channel = () => {
   const [value, setValue] = useState("0");
   const [id, setId] = useState(null);
   const dispatch = useDispatch();
-  const { isLoggedIn, token, videos, name, img, channel } = useSelector(
-    (state) => {
-      return {
-        videos: state.videosReducer.videos,
-        channel: state.videosReducer.channel,
-        isLoggedIn: state.loginReducer.isLoggedIn,
-        token: state.loginReducer.token,
-        name: state.loginReducer.name,
-        img: state.loginReducer.img,
-      };
-    }
-  );
+  const { token, videos, channel } = useSelector((state) => {
+    return {
+      videos: state.videosReducer.videos,
+      channel: state.videosReducer.channel,
+      token: state.loginReducer.token,
+    };
+  });
   const updateVideos = async (image) => {
     await axios
       .put(
@@ -310,6 +305,7 @@ const Channel = () => {
                 {_.video.includes("youtube") ? (
                   <YouTube
                     videoId={_.video.match(/(?<==)\w*/)[0]}
+                    nocookie
                     onPlay={(e) => {
                       e.target.mute();
                     }}
@@ -319,7 +315,11 @@ const Channel = () => {
                 ) : (
                   <div style={{ height: "300", width: "100%" }}>
                     <Ratio aspectRatio="16x9">
-                      <iframe src={_.video} frameBorder="0"></iframe>
+                      <iframe
+                        title={_.title}
+                        src={_.video}
+                        frameBorder="0"
+                      ></iframe>
                     </Ratio>
                   </div>
                 )}

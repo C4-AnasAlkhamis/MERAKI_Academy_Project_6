@@ -7,7 +7,6 @@ import YouTube from "react-youtube";
 import { setVideos, setId } from "../../reducer/video/index";
 import { useSelector, useDispatch } from "react-redux";
 import { Card, Row, Col, Ratio } from "react-bootstrap";
-import Alert from "../alert/Alert";
 const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -44,7 +43,6 @@ const Home = () => {
   };
   return (
     <>
-      <Alert />
       <Row style={{ padding: "3rem 1rem" }} xs={1} md={3} className="g-4">
         {videos.map((_, idx) => (
           <Col key={idx}>

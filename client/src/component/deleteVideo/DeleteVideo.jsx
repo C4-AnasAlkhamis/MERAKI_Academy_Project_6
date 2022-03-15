@@ -3,8 +3,11 @@ import { Modal, Button } from "react-bootstrap";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteVideo } from "../../reducer/video/index";
+import Alert from "../alert/Alert";
 
 const DeleteVideos = ({ id, setValue }) => {
+  const [alert, setAlert] = useState(false);
+  const [message, setMessage] = useState("");
   const [show, setShow] = useState(true);
   const handleClose = () => {
     setShow(false);
@@ -29,11 +32,16 @@ const DeleteVideos = ({ id, setValue }) => {
       );
       dispatch(deleteVideo(id));
       handleClose();
-    } catch (error) {}
+    } catch (err) {
+      setMessage("Unauthorized to delete");
+      message && setAlert(true);
+    }
   };
   return (
     <div>
       <Modal show={show} onHide={handleClose} backdrop="static" keyboard={true}>
+        {alert ? <Alert /> : null}
+
         <Modal.Header closeButton>
           <Modal.Title>Delete video</Modal.Title>
         </Modal.Header>

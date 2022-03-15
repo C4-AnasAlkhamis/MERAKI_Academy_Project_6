@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { updateVideo } from "../../reducer/video/index";
+import Alert from "../alert/Alert";
+
 const UpdateVideo = ({ obj, setValue }) => {
   const [list_id, setList_id] = useState(null);
   const [title, setTitle] = useState("");
@@ -12,6 +14,8 @@ const UpdateVideo = ({ obj, setValue }) => {
     setShow(false);
     setValue("0");
   };
+  const [alert, setAlert] = useState(false);
+  const [message, setMessage] = useState("");
 
   const dispatch = useDispatch();
   const { token, lists } = useSelector((state) => {
@@ -49,10 +53,15 @@ const UpdateVideo = ({ obj, setValue }) => {
       setTitle("");
       setDescription("");
       handleClose();
-    } catch (error) {}
+    } catch (error) {
+      setMessage("Unauthorized to update");
+      message && setAlert(true);
+    }
   };
   return (
     <Modal show={show} onHide={handleClose} backdrop="static" keyboard={true}>
+      {alert ? <Alert message={message} /> : null}
+
       <Modal.Header closeButton>
         <Modal.Title>Update on video information</Modal.Title>
       </Modal.Header>

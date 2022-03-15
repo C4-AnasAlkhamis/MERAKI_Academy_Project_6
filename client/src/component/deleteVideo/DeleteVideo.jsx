@@ -40,7 +40,7 @@ const DeleteVideos = ({ id, setValue }) => {
   return (
     <div>
       <Modal show={show} onHide={handleClose} backdrop="static" keyboard={true}>
-        {alert ? <Alert /> : null}
+        {alert ? <Alert message={message} /> : null}
 
         <Modal.Header closeButton>
           <Modal.Title>Delete video</Modal.Title>

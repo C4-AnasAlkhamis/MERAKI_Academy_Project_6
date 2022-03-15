@@ -9,11 +9,16 @@ const login = (req, res) => {
   const query = `SELECT * FROM users WHERE email = ?`;
   const data = [email];
   connection.query(query, data, (err, result1) => {
-    if (err) {
+    if (!result1.length) {
       return res.status(409).json({
         success: false,
         message: `The email not exists`,
-        err: err,
+      });
+    }
+    if (err) {
+      return res.status(500).json({
+        success: false,
+        message: `server Error`,
       });
     } else {
       const query = `SELECT * FROM role_permission JOIN permissions ON role_permission.permission = permissions.id WHERE role_permission.role = ?`;

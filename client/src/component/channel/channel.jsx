@@ -9,6 +9,7 @@ import { setUserName, setUserImage } from "../../reducer/login/index";
 import { format } from "timeago.js";
 
 import {
+  Alert,
   Navbar,
   Row,
   Col,
@@ -32,6 +33,7 @@ const Channel = () => {
   const [email, setEmail] = useState("");
   const [value, setValue] = useState("0");
   const [id, setId] = useState(null);
+  const [show, setShow] = useState(false);
   const dispatch = useDispatch();
   const { token, videos, channel } = useSelector((state) => {
     return {
@@ -78,6 +80,7 @@ const Channel = () => {
         if (newUserName) {
           localStorage.setItem("user_name", newUserName);
           dispatch(setUserName(newUserName));
+          setShow(true);
         }
         if (image) {
           localStorage.setItem("image", image);
@@ -273,6 +276,18 @@ const Channel = () => {
                 </Button>
               ) : null}
             </Form>
+            <Alert show={show} variant="success">
+              <Alert.Heading>User updated successfully!</Alert.Heading>
+
+              <div className="d-flex justify-content-end">
+                <Button
+                  onClick={() => setShow(false)}
+                  variant="outline-success"
+                >
+                  Close
+                </Button>
+              </div>
+            </Alert>
           </Navbar.Offcanvas>
         </Container>
       </Navbar>

@@ -11,7 +11,6 @@ const AddVideo = () => {
   const [select, setSelect] = useState("1");
   const [videoUrl, setVideoUrl] = useState("");
   const [percentage, setPercentage] = useState(0);
-  const [alert, setAlert] = useState(false);
   const [show, setShow] = useState(false);
   const { token, user_name, image, channel } = useSelector((state) => {
     return {
@@ -77,7 +76,6 @@ const AddVideo = () => {
 
   return (
     <>
-      {/* {alert ? ( */}
       <Alert
         style={{
           width: "80%",
@@ -94,7 +92,6 @@ const AddVideo = () => {
           </Button>
         </div>
       </Alert>
-      {/* ) : null} */}
       <div
         style={{
           width: "80%",

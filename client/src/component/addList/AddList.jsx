@@ -5,9 +5,11 @@ import "./addList.css";
 
 import { useSelector } from "react-redux";
 
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Alert } from "react-bootstrap";
 const AddList = () => {
   const [list, setList] = useState("");
+  const [show, setShow] = useState(false);
+
   const { token } = useSelector((state) => {
     return {
       videos: state.videosReducer.videos,
@@ -27,14 +29,30 @@ const AddList = () => {
           },
         }
       );
-      console.log(result);
       setList("");
+      setShow(true);
     } catch (error) {
       console.log(error.response);
     }
   };
   return (
     <>
+      <Alert
+        style={{
+          width: "60%",
+          margin: "0 auto",
+        }}
+        show={show}
+        variant="success"
+      >
+        <Alert.Heading>List Created successfully!</Alert.Heading>
+
+        <div className="d-flex justify-content-end">
+          <Button onClick={() => setShow(false)} variant="outline-success">
+            Close
+          </Button>
+        </div>
+      </Alert>
       <Form
         className="center"
         style={{ height: "auto" }}

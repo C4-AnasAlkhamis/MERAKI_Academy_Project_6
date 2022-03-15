@@ -346,7 +346,7 @@ const Channel = () => {
                   {_.user_name}
                 </Card.Body>
               </Card.Body>
-              <Card.Body style={{ height: "200px" }}>
+              <Card.Body style={{ height: "200px", overflowY: "scroll" }}>
                 <Card.Title>{_.title}</Card.Title>
                 <Card.Text>{_.description}</Card.Text>
               </Card.Body>

@@ -71,12 +71,69 @@ CREATE TABLE videos (
     is_deleted TINYINT DEFAULT 0
 );
 
+
+
 INSERT INTO
     roles (role)
 VALUES
-    ('Admin');
+    ('Admin_channel');
 
 INSERT INTO
     roles (role)
 VALUES
     ('User');
+
+INSERT INTO
+    permissions (permission)
+VALUES
+    ('create');
+
+INSERT INTO
+    permissions (permission)
+VALUES
+    ('create_channel');
+
+INSERT INTO
+    permissions (permission)
+VALUES
+    ('read');
+
+INSERT INTO
+    permissions (permission)
+VALUES
+    ('update');
+
+INSERT INTO
+    permissions (permission)
+VALUES
+    ('delete');
+
+INSERT INTO
+    role_permission (role, permission)
+VALUES
+    (1, 1);
+
+INSERT INTO
+    role_permission (role, permission)
+VALUES
+    (1, 5);
+
+INSERT INTO
+    role_permission (role, permission)
+VALUES
+    (1, 3);
+
+INSERT INTO
+    role_permission (role, permission)
+VALUES
+    (1, 4);
+
+INSERT INTO
+    role_permission (role, permission)
+VALUES
+    (2, 2);
+
+INSERT INTO
+    role_permission (role, permission)
+VALUES
+    (2, 3);

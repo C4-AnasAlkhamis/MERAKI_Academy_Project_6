@@ -52,8 +52,8 @@ const Home = () => {
               <Card.Body style={{ height: "300px" }}>
                 {_.video.includes("youtube") ? (
                   <YouTube
-                    videoId={_.video.match(/(?<==)\w*/)[0]}
                     nocookie
+                    videoId={_.video.match(/(?<==)\w*/)[0]}
                     opts={opts}
                     onReady={videoOnReady}
                   />
@@ -90,7 +90,7 @@ const Home = () => {
                   {_.user_name}
                 </Card.Body>
               </Card.Body>
-              <Card.Body style={{ height: "200px" }}>
+              <Card.Body style={{ height: "200px", overflowY: "scroll" }}>
                 <Card.Title>{_.title}</Card.Title>
                 <Card.Text>{_.description}</Card.Text>
               </Card.Body>

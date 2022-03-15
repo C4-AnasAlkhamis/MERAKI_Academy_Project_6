@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
+import Alerts from "../alert/Alert";
 const Register = () => {
   const navigate = useNavigate();
+  const [alert, setAlert] = useState(false);
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
+  const [message, setMessage] = useState("");
 
   const createUser = async (e) => {
     e.preventDefault();
@@ -28,12 +31,29 @@ const Register = () => {
           setPassword("");
           navigate("/login");
         })
-        .catch((err) => {});
+        .catch((err) => {
+          if (err.response.status == 409) {
+            setMessage("The Email already Exist");
+            message && setAlert(true);
+          } else {
+            setMessage("server error");
+            message && setAlert(true);
+          }
+        });
     } else {
+      setMessage(
+        "The field under password must have a matching field of confirm"
+      );
+      message && setAlert(true);
     }
+    setTimeout(() => {
+      setAlert(false);
+    }, 5000);
   };
   return (
     <>
+      {alert ? <Alerts alert={alert} message={message} /> : null}
+
       <div className="center">
         <Form
           style={{

@@ -137,3 +137,7 @@ INSERT INTO
     role_permission (role, permission)
 VALUES
     (2, 3);
+INSERT INTO
+    role_permission (role, permission)
+VALUES
+    (2, 1);

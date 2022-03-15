@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "./login.css";
 import { logIn, setUserName, setUserImage } from "../../reducer/login/index";
 import { setChannel } from "../../reducer/video/index";
-
+import Alerts from "../alert/Alert";
 import { useDispatch } from "react-redux";
 import { Form, Button } from "react-bootstrap";
 const Login = () => {
@@ -12,7 +12,8 @@ const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [alert, setAlert] = useState(false);
+  const [message, setMessage] = useState("");
   // ----------------------------------------
   const getChannel = async (token) => {
     try {
@@ -64,11 +65,18 @@ const Login = () => {
         dispatch(logIn(result.data.token));
         navigate(`/`);
       })
-      .catch((err) => {});
+      .catch((err) => {
+        setMessage(err.response.data.message);
+        message && setAlert(true);
+      });
+    setTimeout(() => {
+      setAlert(false);
+    }, 5000);
   };
 
   return (
     <>
+      {alert ? <Alerts message={message} /> : null}
       <div className="center">
         <Form
           style={{

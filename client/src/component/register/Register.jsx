@@ -52,7 +52,7 @@ const Register = () => {
   };
   return (
     <>
-      {alert ? <Alerts alert={alert} message={message} /> : null}
+      {alert ? <Alerts message={message} /> : null}
 
       <div className="center">
         <Form

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import "./addVideo.css";
 import { useSelector } from "react-redux";
 
-import { Spinner, Button } from "react-bootstrap";
+import { Spinner, Button, Alert } from "react-bootstrap";
 const AddVideo = () => {
   const [file, setFile] = useState(false);
   const [title, setTitle] = useState("");
@@ -11,6 +11,8 @@ const AddVideo = () => {
   const [select, setSelect] = useState("1");
   const [videoUrl, setVideoUrl] = useState("");
   const [percentage, setPercentage] = useState(0);
+  const [alert, setAlert] = useState(false);
+  const [show, setShow] = useState(false);
   const { token, user_name, image, channel } = useSelector((state) => {
     return {
       channel: state.videosReducer.channel,
@@ -32,13 +34,13 @@ const AddVideo = () => {
           },
         }
       );
+      setShow(true);
+
       setTitle("");
       setDescription("");
       setVideoUrl("");
       setPercentage(0);
-    } catch (error) {
-      console.log(error.response);
-    }
+    } catch (err) {}
   };
   // ------------------------------
 
@@ -65,7 +67,6 @@ const AddVideo = () => {
           option
         )
         .then((res) => {
-          console.log(res);
           uploadVideo(res.data.secure_url);
         })
         .catch((err) => {
@@ -76,6 +77,24 @@ const AddVideo = () => {
 
   return (
     <>
+      {/* {alert ? ( */}
+      <Alert
+        style={{
+          width: "80%",
+          margin: "0 auto",
+        }}
+        show={show}
+        variant="success"
+      >
+        <Alert.Heading>Video uploaded successfully!</Alert.Heading>
+
+        <div className="d-flex justify-content-end">
+          <Button onClick={() => setShow(false)} variant="outline-success">
+            Close
+          </Button>
+        </div>
+      </Alert>
+      {/* ) : null} */}
       <div
         style={{
           width: "80%",

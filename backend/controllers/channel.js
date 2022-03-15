@@ -11,14 +11,25 @@ const createNewChannel = (req, res) => {
     if (err) {
       return res.status(500).json({
         success: false,
-        message: `Server Error`,
+        message: `Server Error1`,
+      });
+    } else {
+      const query1 = `UPDATE users SET role_id = 1 WHERE id = ?`;
+      const data1 = [user_id];
+      connection.query(query1, data1, (err2, result1) => {
+        if (err) {
+          return res.status(500).json({
+            success: false,
+            message: `Server Error1`,
+          });
+        }
+        res.status(201).json({
+          success: true,
+          message: `channel created`,
+          result: result,
+        });
       });
     }
-    res.status(201).json({
-      success: true,
-      message: `channel created`,
-      result: result,
-    });
   });
 };
 

@@ -12,6 +12,7 @@ import {
 } from "react-bootstrap";
 import { useState } from "react";
 import { setVideos } from "../../reducer/video/index";
+import codeUp from "./codeUp.ico";
 const NavBar = () => {
   const [value, setValue] = useState("");
   const dispatch = useDispatch();
@@ -38,7 +39,18 @@ const NavBar = () => {
     <>
       <Navbar bg="light" expand="lg">
         <Container fluid>
-          <Navbar.Brand href="/">How To</Navbar.Brand>
+          <Navbar.Brand href="/">
+            {" "}
+            <img
+              alt={codeUp}
+              src={codeUp}
+              style={{ margin: " 0 .5rem" }}
+              width="30"
+              height="30"
+              className="d-inline-block align-top"
+            />
+            Code Up
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav

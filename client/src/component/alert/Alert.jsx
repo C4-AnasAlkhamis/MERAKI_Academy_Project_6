@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Alert, Heading } from "react-bootstrap";
 
 const Alerts = ({ message }) => {
-  console.log(message);
   const [show, setShow] = useState(true);
   return (
     <>

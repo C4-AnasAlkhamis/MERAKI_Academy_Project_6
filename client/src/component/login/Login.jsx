@@ -25,7 +25,6 @@ const Login = () => {
           },
         }
       );
-      console.log(result);
       if (result.data.result[0]) {
         localStorage.setItem("channel", JSON.stringify(result.data.result[0]));
         dispatch(setChannel(result.data.result[0]));

@@ -2,13 +2,14 @@ const connection = require("../database/db");
 
 const getRateByVideoId = (req, res) => {
   const Video_id = req.params.id;
-  const query = `SELECT * FROM rates WHERE Video_id = ?`;
+  const query = `SELECT SUM(CASE WHEN rate = 0 THEN 1 ELSE 0 END ) AS dislikes ,SUM(CASE WHEN rate = 1 THEN 1 ELSE 0 END) AS likes FROM rates WHERE Video_id = ?`;
   const data = [Video_id];
   connection.query(query, data, (err, result) => {
     if (err) {
       return res.status(500).json({
         success: false,
         message: `Server Error`,
+        err: err,
       });
     }
     res.status(200).json({

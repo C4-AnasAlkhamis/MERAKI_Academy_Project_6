@@ -3,15 +3,18 @@ import React, { useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
 import YouTube from "react-youtube";
 import { setVideos } from "../../reducer/video/index";
+import { setRates } from "../../reducer/rate/index";
+
 import { useSelector, useDispatch } from "react-redux";
 import { BiDislike, BiLike } from "react-icons/bi";
 const Video = () => {
   const dispatch = useDispatch();
-  const { token, videos, id } = useSelector((state) => {
+  const { token, videos, id, rates } = useSelector((state) => {
     return {
       id: state.videosReducer.id,
       videos: state.videosReducer.videos,
       token: state.loginReducer.token,
+      rates: state.ratesReducer.rates,
     };
   });
   const opts = {
@@ -46,7 +49,7 @@ const Video = () => {
           },
         }
       );
-      console.log(result);
+      getRateByVideoId()
     } catch (err) {
       console.log(err);
     }
@@ -59,8 +62,10 @@ const Video = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(result);
-    } catch (err) {}
+      dispatch(setRates(result.data.result));
+    } catch (err) {
+      console.log(err.response);
+    }
   };
   useEffect(() => {
     getVideoById();
@@ -110,18 +115,6 @@ const Video = () => {
         <Card.Body>
           <span>
             <BiDislike
-              onClick={() => createNewRate(1)}
-              style={{
-                cursor: "pointer",
-                fontSize: "1.5rem",
-                color: "gray",
-                margin: "3px",
-              }}
-            />
-            LIKE
-          </span>
-          <span>
-            <BiLike
               onClick={() => createNewRate(0)}
               style={{
                 cursor: "pointer",
@@ -130,7 +123,19 @@ const Video = () => {
                 margin: "3px",
               }}
             />
-            DISLIKE
+            {rates[0] ? " " + rates[0].dislikes : " DISLIKE"}
+          </span>
+          <span>
+            <BiLike
+              onClick={() => createNewRate(1)}
+              style={{
+                cursor: "pointer",
+                fontSize: "1.5rem",
+                color: "gray",
+                margin: "3px",
+              }}
+            />
+            {rates[0] ? " " + rates[0].likes : " LIKE"}
           </span>
         </Card.Body>
       </Card>

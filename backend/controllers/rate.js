@@ -1,7 +1,8 @@
 const connection = require("../database/db");
 
 const getRateByVideoId = (req, res) => {
-  const query = `SELECT * FROM rate WHERE Video_id = ?`;
+  const Video_id = req.params.id;
+  const query = `SELECT * FROM rates WHERE Video_id = ?`;
   const data = [Video_id];
   connection.query(query, data, (err, result) => {
     if (err) {
@@ -38,4 +39,5 @@ const createNewRate = (req, res) => {
 };
 module.exports = {
   createNewRate,
+  getRateByVideoId,
 };

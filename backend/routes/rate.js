@@ -4,12 +4,13 @@ const rateRouter = express.Router();
 
 const { authentication } = require("../middleware/authentication");
 
-const { createNewRate } = require("../controllers/rate");
+const { createNewRate, getRateByVideoId } = require("../controllers/rate");
 
 //   ===========================
 
 rateRouter.post("/", authentication, createNewRate);
-// listRouter.get("/", authentication);
+rateRouter.get("/:id", authentication, getRateByVideoId);
+// rateRouter.put("/", authentication, getRateByVideoId);
 
 //   ===========================
 

@@ -1,5 +1,22 @@
 const connection = require("../database/db");
 
+const getRateByVideoId = (req, res) => {
+  const query = `SELECT * FROM rate WHERE Video_id = ?`;
+  const data = [Video_id];
+  connection.query(query, data, (err, result) => {
+    if (err) {
+      return res.status(500).json({
+        success: false,
+        message: `Server Error`,
+      });
+    }
+    res.status(200).json({
+      success: true,
+      message: `rate with Video_id ${Video_id}`,
+      result: result,
+    });
+  });
+};
 const createNewRate = (req, res) => {
   const { rate, video_id } = req.body;
   const user_id = req.token.userId;

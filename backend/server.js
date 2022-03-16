@@ -12,6 +12,7 @@ const roleRouter = require("./routes/role");
 const channelRouter = require("./routes/channel");
 const listRouter = require("./routes/list");
 const videoRouter = require("./routes/video");
+const rateRouter = require("./routes/rate");
 
 // if (process.env.NODE_ENV === "production") {
 //   app.use(express.static("client/build"));
@@ -20,8 +21,8 @@ const videoRouter = require("./routes/video");
 const PORT = process.env.PORT || 5000;
 
 //middleware
-
 app.use("/register", userRouter);
+app.use("/rate", rateRouter);
 app.use("/login", loginRouter);
 app.use("/role", roleRouter);
 app.use("/channel", channelRouter);

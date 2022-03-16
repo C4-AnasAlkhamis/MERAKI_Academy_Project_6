@@ -9,10 +9,10 @@ const { createNewRate } = require("../controllers/rate");
 
 //   ===========================
 
-listRouter.post("/", authentication, authorization("create"), createNewRate);
+rateRouter.post("/", authentication, authorization("create"), createNewRate);
 // listRouter.get("/", authentication);
 
 
 //   ===========================
 
-module.exports = listRouter;
+module.exports = rateRouter;

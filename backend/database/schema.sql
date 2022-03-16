@@ -71,7 +71,16 @@ CREATE TABLE videos (
     is_deleted TINYINT DEFAULT 0
 );
 
+-- ============================ // done 
+CREATE TABLE rates (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    video_id INT NOT NULL,
+    rate TINYINT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (video_id) REFERENCES videos(id)
 
+);
 
 INSERT INTO
     roles (role)

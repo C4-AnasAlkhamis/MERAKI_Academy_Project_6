@@ -1,6 +1,6 @@
 const initialState = {
   videos: [],
-  id: null,
+  id: localStorage.getItem("id") ? localStorage.getItem("id") : null,
   channel: localStorage.getItem("channel")
     ? JSON.parse(localStorage.getItem("channel"))
     : null,

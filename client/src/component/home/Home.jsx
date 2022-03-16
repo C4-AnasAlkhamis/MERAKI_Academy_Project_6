@@ -40,6 +40,7 @@ const Home = () => {
   }, []);
   const goto = (id) => {
     dispatch(setId(id));
+    localStorage.setItem("id", id);
     navigate(`/video`);
   };
   return (

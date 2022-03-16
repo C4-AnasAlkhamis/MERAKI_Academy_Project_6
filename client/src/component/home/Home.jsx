@@ -25,6 +25,7 @@ const Home = () => {
 
   const videoOnReady = (event) => {
     event.target.pauseVideo();
+    origin = window.location.href;
   };
   const getAllVideos = async () => {
     try {
@@ -46,7 +47,7 @@ const Home = () => {
       <Row style={{ padding: "3rem 1rem" }} xs={1} md={3} className="g-4">
         {videos.map((_, idx) => (
           <Col key={idx}>
-            <Card onClick={() => goto(_.id)}>
+            <Card style={{ cursor: "pointer" }} onClick={() => goto(_.id)}>
               <Card.Body style={{ height: "300px" }}>
                 {_.video.includes("youtube") ? (
                   <YouTube
@@ -66,11 +67,9 @@ const Home = () => {
                     </Ratio>
                   </div>
                 )}
-                <Card.Body
-                  style={{
-                    paddingLeft: "0",
-                  }}
-                >
+              </Card.Body>
+              <Card.Body style={{ height: "200px", overflowY: "scroll" }}>
+                <Card.Title>
                   <img
                     style={{
                       marginRight: ".5rem",
@@ -86,9 +85,8 @@ const Home = () => {
                     height="30"
                   />
                   {_.user_name}
-                </Card.Body>
-              </Card.Body>
-              <Card.Body style={{ height: "200px", overflowY: "scroll" }}>
+                </Card.Title>
+
                 <Card.Title>{_.title}</Card.Title>
                 <Card.Text>{_.description}</Card.Text>
               </Card.Body>

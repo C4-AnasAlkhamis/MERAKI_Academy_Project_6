@@ -4,6 +4,7 @@ import { Ratio, Card } from "react-bootstrap";
 import YouTube from "react-youtube";
 import { setVideos } from "../../reducer/video/index";
 import { useSelector, useDispatch } from "react-redux";
+import { BiDislike, BiLike } from "react-icons/bi";
 const Video = () => {
   const dispatch = useDispatch();
   const { token, videos, id } = useSelector((state) => {
@@ -36,27 +37,25 @@ const Video = () => {
   }, []);
   return (
     <>
-      <Card style={{ width: "60%", height: "90vh", margin: "1rem auto" }}>
-        {videos[0] && videos[0].video.includes("youtube") ? (
-          <YouTube
-            videoId={videos[0].video.match(/(?<==)\w*/)[0]}
-            opts={opts}
-            nocookie
-          />
-        ) : (
-          <div>
-            <Ratio aspectRatio="16x9">
-              <iframe
-                frameborder="0"
-                allow="fullscreen;"
-                allowfullscreen
-                src={videos[0].video}
-                title={videos[0].title}
-              ></iframe>
-            </Ratio>
-          </div>
-        )}
+      <Card style={{ width: "60%", height: "90%", margin: "1rem auto" }}>
         <Card.Body>
+          {videos[0] && videos[0].video.includes("youtube") ? (
+            <YouTube
+              videoId={videos[0].video.match(/(?<==)\w*/)[0]}
+              opts={opts}
+              nocookie
+            />
+          ) : (
+            <iframe
+              frameborder="0"
+              allow="fullscreen;"
+              allowfullscreen
+              src={videos[0].video}
+              title={videos[0].title}
+              height="390"
+              width="100%"
+            ></iframe>
+          )}
           <img
             style={{
               marginRight: ".5rem",
@@ -76,6 +75,30 @@ const Video = () => {
         <Card.Body>
           <Card.Title>{videos[0].title}</Card.Title>
           <Card.Text>{videos[0].description}</Card.Text>
+        </Card.Body>
+        <Card.Body>
+          <span>
+            <BiDislike
+              style={{
+                cursor: "pointer",
+                fontSize: "1.5rem",
+                color: "gray",
+                margin: "3px",
+              }}
+            />
+            LIKE
+          </span>
+          <span>
+            <BiLike
+              style={{
+                cursor: "pointer",
+                fontSize: "1.5rem",
+                color: "gray",
+                margin: "3px",
+              }}
+            />
+            DISLIKE
+          </span>
         </Card.Body>
       </Card>
     </>

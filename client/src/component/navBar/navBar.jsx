@@ -31,7 +31,6 @@ const NavBar = () => {
       console.log(result);
       dispatch(setVideos(result.data.result));
     } catch (error) {
-      console.log(error.response);
     }
   };
 
@@ -40,7 +39,6 @@ const NavBar = () => {
       <Navbar bg="light" expand="lg">
         <Container fluid>
           <Navbar.Brand href="/">
-            {" "}
             <img
               alt={codeUp}
               src={codeUp}

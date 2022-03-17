@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./channel.css";
 import YouTube from "react-youtube";
 import { useSelector, useDispatch } from "react-redux";
 import { setVideos } from "../../reducer/video/index";
@@ -92,7 +91,6 @@ const Channel = () => {
         setEmail("");
       })
       .catch((err) => {
-        console.log(err.response);
       });
   };
 
@@ -126,7 +124,6 @@ const Channel = () => {
           updateUser(res.data.secure_url);
         })
         .catch((err) => {
-          console.log(err);
         });
     }
   };
@@ -144,8 +141,10 @@ const Channel = () => {
       if (result.data.result) {
         dispatch(setVideos(result.data.result));
       }
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      if (err.response.statusText === "Forbidden") {
+        navigate("/login");
+      }
     }
   };
   const opts = {

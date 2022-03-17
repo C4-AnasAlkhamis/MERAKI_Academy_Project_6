@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "./home.css";
 import { format } from "timeago.js";
 import YouTube from "react-youtube";
 import { setVideos, setId } from "../../reducer/video/index";
@@ -32,7 +31,6 @@ const Home = () => {
       const result = await axios.get(`http://localhost:5000/video`);
       dispatch(setVideos(result.data.result));
     } catch (error) {
-      console.log(error.response);
     }
   };
   useEffect(() => {

@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useState } from "react";
-import "./addChannel.css";
 import { useSelector } from "react-redux";
 import { Form, Button } from "react-bootstrap";
 import { setChannel } from "../../reducer/video/index";
@@ -28,7 +27,6 @@ const AddChannel = () => {
           },
         }
       );
-      console.log(result);
       localStorage.setItem(
         "channel",
         JSON.stringify({ title: title, id: result.data.result.insertId })
@@ -36,8 +34,10 @@ const AddChannel = () => {
       dispatch(setChannel({ title: title, id: result.data.result.insertId }));
       setTitle("");
       navigate("/channel");
-    } catch (error) {
-      console.log(error.response);
+    } catch (err) {
+    if (err.response.statusText === "Forbidden") {
+        navigate("/login");
+      }
     }
   };
   return (

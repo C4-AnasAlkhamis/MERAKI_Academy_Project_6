@@ -4,8 +4,9 @@ import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteVideo } from "../../reducer/video/index";
 import Alert from "../alert/Alert";
-
+import { useNavigate } from "react-router-dom";
 const DeleteVideos = ({ id, setValue }) => {
+  const navigate = useNavigate();
   const [alert, setAlert] = useState(false);
   const [message, setMessage] = useState("");
   const [show, setShow] = useState(true);
@@ -35,6 +36,9 @@ const DeleteVideos = ({ id, setValue }) => {
     } catch (err) {
       setMessage("Unauthorized to delete");
       message && setAlert(true);
+      if (err.response.statusText === "Forbidden") {
+        navigate("/login");
+      }
     }
   };
   return (

@@ -3,11 +3,13 @@ import React, { useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
 import YouTube from "react-youtube";
 import { setVideos } from "../../reducer/video/index";
-import { setRates, updateRate } from "../../reducer/rate/index";
+import { setRates } from "../../reducer/rate/index";
 
 import { useSelector, useDispatch } from "react-redux";
 import { BiDislike, BiLike } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
 const Video = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { token, videos, id, rates } = useSelector((state) => {
     return {
@@ -51,7 +53,9 @@ const Video = () => {
       );
       getRateByVideoId();
     } catch (err) {
-      console.log(err);
+      if (err.response.statusText === "Forbidden") {
+        navigate("/login")
+      }
     }
   };
   // =========================================== //

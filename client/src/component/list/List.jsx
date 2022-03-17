@@ -4,7 +4,9 @@ import { setLists } from "../../reducer/list/index";
 import { setVideos } from "../../reducer/video/index";
 import { NavDropdown } from "react-bootstrap";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 const List = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { token, lists } = useSelector((state) => {
     return {
@@ -24,8 +26,10 @@ const List = () => {
         },
       });
       dispatch(setLists(result.data.result));
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      if (err.response.statusText === "Forbidden") {
+        navigate("/login");
+      }
     }
   };
 
@@ -38,10 +42,11 @@ const List = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(result);
       dispatch(setVideos(result.data.result));
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      if (err.response.statusText === "Forbidden") {
+        navigate("/login");
+      }
     }
   };
   useEffect(() => {

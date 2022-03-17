@@ -1,10 +1,11 @@
 import axios from "axios";
 import React, { useState } from "react";
-import "./addVideo.css";
 import { useSelector } from "react-redux";
 
 import { Spinner, Button, Alert } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 const AddVideo = () => {
+  const navigate = useNavigate();
   const [file, setFile] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -39,7 +40,11 @@ const AddVideo = () => {
       setDescription("");
       setVideoUrl("");
       setPercentage(0);
-    } catch (err) {}
+    } catch (err) {
+      if (err.response.statusText === "Forbidden") {
+        navigate("/login");
+      }
+    }
   };
   // ------------------------------
 
@@ -69,7 +74,6 @@ const AddVideo = () => {
           uploadVideo(res.data.secure_url);
         })
         .catch((err) => {
-          console.log(err);
         });
     }
   };

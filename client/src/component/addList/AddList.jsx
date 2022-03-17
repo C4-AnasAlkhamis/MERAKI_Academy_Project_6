@@ -1,12 +1,14 @@
 import axios from "axios";
 import React, { useState } from "react";
 
-import "./addList.css";
 
 import { useSelector } from "react-redux";
 
 import { Form, Button, Alert } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 const AddList = () => {
+  const navigate = useNavigate();
+
   const [list, setList] = useState("");
   const [show, setShow] = useState(false);
 
@@ -31,8 +33,10 @@ const AddList = () => {
       );
       setList("");
       setShow(true);
-    } catch (error) {
-      console.log(error.response);
+    } catch (err) {
+      if (err.response.statusText === "Forbidden") {
+        navigate("/login");
+      }
     }
   };
   return (

@@ -28,9 +28,8 @@ const NavBar = () => {
       const result = await axios.post(`http://localhost:5000/video/search`, {
         value: filter ? filter : value,
       });
-      console.log(result);
       dispatch(setVideos(result.data.result));
-    } catch (error) {
+    } catch (err) {
     }
   };
 

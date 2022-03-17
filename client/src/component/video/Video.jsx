@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
 import YouTube from "react-youtube";
 import { setVideos } from "../../reducer/video/index";
-import { setRates } from "../../reducer/rate/index";
+import { setRates, updateRate } from "../../reducer/rate/index";
 
 import { useSelector, useDispatch } from "react-redux";
 import { BiDislike, BiLike } from "react-icons/bi";
@@ -49,7 +49,7 @@ const Video = () => {
           },
         }
       );
-      getRateByVideoId()
+      getRateByVideoId();
     } catch (err) {
       console.log(err);
     }
@@ -63,9 +63,7 @@ const Video = () => {
         },
       });
       dispatch(setRates(result.data.result));
-    } catch (err) {
-      console.log(err.response);
-    }
+    } catch (err) {}
   };
   useEffect(() => {
     getVideoById();
@@ -123,7 +121,9 @@ const Video = () => {
                 margin: "3px",
               }}
             />
-            {rates[0] ? " " + rates[0].dislikes : " DISLIKE"}
+            {rates.length && rates[0].dislikes
+              ? " " + rates[0].dislikes
+              : " DISLIKE"}
           </span>
           <span>
             <BiLike
@@ -135,7 +135,7 @@ const Video = () => {
                 margin: "3px",
               }}
             />
-            {rates[0] ? " " + rates[0].likes : " LIKE"}
+            {rates.length && rates[0].likes ? " " + rates[0].likes : " LIKE"}
           </span>
         </Card.Body>
       </Card>

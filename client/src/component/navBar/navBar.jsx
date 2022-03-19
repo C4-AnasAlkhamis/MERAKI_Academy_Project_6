@@ -25,7 +25,7 @@ const NavBar = () => {
   });
   const search = async (filter) => {
     try {
-      const result = await axios.post(`http://localhost:5000/video/search`, {
+      const result = await axios.post(`https://backend6khamis.herokuapp.com/video/search`, {
         value: filter ? filter : value,
       });
       dispatch(setVideos(result.data.result));

@@ -19,7 +19,7 @@ const AddChannel = () => {
     e.preventDefault();
     try {
       const result = await axios.post(
-        `http://localhost:5000/channel`,
+        `https://backend6khamis.herokuapp.com/channel`,
         { title },
         {
           headers: {

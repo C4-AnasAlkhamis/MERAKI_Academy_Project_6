@@ -4,8 +4,8 @@ const connection = require("../database/db");
 const createNewVideo = async (req, res) => {
   const user_id = req.token.userId;
 
-  const { user_name, channel_id, title, description, image, video } = req.body;
-  const query = `INSERT INTO videos (user_name, user_id, channel_id, title, description, image, video ) VALUES (?,?,?,?,?,?,?)`;
+  const { user_name, channel_id, title, description, image, video ,dt} = req.body;
+  const query = `INSERT INTO videos (user_name, user_id, channel_id, title, description, image, video, dt ) VALUES (?,?,?,?,?,?,?,?)`;
   const data = [
     user_name,
     user_id,
@@ -14,6 +14,7 @@ const createNewVideo = async (req, res) => {
     description,
     image,
     video,
+    dt,
   ];
 
   connection.query(query, data, (err, result) => {

@@ -30,7 +30,7 @@ const Video = () => {
   // =========================================== //
   const getVideoById = async () => {
     try {
-      const result = await axios.get(`http://localhost:5000/video/${id}`, {
+      const result = await axios.get(`https://backend6khamis.herokuapp.com/video/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -43,7 +43,7 @@ const Video = () => {
   const createNewRate = async (rate) => {
     try {
       const result = await axios.post(
-        `http://localhost:5000/rate`,
+        `https://backend6khamis.herokuapp.com/rate`,
         { video_id: id, rate },
         {
           headers: {
@@ -61,7 +61,7 @@ const Video = () => {
   // =========================================== //
   const getRateByVideoId = async () => {
     try {
-      const result = await axios.get(`http://localhost:5000/rate/${id}`, {
+      const result = await axios.get(`https://backend6khamis.herokuapp.com/rate/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

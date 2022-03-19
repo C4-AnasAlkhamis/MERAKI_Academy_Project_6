@@ -23,7 +23,7 @@ const DeleteVideos = ({ id, setValue }) => {
   const deleteVideoById = async () => {
     try {
       await axios.put(
-        `http://localhost:5000/video/delete/${id}`,
+        `https://backend6khamis.herokuapp.com/video/delete/${id}`,
         {},
         {
           headers: {

@@ -27,7 +27,7 @@ const UpdateVideo = ({ obj, setValue }) => {
   const updateVideoById = async () => {
     try {
       await axios.put(
-        `http://localhost:5000/video/${obj.id}`,
+        `https://backend6khamis.herokuapp.com/video/${obj.id}`,
         { title, description, list_id },
         {
           headers: {

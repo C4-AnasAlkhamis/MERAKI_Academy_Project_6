@@ -28,7 +28,7 @@ const Home = () => {
   };
   const getAllVideos = async () => {
     try {
-      const result = await axios.get(`http://localhost:5000/video`);
+      const result = await axios.get(`https://backend6khamis.herokuapp.com/video`);
       dispatch(setVideos(result.data.result));
     } catch (error) {
     }

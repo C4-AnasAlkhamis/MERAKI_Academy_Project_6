@@ -18,7 +18,7 @@ const Register = () => {
 
     if (repeatPassword === password) {
       await axios
-        .post("http://localhost:5000/register", {
+        .post("https://backend6khamis.herokuapp.com/register", {
           user_name: userName.toLowerCase(),
           email: email.toLowerCase(),
           password,

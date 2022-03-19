@@ -18,7 +18,7 @@ const Login = () => {
   const getChannel = async (token) => {
     try {
       const result = await axios.get(
-        "http://localhost:5000/channel/my-channel",
+        "https://backend6khamis.herokuapp.com/channel/my-channel",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -36,7 +36,7 @@ const Login = () => {
 
   const verifyUser = async () => {
     await axios
-      .post("http://localhost:5000/login", {
+      .post("https://backend6khamis.herokuapp.com/login", {
         email,
         password,
       })

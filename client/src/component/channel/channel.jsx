@@ -44,7 +44,7 @@ const Channel = () => {
   const updateVideos = async (image) => {
     await axios
       .put(
-        "http://localhost:5000/video/all",
+        "https://backend6khamis.herokuapp.com/video/all",
         {
           image,
         },
@@ -63,7 +63,7 @@ const Channel = () => {
     //   POST -> /user
     await axios
       .put(
-        "http://localhost:5000/register",
+        "https://backend6khamis.herokuapp.com/register",
         {
           user_name: newUserName.toLowerCase(),
           email: email.toLowerCase(),
@@ -90,8 +90,7 @@ const Channel = () => {
         setUserName("");
         setEmail("");
       })
-      .catch((err) => {
-      });
+      .catch((err) => {});
   };
 
   // -------------------------------------------------
@@ -123,15 +122,14 @@ const Channel = () => {
           setPercentage(0);
           updateUser(res.data.secure_url);
         })
-        .catch((err) => {
-        });
+        .catch((err) => {});
     }
   };
   // -------------------------------------------------
   const getAllVideoByChannelId = async () => {
     try {
       const result = await axios.get(
-        `http://localhost:5000/channel/my-channel/${channel.id}`,
+        `https://backend6khamis.herokuapp.com/channel/my-channel/${channel.id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -172,32 +170,30 @@ const Channel = () => {
           >
             {channel && channel.title}
           </Navbar.Brand>
-          <Container>
-            {channel ? (
-              <>
-                <Nav
-                  className=" my-2 my-lg-0"
-                  style={{ maxHeight: "100px", margin: "0 1rem" }}
-                >
-                  <Nav.Link href="/add-video">upload New Video</Nav.Link>
-                </Nav>
-                <Nav
-                  className="my-2 my-lg-0"
-                  style={{ maxHeight: "100px", margin: "0 1rem" }}
-                >
-                  <Nav.Link href="/add-list">Add List</Nav.Link>
-                </Nav>
-                <List />
-              </>
-            ) : (
+          {channel ? (
+            <>
+              <Nav
+                className=" my-2 my-lg-0"
+                style={{ maxHeight: "100px", margin: "0 1rem" }}
+              >
+                <Nav.Link href="/add-video">upload New Video</Nav.Link>
+              </Nav>
               <Nav
                 className="my-2 my-lg-0"
                 style={{ maxHeight: "100px", margin: "0 1rem" }}
               >
-                <Nav.Link href="/add-channel">Create Channel</Nav.Link>
+                <Nav.Link href="/add-list">Add List</Nav.Link>
               </Nav>
-            )}
-          </Container>
+              <List />
+            </>
+          ) : (
+            <Nav
+              className="my-2 my-lg-0"
+              style={{ maxHeight: "100px", margin: "0 1rem" }}
+            >
+              <Nav.Link href="/add-channel">Create Channel</Nav.Link>
+            </Nav>
+          )}
           <Navbar.Toggle aria-controls="offcanvasNavbar" />
           <Navbar.Offcanvas
             id="offcanvasNavbar"

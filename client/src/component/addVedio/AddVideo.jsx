@@ -22,12 +22,28 @@ const AddVideo = () => {
       image: state.loginReducer.img,
     };
   });
+  let date;
+  date = new Date();
+  date = date.getUTCFullYear() + '-' +
+      ('00' + (date.getUTCMonth()+1)).slice(-2) + '-' +
+      ('00' + date.getUTCDate()).slice(-2) + ' ' + 
+      ('00' + date.getHours()).slice(-2) + ':' + 
+      ('00' + date.getUTCMinutes()).slice(-2) + ':' + 
+      ('00' + date.getUTCSeconds()).slice(-2);
   // ------------------------------
   const uploadVideo = async (video) => {
     try {
       await axios.post(
-        `http://localhost:5000/video`,
-        { user_name, channel_id: channel.id, title, description, video, image },
+        `https://backend6khamis.herokuapp.com/video`,
+        {
+          user_name,
+          channel_id: channel.id,
+          title,
+          description,
+          video,
+          image,
+          dt: date,
+        },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -41,13 +57,14 @@ const AddVideo = () => {
       setVideoUrl("");
       setPercentage(0);
     } catch (err) {
+      console.log(err.response);
       if (err.response.statusText === "Forbidden") {
         navigate("/login");
       }
     }
   };
-  // ------------------------------
 
+  // ------------------------------
   const uploadCloud = async (e) => {
     e.preventDefault();
     if (!file) {
@@ -73,8 +90,7 @@ const AddVideo = () => {
         .then((res) => {
           uploadVideo(res.data.secure_url);
         })
-        .catch((err) => {
-        });
+        .catch((err) => {});
     }
   };
 

@@ -20,7 +20,7 @@ const List = () => {
   //   this function gets all list by user id
   const getAllListByUserId = async () => {
     try {
-      const result = await axios.get(`http://localhost:5000/list`, {
+      const result = await axios.get(`https://backend6khamis.herokuapp.com/list`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -37,7 +37,7 @@ const List = () => {
   //   this function gets all videos by list id
   const getAllVideosByListId = async (id) => {
     try {
-      const result = await axios.get(`http://localhost:5000/list/${id}`, {
+      const result = await axios.get(`https://backend6khamis.herokuapp.com/list/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

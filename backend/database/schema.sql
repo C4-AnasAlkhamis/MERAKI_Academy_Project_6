@@ -64,7 +64,7 @@ CREATE TABLE videos (
     description MEDIUMTEXT NOT NULL,
     video VARCHAR(250) NOT NULL,
     image VARCHAR(250),
-    dt DATETIME default now(),
+    dt DATETIME NULL,
     FOREIGN KEY (channel_id) REFERENCES channels(id),
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (list_id) REFERENCES lists(id),
